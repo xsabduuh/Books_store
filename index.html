@@ -388,7 +388,7 @@
             border-color: #c0392b;
         }
 
-        /* ===== صفحة تفاصيل الكتاب (مثال) ===== */
+        /* ===== صفحة تفاصيل الكتاب ===== */
         .book-detail-section {
             background: white;
             border-radius: 28px;
@@ -452,27 +452,26 @@
             padding: 16px 40px;
             font-size: 1rem;
         }
-        .preview-section {
-            margin: 24px 0;
-            background: #f9f7f4;
-            border-radius: 16px;
-            padding: 20px;
+        /* خيارات الشحن */
+        .shipping-options {
+            border-top: 1px solid #eae5dd;
+            padding-top: 20px;
+            margin-top: 12px;
         }
-        .preview-title {
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .preview-pages {
+        .shipping-grid {
             display: flex;
-            gap: 8px;
-            overflow-x: auto;
-            padding-bottom: 8px;
+            gap: 24px;
+            flex-wrap: wrap;
         }
-        .preview-page {
-            min-width: 70px;
-            height: 100px;
-            background: #eae5dd;
-            border-radius: 8px;
+        .shipping-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #1e2a2e;
+        }
+        .shipping-item i {
+            color: #b8915c;
+            font-size: 1.2rem;
         }
 
         /* ===== قائمة الرغبات والإشعارات ===== */
@@ -595,7 +594,7 @@
 </head>
 <body>
 
-<!-- شريط التنقل (ثابت) -->
+<!-- شريط التنقل -->
 <div class="navbar">
     <div class="logo">
         <i class="fas fa-book-open"></i>
@@ -612,7 +611,7 @@
     </div>
 </div>
 
-<!-- القسم الرئيسي (Hero) مستوحى من Alif و Jarir [citation:3][citation:8] -->
+<!-- القسم الرئيسي (Hero) -->
 <div class="hero">
     <div class="hero-text">
         <h1>اكتشف <span>كتباً</span><br>تغير حياتك</h1>
@@ -632,7 +631,7 @@
     </div>
 </div>
 
-<!-- شريط قائمة الرغبات والإشعارات (مستوحى من MeccaBooks و Jarir) [citation:2][citation:8] -->
+<!-- شريط قائمة الرغبات والإشعارات -->
 <div class="wishlist-bar">
     <div class="wishlist-text">
         <i class="fas fa-bookmark"></i>
@@ -738,7 +737,7 @@
     </div>
 </div>
 
-<!-- صفحة تفاصيل الكتاب (مستوحاة من Abjjad و Bookish) [citation:1][citation:6] -->
+<!-- صفحة تفاصيل الكتاب (مثال) -->
 <div class="book-detail-section">
     <div class="detail-container">
         <div class="detail-image">
@@ -764,23 +763,21 @@
                 <button class="btn-primary btn-lg" onclick="alert('تمت الإضافة إلى السلة')"><i class="fas fa-shopping-cart"></i> أضف للسلة</button>
                 <button class="btn-outline btn-lg" onclick="alert('تمت الإضافة للمفضلة')"><i class="far fa-heart"></i> أضف للمفضلة</button>
             </div>
-            <!-- معاينة الكتاب (Book Preview) [citation:4] -->
-            <div class="preview-section">
-                <div class="preview-title"><i class="fas fa-book-open"></i> معاينة الكتاب</div>
-                <div class="preview-pages">
-                    <div class="preview-page"></div>
-                    <div class="preview-page"></div>
-                    <div class="preview-page"></div>
-                    <div class="preview-page"></div>
-                </div>
-                <button class="notify-btn" style="margin-top: 12px;" onclick="alert('تحميل معاينة PDF')"><i class="fas fa-download"></i> تحميل معاينة</button>
-            </div>
-            <!-- خيارات الشحن (مستوحاة من Jarir) [citation:8] -->
-            <div style="border-top: 1px solid #eae5dd; padding-top: 20px; margin-top: 12px;">
-                <div style="display: flex; gap: 24px; flex-wrap: wrap;">
-                    <span><i class="fas fa-truck" style="color: #b8915c;"></i> توصيل سريع (48 ساعة)</span>
-                    <span><i class="fas fa-store"></i> استلام من المعرض</span>
-                    <span><i class="fas fa-gift"></i> تغليف هدايا</span>
+            <!-- خيارات الشحن (توصيل فقط) -->
+            <div class="shipping-options">
+                <div class="shipping-grid">
+                    <div class="shipping-item">
+                        <i class="fas fa-truck"></i>
+                        <span>توصيل سريع (48 ساعة)</span>
+                    </div>
+                    <div class="shipping-item">
+                        <i class="fas fa-store"></i>
+                        <span>استلام من المعرض</span>
+                    </div>
+                    <div class="shipping-item">
+                        <i class="fas fa-gift"></i>
+                        <span>تغليف هدايا</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -831,12 +828,12 @@
         </div>
     </div>
     <div class="copyright">
-        <p>© 2026 مكتبة النور. جميع الحقوق محفوظة. تصميم مستوحى من Abjjad, Alif, Jarir و MeccaBooks.</p>
+        <p>© 2026 مكتبة النور. جميع الحقوق محفوظة.</p>
     </div>
 </div>
 
 <script>
-    // تفعيل الإشعارات والتذكير (مستوحى من ميزات MeccaBooks و Jarir)
+    // تفعيل الإشعارات والتذكير
     function notifyMe() {
         alert('سيتم إعلامك فور توفر الكتاب');
     }

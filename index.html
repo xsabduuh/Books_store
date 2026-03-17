@@ -14,48 +14,31 @@
             font-family: 'Segoe UI', 'Tajawal', system-ui, sans-serif;
         }
 
-        /* متغيرات الألوان للوضع النهاري (افتراضي) */
+        /* ===== نظام الألوان باستخدام light-dark() ===== */
         :root {
-            --bg-body: #f5f3f0;
-            --text-primary: #1e2a2e;
-            --text-secondary: #2a3b40;
-            --border-light: #e0dcd5;
-            --card-bg: white;
-            --footer-bg: #1e2a2e;
-            --footer-text: #e0dcd5;
-            --footer-link: #bdc6cc;
-            --hero-gradient: linear-gradient(135deg, #e8e1d6 0%, #d7cdbd 100%);
-            --search-bg: white;
-            --btn-primary-bg: #1e2a2e;
-            --btn-primary-text: white;
-            --btn-outline-border: #1e2a2e;
-            --btn-outline-text: #1e2a2e;
-            --wishlist-bg: white;
-            --accent-color: #b8915c;
-            --danger: #c0392b;
-            --success: #27ae60;
-        }
-
-        /* متغيرات الألوان للوضع الليلي */
-        [data-theme="dark"] {
-            --bg-body: #121212;
-            --text-primary: #e0e0e0;
-            --text-secondary: #b0b0b0;
-            --border-light: #333;
-            --card-bg: #1e1e1e;
-            --footer-bg: #0a0a0a;
-            --footer-text: #ccc;
-            --footer-link: #aaa;
-            --hero-gradient: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
-            --search-bg: #2d2d2d;
-            --btn-primary-bg: #b8915c;
-            --btn-primary-text: #121212;
-            --btn-outline-border: #b8915c;
-            --btn-outline-text: #b8915c;
-            --wishlist-bg: #1e1e1e;
-            --accent-color: #d4a373;
-            --danger: #e06b6b;
-            --success: #6fcf97;
+            /* تفعيل نظام الألوان (light dark) */
+            color-scheme: light dark;
+            
+            /* الألوان الأساسية - يتم اختيارها تلقائياً حسب الوضع */
+            --bg-body: light-dark(#F8F5F0, #121212);        /* خلفية كريمية فاتحة / خلفية داكنة */
+            --text-primary: light-dark(#2A363B, #E0E0E0);   /* رمادي دافئ / أبيض ناعم */
+            --text-secondary: light-dark(#5A6B72, #B0B0B0); /* رمادي متوسط / رمادي فاتح */
+            --border-light: light-dark(#E8E0D5, #333333);   /* بيج فاتح / رمادي داكن */
+            --card-bg: light-dark(#FFFFFF, #1E1E1E);        /* أبيض ناعم / رمادي غامق */
+            --footer-bg: light-dark(#2A363B, #0A0A0A);      /* رمادي داكن دافئ / أسود */
+            --footer-text: light-dark(#E8E0D5, #CCCCCC);    /* بيج فاتح / رمادي فاتح */
+            --footer-link: light-dark(#B0B0B0, #AAAAAA);    /* رمادي متوسط / رمادي */
+            --hero-gradient: light-dark(linear-gradient(135deg, #E8E0D5 0%, #D8CFC0 100%), 
+                                       linear-gradient(135deg, #2A2A2A 0%, #1A1A1A 100%));
+            --search-bg: light-dark(#FFFFFF, #2D2D2D);      /* أبيض / رمادي غامق */
+            --btn-primary-bg: light-dark(#B8915C, #B8915C); /* ذهبي دافئ */
+            --btn-primary-text: light-dark(#FFFFFF, #121212); /* أبيض / أسود */
+            --btn-outline-border: light-dark(#B8915C, #D4A373);
+            --btn-outline-text: light-dark(#B8915C, #D4A373);
+            --wishlist-bg: light-dark(#FFFFFF, #1E1E1E);
+            --accent-color: light-dark(#B8915C, #D4A373);   /* ذهبي دافئ */
+            --danger: light-dark(#C0392B, #E06B6B);
+            --success: light-dark(#27AE60, #6FCF97);
         }
 
         body {
@@ -818,7 +801,7 @@
 <div class="book-detail-section">
     <div class="detail-container">
         <div class="detail-image">
-            <img src="IMG_2514.JPG" alt="فن اللامبالاة" onerror="this.onerror=null; this.src='https://via.placeholder.com/280x400?text=فن+اللامبالاة';">
+            <img src="image_9499cc70.png" alt="فن اللامبالاة" onerror="this.onerror=null; this.src='https://via.placeholder.com/280x400?text=فن+اللامبالاة';">
         </div>
         <div class="detail-meta">
             <h1>فن اللامبالاة</h1>

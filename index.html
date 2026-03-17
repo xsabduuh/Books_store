@@ -2,664 +2,844 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مكتبة النور - كتب عربية أصلية</title>
-    <!-- رابط خطوط جوجل للأيقونات (اختياري) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>مكتبة النور | متجر الكتب العربية</title>
+    <!-- Font Awesome 6 (الأيقونات) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Tajawal', sans-serif;
+            font-family: 'Segoe UI', 'Tajawal', system-ui, sans-serif;
         }
+
         body {
-            background: #fdfaf5;
-            color: #18120a;
-            max-width: 480px;
+            background: #f5f3f0;
+            color: #1e2a2e;
+            line-height: 1.6;
+            max-width: 1200px;
             margin: 0 auto;
-            overflow-x: hidden;
+            padding: 0 16px;
         }
-        /* شريط التنقل */
+
+        /* ===== شريط التنقل ===== */
         .navbar {
-            position: fixed;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            max-width: 480px;
-            height: 60px;
-            padding: 0 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: #18120a;
-            border-bottom: 2px solid #b8860b;
+            padding: 16px 0;
+            border-bottom: 1px solid #e0dcd5;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+            background: #f5f3f0;
+            position: sticky;
+            top: 0;
             z-index: 100;
         }
+
         .logo {
             display: flex;
             align-items: center;
-            gap: 5px;
-            color: #d4a843;
-            font-size: 18px;
-            font-weight: bold;
+            gap: 8px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1e2a2e;
         }
-        .logo i {
-            font-size: 20px;
+        .logo i { color: #b8915c; }
+
+        .search-bar {
+            flex: 1;
+            max-width: 400px;
+            display: flex;
+            background: white;
+            border-radius: 40px;
+            border: 1px solid #d9d0c1;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
         }
-        .cart-btn {
+        .search-bar input {
+            flex: 1;
+            border: none;
+            padding: 12px 16px;
+            font-size: 0.95rem;
+            outline: none;
+            background: transparent;
+        }
+        .search-bar button {
+            background: transparent;
+            border: none;
+            padding: 0 16px;
+            color: #b8915c;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: 0.2s;
+        }
+        .search-bar button:hover { color: #1e2a2e; }
+
+        .nav-icons {
             display: flex;
             align-items: center;
-            gap: 8px;
-            background: #d4a843;
-            color: #18120a;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 99px;
-            font-size: 12px;
-            font-weight: 800;
-            cursor: pointer;
+            gap: 20px;
         }
-        .cart-badge {
-            background: #18120a;
-            color: #d4a843;
+        .nav-icons a {
+            color: #1e2a2e;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+            transition: 0.2s;
+            position: relative;
+        }
+        .nav-icons a:hover { color: #b8915c; }
+        .badge {
+            background: #b8915c;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
             width: 18px;
             height: 18px;
             border-radius: 50%;
-            font-size: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        /* القسم الرئيسي (Hero) */
-        .hero {
-            padding: 78px 20px 0;
-            background: #18120a;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero-bg {
-            position: absolute;
-            inset: 0;
-            background-image: radial-gradient(circle, rgba(184,134,11,.08) 1px, transparent 1px);
-            background-size: 28px 28px;
-            pointer-events: none;
-        }
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            padding: 36px 0 32px;
-        }
-        .hero-tag {
             display: inline-flex;
             align-items: center;
-            gap: 7px;
-            font-size: 10px;
-            color: #d4a843;
+            justify-content: center;
+            position: absolute;
+            top: -8px;
+            left: 12px;
+        }
+
+        /* ===== القسم الرئيسي (Hero) ===== */
+        .hero {
+            background: linear-gradient(135deg, #e8e1d6 0%, #d7cdbd 100%);
+            border-radius: 32px;
+            padding: 48px 32px;
+            margin-bottom: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .hero-text { flex: 1 1 300px; }
+        .hero-text h1 {
+            font-size: 2.8rem;
             font-weight: 700;
-            border: 1px solid rgba(212,168,67,.25);
-            padding: 5px 12px;
-            border-radius: 99px;
-            background: rgba(184,134,11,.08);
-            margin-bottom: 18px;
+            line-height: 1.2;
+            margin-bottom: 16px;
         }
-        .hero-tag i {
-            font-size: 8px;
-            color: #d4a843;
+        .hero-text h1 span {
+            color: #b8915c;
+            border-bottom: 3px solid #b8915c;
+            display: inline-block;
+            padding-bottom: 4px;
         }
-        .hero-title {
-            font-family: serif;
-            font-size: clamp(36px, 10vw, 52px);
-            color: white;
-            line-height: 1.15;
-            margin-bottom: 14px;
-        }
-        .hero-title em {
-            color: #d4a843;
-            font-style: italic;
-        }
-        .hero-desc {
-            font-size: 13px;
-            color: rgba(255,255,255,.5);
-            line-height: 1.8;
+        .hero-text p {
+            font-size: 1.2rem;
+            color: #2a3b40;
             margin-bottom: 24px;
-            max-width: 290px;
+            opacity: 0.9;
         }
         .hero-stats {
             display: flex;
-            align-items: center;
-            gap: 12px;
+            gap: 24px;
             margin-bottom: 28px;
         }
         .stat-item {
             text-align: center;
-            flex: 1;
-            padding: 12px 6px;
-            border: 1px solid rgba(212,168,67,.15);
-            border-radius: 10px;
-            background: rgba(184,134,11,.06);
         }
         .stat-number {
-            font-family: serif;
-            font-size: 22px;
-            color: #d4a843;
-            display: block;
-            line-height: 1;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e2a2e;
         }
         .stat-label {
-            font-size: 9px;
-            color: rgba(255,255,255,.35);
-            letter-spacing: 1px;
-            display: block;
-            margin-top: 2px;
+            font-size: 0.9rem;
+            color: #5e6f7a;
         }
-        .hero-btn {
-            width: 100%;
-            background: #d4a843;
-            color: #18120a;
+        .hero-btns {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .btn-primary {
+            background: #1e2a2e;
+            color: white;
             border: none;
-            padding: 15px;
-            border-radius: 10px;
-            font-size: 15px;
-            font-weight: 800;
+            padding: 14px 32px;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 4px 20px rgba(184,134,11,.35);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .btn-primary:hover {
+            background: #2f4047;
+            transform: translateY(-2px);
+        }
+        .btn-outline {
+            background: transparent;
+            color: #1e2a2e;
+            border: 1px solid #1e2a2e;
+            padding: 14px 32px;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+        }
+        .btn-outline:hover {
+            background: #1e2a2e;
+            color: white;
+        }
+        .hero-image {
+            flex: 1 1 250px;
+            display: flex;
+            justify-content: center;
+        }
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            max-height: 280px;
+            object-fit: contain;
+        }
+
+        /* ===== أقسام العناوين ===== */
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        .section-link {
+            color: #b8915c;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* ===== شبكة الكتب ===== */
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .book-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            transition: 0.25s;
+            border: 1px solid #eae5dd;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        .book-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+        }
+
+        .book-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #c0392b;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            z-index: 2;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .book-badge.new {
+            background: #27ae60;
+        }
+
+        .book-img {
+            width: 100%;
+            aspect-ratio: 2/3;
+            object-fit: cover;
+            background: #f0ebe4;
+            border-bottom: 1px solid #f0ebe4;
+        }
+
+        .book-info {
+            padding: 16px 16px 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .book-category {
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+            color: #b8915c;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .book-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .book-author {
+            font-size: 0.9rem;
+            color: #6b7b86;
+            margin-bottom: 8px;
+        }
+
+        .book-rating {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+        .stars {
+            color: #f4b740;
+            font-size: 0.8rem;
+        }
+        .reviews-count {
+            color: #8f9ea8;
+            font-size: 0.8rem;
+        }
+
+        .book-price {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .current-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1e2a2e;
+        }
+        .old-price {
+            font-size: 0.9rem;
+            color: #b2b9bf;
+            text-decoration: line-through;
+        }
+
+        .book-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: auto;
+        }
+        .btn-cart {
+            flex: 1;
+            background: #1e2a2e;
+            color: white;
+            border: none;
+            padding: 12px 0;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
+            transition: 0.2s;
         }
-        .hero-btn i {
-            font-size: 14px;
+        .btn-cart:hover {
+            background: #2f4047;
         }
-        .marquee {
-            background: #d4a843;
-            padding: 10px 20px;
+        .btn-wishlist {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: #f5f3f0;
+            border: 1px solid #e0dcd5;
+            color: #1e2a2e;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.2s;
             display: flex;
             align-items: center;
-            gap: 20px;
-            overflow: hidden;
-            white-space: nowrap;
+            justify-content: center;
         }
-        .marquee span {
-            font-size: 11px;
-            font-weight: 800;
-            color: #18120a;
-            letter-spacing: 1.5px;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+        .btn-wishlist:hover {
+            background: #ffe5e5;
+            color: #c0392b;
+            border-color: #c0392b;
         }
-        .marquee i {
-            font-size: 12px;
-        }
-        .marquee-sep {
-            color: rgba(24,18,10,.3);
-            flex-shrink: 0;
-        }
-        /* قسم الكتب */
-        .books-section {
-            padding: 36px 20px;
-        }
-        .section-header {
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            padding-bottom: 14px;
-            margin-bottom: 24px;
-            border-bottom: 1px solid #e8dcc8;
-        }
-        .section-title {
-            font-family: serif;
-            font-size: 26px;
-            color: #18120a;
-        }
-        .section-count {
-            font-size: 11px;
-            color: #8a7a65;
-        }
-        /* بطاقة الكتاب */
-        .book-card {
+
+        /* ===== صفحة تفاصيل الكتاب (مثال) ===== */
+        .book-detail-section {
             background: white;
-            border: 1px solid #e8dcc8;
-            border-radius: 16px;
-            margin-bottom: 16px;
-            overflow: hidden;
-            display: flex;
-            box-shadow: 0 2px 16px rgba(24,18,10,.08);
+            border-radius: 28px;
+            padding: 32px;
+            margin-bottom: 48px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.02);
+            border: 1px solid #eae5dd;
         }
-        .book-image {
-            width: 120px;
-            flex-shrink: 0;
-            position: relative;
-            cursor: pointer;
-            background: #f0e8d8;
-            overflow: hidden;
+        .detail-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 32px;
         }
-        .book-image img {
+        .detail-image img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            min-height: 170px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
-        .book-badge {
-            position: absolute;
-            top: 10px;
-            right: 0;
-            background: #c0392b;
-            color: white;
-            font-size: 9px;
-            font-weight: 800;
-            padding: 3px 10px 3px 8px;
-            border-radius: 99px 0 0 99px;
-            letter-spacing: .5px;
+        .detail-meta h1 {
+            font-size: 2rem;
+            margin-bottom: 4px;
         }
-        .zoom-icon {
-            position: absolute;
-            bottom: 8px;
-            left: 8px;
-            background: rgba(24,18,10,.55);
-            color: white;
-            width: 28px;
-            height: 28px;
-            border-radius: 7px;
+        .detail-meta .author-lg {
+            font-size: 1.1rem;
+            color: #6b7b86;
+            margin-bottom: 12px;
+        }
+        .rating-lg {
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 16px;
+            gap: 12px;
+            margin-bottom: 16px;
         }
-        .zoom-icon i {
-            font-size: 14px;
+        .rating-lg .stars { font-size: 1.2rem; }
+        .rating-score {
+            font-weight: 600;
+            color: #1e2a2e;
         }
-        .book-info {
-            flex: 1;
-            padding: 14px 14px 12px;
+        .detail-price {
             display: flex;
-            flex-direction: column;
-            min-width: 0;
+            align-items: baseline;
+            gap: 12px;
+            margin: 20px 0;
         }
-        .book-category {
-            font-size: 9px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: #b8860b;
-            font-weight: 800;
-            margin-bottom: 5px;
+        .detail-price .current-price { font-size: 2rem; }
+        .badge-stock {
+            background: #e0f5e9;
+            color: #27ae60;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .detail-actions {
             display: flex;
-            align-items: center;
-            gap: 3px;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin: 24px 0;
         }
-        .book-category i {
-            font-size: 8px;
+        .btn-lg {
+            padding: 16px 40px;
+            font-size: 1rem;
         }
-        .book-title {
-            font-family: serif;
-            font-size: 16px;
-            color: #18120a;
-            line-height: 1.3;
-            margin-bottom: 3px;
+        .preview-section {
+            margin: 24px 0;
+            background: #f9f7f4;
+            border-radius: 16px;
+            padding: 20px;
         }
-        .book-author {
-            font-size: 11px;
-            color: #8a7a65;
-            margin-bottom: 7px;
+        .preview-title {
+            font-weight: 600;
+            margin-bottom: 12px;
         }
-        .book-desc {
-            font-size: 11px;
-            color: #8a7a65;
-            line-height: 1.6;
-            margin-bottom: 10px;
-            flex: 1;
-            overflow: hidden;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
+        .preview-pages {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 8px;
         }
-        .book-footer {
+        .preview-page {
+            min-width: 70px;
+            height: 100px;
+            background: #eae5dd;
+            border-radius: 8px;
+        }
+
+        /* ===== قائمة الرغبات والإشعارات ===== */
+        .wishlist-bar {
+            background: white;
+            border-radius: 60px;
+            padding: 12px 24px;
+            margin-bottom: 40px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+            border: 1px solid #e0dcd5;
         }
-        .price-box {
-            display: flex;
-            flex-direction: column;
-        }
-        .current-price {
-            font-family: serif;
-            font-size: 20px;
-            color: #18120a;
-            font-weight: 700;
-            line-height: 1;
-        }
-        .current-price small {
-            font-size: 10px;
-            color: #8a7a65;
-            font-weight: 400;
-        }
-        .old-price {
-            font-size: 10px;
-            color: #8a7a65;
-            text-decoration: line-through;
-        }
-        .qty-controls {
+        .wishlist-text {
             display: flex;
             align-items: center;
-            gap: 7px;
+            gap: 12px;
         }
-        .qty-btn {
-            width: 30px;
-            height: 30px;
-            border-radius: 8px;
-            border: 1px solid #e8dcc8;
-            background: #f5efe3;
-            color: #18120a;
-            font-size: 18px;
+        .wishlist-text i {
+            color: #c0392b;
+            font-size: 1.2rem;
+        }
+        .notify-btn {
+            background: transparent;
+            border: 1px solid #b8915c;
+            color: #b8915c;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 500;
             cursor: pointer;
+            transition: 0.2s;
+        }
+        .notify-btn:hover {
+            background: #b8915c;
+            color: white;
+        }
+
+        /* ===== الفوتر ===== */
+        .footer {
+            background: #1e2a2e;
+            color: #e0dcd5;
+            border-radius: 40px 40px 0 0;
+            padding: 48px 32px 24px;
+            margin-top: 60px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+        .footer-col h4 {
+            color: white;
+            margin-bottom: 16px;
+        }
+        .footer-col ul {
+            list-style: none;
+        }
+        .footer-col li {
+            margin-bottom: 10px;
+        }
+        .footer-col a {
+            color: #bdc6cc;
+            text-decoration: none;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .footer-col a:hover {
+            color: #b8915c;
+        }
+        .social-links {
+            display: flex;
+            gap: 16px;
+            margin-top: 12px;
+        }
+        .social-links a {
+            background: #2f4047;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            color: white;
+            transition: 0.2s;
         }
-        .qty-btn.plus {
-            background: #18120a;
-            color: #d4a843;
-            border: none;
-            font-weight: 900;
+        .social-links a:hover {
+            background: #b8915c;
         }
-        .qty-value {
-            font-size: 14px;
-            font-weight: 800;
-            min-width: 18px;
+        .copyright {
             text-align: center;
-            color: #18120a;
+            padding-top: 24px;
+            border-top: 1px solid #2f4047;
+            color: #8f9ea8;
+            font-size: 0.9rem;
         }
-        /* باقي الأقسام (باقات، مراجعات، معلومات، سياسة، فوتر) يمكن إضافتها لاحقاً */
-        /* رسائل مؤقتة */
-        .toast {
-            position: fixed;
-            top: 70px;
-            left: 50%;
-            transform: translateX(-50%) translateY(-10px);
-            background: #18120a;
-            border: 1px solid #d4a843;
-            border-radius: 8px;
-            padding: 10px 20px;
-            font-size: 12px;
-            font-weight: 700;
-            color: #d4a843;
-            z-index: 9999;
-            opacity: 0;
-            transition: all .28s;
-            white-space: nowrap;
-            pointer-events: none;
-            max-width: 90vw;
-        }
-        .toast.show {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
+
+        /* ===== تحسينات الجوال ===== */
+        @media (max-width: 700px) {
+            .navbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .search-bar { max-width: 100%; }
+            .hero { text-align: center; }
+            .hero-stats { justify-content: center; }
+            .hero-btns { justify-content: center; }
+            .detail-container {
+                grid-template-columns: 1fr;
+            }
+            .detail-image {
+                max-width: 260px;
+                margin: 0 auto;
+            }
         }
     </style>
 </head>
 <body>
 
-<!-- رسالة مؤقتة -->
-<div class="toast" id="toast"></div>
-
-<!-- شريط التنقل -->
+<!-- شريط التنقل (ثابت) -->
 <div class="navbar">
     <div class="logo">
         <i class="fas fa-book-open"></i>
         <span>مكتبة النور</span>
     </div>
-    <button class="cart-btn" onclick="openDrawer()">
-        <i class="fas fa-shopping-cart"></i>
-        <span>السلة</span>
-        <span class="cart-badge" id="cartBadge">0</span>
+    <div class="search-bar">
+        <input type="text" placeholder="ابحث عن كتاب، مؤلف، تصنيف...">
+        <button><i class="fas fa-search"></i></button>
+    </div>
+    <div class="nav-icons">
+        <a href="#"><i class="far fa-heart"></i> المفضلة <span class="badge">3</span></a>
+        <a href="#"><i class="fas fa-shopping-cart"></i> السلة <span class="badge">1</span></a>
+        <a href="#"><i class="far fa-user"></i> حسابي</a>
+    </div>
+</div>
+
+<!-- القسم الرئيسي (Hero) مستوحى من Alif و Jarir [citation:3][citation:8] -->
+<div class="hero">
+    <div class="hero-text">
+        <h1>اكتشف <span>كتباً</span><br>تغير حياتك</h1>
+        <p>أكثر من 10,000 عنوان عربي وعالمي. توصيل سريع لجميع المدن.</p>
+        <div class="hero-stats">
+            <div class="stat-item"><div class="stat-number">15k+</div><div class="stat-label">عنوان</div></div>
+            <div class="stat-item"><div class="stat-number">4.8</div><div class="stat-label">تقييم</div></div>
+            <div class="stat-item"><div class="stat-number">48h</div><div class="stat-label">توصيل</div></div>
+        </div>
+        <div class="hero-btns">
+            <button class="btn-primary"><i class="fas fa-gift"></i> تسوق الهدايا</button>
+            <button class="btn-outline"><i class="fas fa-percent"></i> العروض</button>
+        </div>
+    </div>
+    <div class="hero-image">
+        <img src="images/hero-stack.png" alt="كتب متنوعة" onerror="this.style.backgroundColor='#b8915c'; this.style.minWidth='200px'; this.style.height='200px'; this.style.borderRadius='20px'">
+    </div>
+</div>
+
+<!-- شريط قائمة الرغبات والإشعارات (مستوحى من MeccaBooks و Jarir) [citation:2][citation:8] -->
+<div class="wishlist-bar">
+    <div class="wishlist-text">
+        <i class="fas fa-bookmark"></i>
+        <span><strong>القائمة المفضلة:</strong> 3 كتب في انتظارك</span>
+    </div>
+    <button class="notify-btn" onclick="alert('سيتم إعلامك عند توفر الكتاب')">
+        <i class="fas fa-bell"></i> نبهني عند التوفر
     </button>
 </div>
 
-<!-- القسم الرئيسي -->
-<div class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-content">
-        <div class="hero-tag">
-            <i class="fas fa-star"></i>
-            <span>مجموعة مختارة بعناية</span>
-        </div>
-        <h1 class="hero-title">كتب <em>تُغيّر</em><br>نظرتك للحياة</h1>
-        <p class="hero-desc">تشكيلة من أفضل الكتب العربية في التطوير الذاتي، علم النفس والأدب</p>
-        <div class="hero-stats">
-            <div class="stat-item">
-                <span class="stat-number">+200</span>
-                <span class="stat-label">زبون</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number">6</span>
-                <span class="stat-label">كتب</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number">48h</span>
-                <span class="stat-label">توصيل</span>
-            </div>
-        </div>
-        <button class="hero-btn" onclick="scrollToBooks()">
-            <span>تصفح الكتب</span>
-            <i class="fas fa-arrow-left"></i>
-        </button>
-    </div>
+<!-- باقات مميزة (أفضل الكتب مبيعاً) -->
+<div class="section-header">
+    <h2 class="section-title">📚 الأكثر مبيعاً</h2>
+    <a href="#" class="section-link">عرض الكل <i class="fas fa-arrow-left"></i></a>
 </div>
 
-<!-- شريط متحرك -->
-<div class="marquee">
-    <span><i class="fas fa-truck"></i> توصيل سريع</span>
-    <span class="marquee-sep">◆</span>
-    <span><i class="fas fa-check-circle"></i> كتب أصلية</span>
-    <span class="marquee-sep">◆</span>
-    <span><i class="fas fa-undo-alt"></i> إرجاع مجاني</span>
-    <span class="marquee-sep">◆</span>
-    <span><i class="fas fa-credit-card"></i> دفع عند الاستلام</span>
-</div>
-
-<!-- قائمة الكتب -->
-<div class="books-section" id="books">
-    <div class="section-header">
-        <h2 class="section-title">قائمة الكتب</h2>
-        <div class="section-count">6 كتب متاحة</div>
-    </div>
-
+<div class="books-grid">
     <!-- كتاب 1: فن اللامبالاة -->
     <div class="book-card">
-        <div class="book-image" onclick="zoomImage('book1.jpg')">
-            <img src="book1.jpg" alt="فن اللامبالاة" onerror="this.style.background='#e8d5b7'">
-            <div class="book-badge">الأكثر مبيعاً</div>
-            <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
-        </div>
+        <div class="book-badge">الأكثر مبيعاً</div>
+        <img src="images/book1.jpg" alt="فن اللامبالاة" class="book-img" onerror="this.style.backgroundColor='#d9d0c1'">
         <div class="book-info">
-            <div class="book-category"><i class="fas fa-tag"></i> تطوير الذات</div>
+            <div class="book-category">تطوير ذات</div>
             <div class="book-title">فن اللامبالاة</div>
             <div class="book-author">مارك مانسون</div>
-            <div class="book-desc">لعيش حياة تخالف المألوف — كيف تختار ما يستحق اهتمامك</div>
-            <div class="book-footer">
-                <div class="price-box">
-                    <div class="current-price">85 <small>درهم</small></div>
-                    <div class="old-price">110 درهم</div>
-                </div>
-                <div class="qty-controls">
-                    <button class="qty-btn" onclick="updateQty('book1', -1)">−</button>
-                    <span class="qty-value" id="qty-book1">0</span>
-                    <button class="qty-btn plus" onclick="updateQty('book1', 1)">+</button>
-                </div>
+            <div class="book-rating">
+                <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
+                <span class="reviews-count">(1,342)</span>
+            </div>
+            <div class="book-price">
+                <span class="current-price">85</span>
+                <span class="old-price">110</span>
+            </div>
+            <div class="book-actions">
+                <button class="btn-cart" onclick="alert('تمت الإضافة إلى السلة')"><i class="fas fa-cart-plus"></i> أضف للسلة</button>
+                <button class="btn-wishlist" onclick="alert('تمت الإضافة للمفضلة')"><i class="far fa-heart"></i></button>
             </div>
         </div>
     </div>
-
     <!-- كتاب 2: متعة أن تكون في العشرين -->
     <div class="book-card">
-        <div class="book-image" onclick="zoomImage('book2.jpg')">
-            <img src="book2.jpg" alt="متعة أن تكون في العشرين" onerror="this.style.background='#e8d5b7'">
-            <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
-        </div>
+        <img src="images/book2.jpg" alt="متعة أن تكون في العشرين" class="book-img" onerror="this.style.backgroundColor='#d9d0c1'">
         <div class="book-info">
-            <div class="book-category"><i class="fas fa-tag"></i> تطوير الذات</div>
+            <div class="book-category">تطوير ذات</div>
             <div class="book-title">متعة أن تكون في العشرين</div>
             <div class="book-author">علا ديوب</div>
-            <div class="book-desc">استمتع بشبابك وابنِ أسساً قوية لبقية حياتك</div>
-            <div class="book-footer">
-                <div class="price-box">
-                    <div class="current-price">75 <small>درهم</small></div>
-                    <div class="old-price">95 درهم</div>
-                </div>
-                <div class="qty-controls">
-                    <button class="qty-btn" onclick="updateQty('book2', -1)">−</button>
-                    <span class="qty-value" id="qty-book2">0</span>
-                    <button class="qty-btn plus" onclick="updateQty('book2', 1)">+</button>
-                </div>
+            <div class="book-rating">
+                <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+                <span class="reviews-count">(876)</span>
+            </div>
+            <div class="book-price">
+                <span class="current-price">75</span>
+                <span class="old-price">95</span>
+            </div>
+            <div class="book-actions">
+                <button class="btn-cart" onclick="alert('تمت الإضافة إلى السلة')"><i class="fas fa-cart-plus"></i> أضف للسلة</button>
+                <button class="btn-wishlist" onclick="alert('تمت الإضافة للمفضلة')"><i class="far fa-heart"></i></button>
             </div>
         </div>
     </div>
-
     <!-- كتاب 3: الأنثى كما يجب أن تكون -->
     <div class="book-card">
-        <div class="book-image" onclick="zoomImage('book3.jpg')">
-            <img src="book3.jpg" alt="الأنثى كما يجب أن تكون" onerror="this.style.background='#e8d5b7'">
-            <div class="book-badge" style="background:#1a6b3a;">جديد</div>
-            <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
-        </div>
+        <div class="book-badge new">جديد</div>
+        <img src="images/book3.jpg" alt="الأنثى كما يجب أن تكون" class="book-img" onerror="this.style.backgroundColor='#d9d0c1'">
         <div class="book-info">
-            <div class="book-category"><i class="fas fa-tag"></i> أدب</div>
+            <div class="book-category">أدب</div>
             <div class="book-title">الأنثى كما يجب أن تكون</div>
             <div class="book-author">علي مناضل العكيلي</div>
-            <div class="book-desc">رسالة إلى كل امرأة تبحث عن قوتها الداخلية</div>
-            <div class="book-footer">
-                <div class="price-box">
-                    <div class="current-price">70 <small>درهم</small></div>
-                    <div class="old-price">90 درهم</div>
-                </div>
-                <div class="qty-controls">
-                    <button class="qty-btn" onclick="updateQty('book3', -1)">−</button>
-                    <span class="qty-value" id="qty-book3">0</span>
-                    <button class="qty-btn plus" onclick="updateQty('book3', 1)">+</button>
-                </div>
+            <div class="book-rating">
+                <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></span>
+                <span class="reviews-count">(234)</span>
+            </div>
+            <div class="book-price">
+                <span class="current-price">70</span>
+                <span class="old-price">90</span>
+            </div>
+            <div class="book-actions">
+                <button class="btn-cart" onclick="alert('تمت الإضافة إلى السلة')"><i class="fas fa-cart-plus"></i> أضف للسلة</button>
+                <button class="btn-wishlist" onclick="alert('تمت الإضافة للمفضلة')"><i class="far fa-heart"></i></button>
             </div>
         </div>
     </div>
-
     <!-- كتاب 4: أحببت وغداً -->
     <div class="book-card">
-        <div class="book-image" onclick="zoomImage('book4.jpg')">
-            <img src="book4.jpg" alt="أحببت وغداً" onerror="this.style.background='#e8d5b7'">
-            <div class="book-badge">الأكثر مبيعاً</div>
-            <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
-        </div>
+        <img src="images/book4.jpg" alt="أحببت وغداً" class="book-img" onerror="this.style.backgroundColor='#d9d0c1'">
         <div class="book-info">
-            <div class="book-category"><i class="fas fa-tag"></i> علم النفس</div>
+            <div class="book-category">علم نفس</div>
             <div class="book-title">أحببت وغداً</div>
             <div class="book-author">د. عماد رشاد عثمان</div>
-            <div class="book-desc">التعافي من العلاقات المؤذية — الطبعة العشرون</div>
-            <div class="book-footer">
-                <div class="price-box">
-                    <div class="current-price">80 <small>درهم</small></div>
-                    <div class="old-price">100 درهم</div>
-                </div>
-                <div class="qty-controls">
-                    <button class="qty-btn" onclick="updateQty('book4', -1)">−</button>
-                    <span class="qty-value" id="qty-book4">0</span>
-                    <button class="qty-btn plus" onclick="updateQty('book4', 1)">+</button>
-                </div>
+            <div class="book-rating">
+                <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
+                <span class="reviews-count">(1,521)</span>
+            </div>
+            <div class="book-price">
+                <span class="current-price">80</span>
+                <span class="old-price">100</span>
+            </div>
+            <div class="book-actions">
+                <button class="btn-cart" onclick="alert('تمت الإضافة إلى السلة')"><i class="fas fa-cart-plus"></i> أضف للسلة</button>
+                <button class="btn-wishlist" onclick="alert('تمت الإضافة للمفضلة')"><i class="far fa-heart"></i></button>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- كتاب 5: الليالي البيضاء -->
-    <div class="book-card">
-        <div class="book-image" onclick="zoomImage('book5.jpg')">
-            <img src="book5.jpg" alt="الليالي البيضاء" onerror="this.style.background='#e8d5b7'">
-            <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
+<!-- صفحة تفاصيل الكتاب (مستوحاة من Abjjad و Bookish) [citation:1][citation:6] -->
+<div class="book-detail-section">
+    <div class="detail-container">
+        <div class="detail-image">
+            <img src="images/book-detail.jpg" alt="فن اللامبالاة" onerror="this.style.backgroundColor='#d9d0c1'; this.style.height='280px'">
         </div>
-        <div class="book-info">
-            <div class="book-category"><i class="fas fa-tag"></i> أدب عالمي</div>
-            <div class="book-title">الليالي البيضاء</div>
-            <div class="book-author">دوستويفسكي</div>
-            <div class="book-desc">رواية حب خالدة من القرن التاسع عشر</div>
-            <div class="book-footer">
-                <div class="price-box">
-                    <div class="current-price">55 <small>درهم</small></div>
-                    <div class="old-price">70 درهم</div>
-                </div>
-                <div class="qty-controls">
-                    <button class="qty-btn" onclick="updateQty('book5', -1)">−</button>
-                    <span class="qty-value" id="qty-book5">0</span>
-                    <button class="qty-btn plus" onclick="updateQty('book5', 1)">+</button>
-                </div>
+        <div class="detail-meta">
+            <h1>فن اللامبالاة</h1>
+            <div class="author-lg">مارك مانسون · ترجمة: محمد ياسر</div>
+            <div class="rating-lg">
+                <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
+                <span class="rating-score">4.5</span>
+                <span class="reviews-count">(1,342 تقييماً)</span>
             </div>
-        </div>
-    </div>
-
-    <!-- كتاب 6: المنهج الذي لا يُدرَّس -->
-    <div class="book-card">
-        <div class="book-image" onclick="zoomImage('book6.jpg')">
-            <img src="book6.jpg" alt="المنهج الذي لا يُدرَّس" onerror="this.style.background='#e8d5b7'">
-            <div class="book-badge" style="background:#1a6b3a;">جديد</div>
-            <div class="zoom-icon"><i class="fas fa-search-plus"></i></div>
-        </div>
-        <div class="book-info">
-            <div class="book-category"><i class="fas fa-tag"></i> تعليم</div>
-            <div class="book-title">المنهج الذي لا يُدرَّس</div>
-            <div class="book-author">د. خولة فؤاد علي</div>
-            <div class="book-desc">المهارات الحياتية التي لم تتعلمها في المدرسة</div>
-            <div class="book-footer">
-                <div class="price-box">
-                    <div class="current-price">72 <small>درهم</small></div>
-                    <div class="old-price">90 درهم</div>
+            <div class="detail-price">
+                <span class="current-price">85 <span style="font-size: 1rem;">درهم</span></span>
+                <span class="old-price">110 درهم</span>
+                <span class="badge-stock"><i class="fas fa-check-circle"></i> متوفر</span>
+            </div>
+            <div style="margin: 16px 0; line-height: 1.8; color: #2a3b40;">
+                <p>كتاب "فن اللامبالاة" ليس مجرد دليل للتخلص من القلق، بل هو دعوة لاختيار ما يهم حقاً في الحياة. بأسلوب ساخر وعميق، يعيد مارك مانسون تعريف النجاح والسعادة.</p>
+            </div>
+            <div class="detail-actions">
+                <button class="btn-primary btn-lg" onclick="alert('تمت الإضافة إلى السلة')"><i class="fas fa-shopping-cart"></i> أضف للسلة</button>
+                <button class="btn-outline btn-lg" onclick="alert('تمت الإضافة للمفضلة')"><i class="far fa-heart"></i> أضف للمفضلة</button>
+            </div>
+            <!-- معاينة الكتاب (Book Preview) [citation:4] -->
+            <div class="preview-section">
+                <div class="preview-title"><i class="fas fa-book-open"></i> معاينة الكتاب</div>
+                <div class="preview-pages">
+                    <div class="preview-page"></div>
+                    <div class="preview-page"></div>
+                    <div class="preview-page"></div>
+                    <div class="preview-page"></div>
                 </div>
-                <div class="qty-controls">
-                    <button class="qty-btn" onclick="updateQty('book6', -1)">−</button>
-                    <span class="qty-value" id="qty-book6">0</span>
-                    <button class="qty-btn plus" onclick="updateQty('book6', 1)">+</button>
+                <button class="notify-btn" style="margin-top: 12px;" onclick="alert('تحميل معاينة PDF')"><i class="fas fa-download"></i> تحميل معاينة</button>
+            </div>
+            <!-- خيارات الشحن (مستوحاة من Jarir) [citation:8] -->
+            <div style="border-top: 1px solid #eae5dd; padding-top: 20px; margin-top: 12px;">
+                <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+                    <span><i class="fas fa-truck" style="color: #b8915c;"></i> توصيل سريع (48 ساعة)</span>
+                    <span><i class="fas fa-store"></i> استلام من المعرض</span>
+                    <span><i class="fas fa-gift"></i> تغليف هدايا</span>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- سكريبت بسيط للتفاعل (يمكن وضعه في ملف منفصل لاحقاً) -->
+<!-- الفوتر -->
+<div class="footer">
+    <div class="footer-grid">
+        <div class="footer-col">
+            <h4>مكتبة النور</h4>
+            <ul>
+                <li><a href="#"><i class="fas fa-chevron-left"></i> عن المكتبة</a></li>
+                <li><a href="#"><i class="fas fa-chevron-left"></i> المدونة</a></li>
+                <li><a href="#"><i class="fas fa-chevron-left"></i> الشحن والتوصيل</a></li>
+                <li><a href="#"><i class="fas fa-chevron-left"></i> سياسة الإرجاع</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>روابط سريعة</h4>
+            <ul>
+                <li><a href="#"><i class="fas fa-chevron-left"></i> أحدث الإصدارات</a></li>
+                <li><a href="#"><i class="fas fa-chevron-left"></i> الكتب الأكثر مبيعاً</a></li>
+                <li><a href="#"><i class="fas fa-chevron-left"></i> قائمة الرغبات</a></li>
+                <li><a href="#"><i class="fas fa-chevron-left"></i> عروض خاصة</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>خدمة العملاء</h4>
+            <ul>
+                <li><a href="#"><i class="fas fa-chevron-left"></i> اتصل بنا</a></li>
+                <li><a href="#"><i class="fas fa-chevron-left"></i> الدعم الفوري</a></li>
+                <li><a href="#"><i class="fas fa-chevron-left"></i> الأسئلة الشائعة</a></li>
+                <li><a href="#"><i class="fas fa-chevron-left"></i> الشكاوى والاقتراحات</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>تابعنا</h4>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-x-twitter"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+            </div>
+            <p style="margin-top: 16px; color: #bdc6cc;"><i class="fas fa-phone-alt"></i> +212 600-123456</p>
+            <p style="color: #bdc6cc;"><i class="fas fa-envelope"></i> info@alnour.ma</p>
+        </div>
+    </div>
+    <div class="copyright">
+        <p>© 2026 مكتبة النور. جميع الحقوق محفوظة. تصميم مستوحى من Abjjad, Alif, Jarir و MeccaBooks.</p>
+    </div>
+</div>
+
 <script>
-    // كائن لتخزين الكميات
-    let cart = {};
-
-    // دالة تحديث الكمية
-    function updateQty(bookId, delta) {
-        if (!cart[bookId]) cart[bookId] = 0;
-        cart[bookId] = Math.max(0, cart[bookId] + delta);
-        document.getElementById('qty-' + bookId).textContent = cart[bookId];
-        updateCartBadge();
-    }
-
-    // تحديث عداد السلة
-    function updateCartBadge() {
-        let total = 0;
-        for (let key in cart) total += cart[key];
-        document.getElementById('cartBadge').textContent = total;
-    }
-
-    // دالة تكبير الصورة (محاكاة)
-    function zoomImage(imgSrc) {
-        alert('سيتم تكبير الصورة: ' + imgSrc);
-        // هنا يمكنك إضافة نافذة منبثقة لتكبير الصورة لاحقاً
-    }
-
-    // التمرير إلى قسم الكتب
-    function scrollToBooks() {
-        document.getElementById('books').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    // فتح السلة (محاكاة)
-    function openDrawer() {
-        alert('السلة تحتوي على ' + Object.values(cart).reduce((a,b)=>a+b,0) + ' كتب');
+    // تفعيل الإشعارات والتذكير (مستوحى من ميزات MeccaBooks و Jarir)
+    function notifyMe() {
+        alert('سيتم إعلامك فور توفر الكتاب');
     }
 </script>
-
 </body>
 </html>

@@ -6,14 +6,31 @@
     <title>أحدث الإصدارات - مكتبة النور</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        body { font-family: 'Segoe UI', 'Tajawal', sans-serif; background: #f5f3f0; color: #1e2a2e; max-width: 800px; margin: 0 auto; padding: 20px; }
-        a { color: #b8915c; text-decoration: none; }
-        .back-link { margin-bottom: 20px; display: block; }
+        :root {
+            --bg: #f5f3f0; --text: #1e2a2e; --card: white; --border: #e0dcd5; --accent: #b8915c;
+        }
+        [data-theme="dark"] { --bg: #121212; --text: #e0e0e0; --card: #1e1e1e; --border: #333; --accent: #d4a373; }
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', 'Tajawal', sans-serif; padding: 20px; max-width: 1200px; margin: 0 auto; }
+        a { color: var(--accent); text-decoration: none; }
+        .back-link { margin-bottom: 30px; display: block; }
+        h1 { color: var(--accent); }
+        .books-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(250px,1fr)); gap: 30px;
+        }
+        .book-card { background: var(--card); border: 1px solid var(--border); border-radius: 15px; overflow: hidden; }
+        .book-card img { width: 100%; height: 300px; object-fit: cover; }
+        .book-info { padding: 15px; }
+        .price { color: var(--accent); font-weight: 700; }
+        .badge { background: var(--accent); color: white; padding: 3px 10px; border-radius: 20px; font-size: 0.8rem; }
     </style>
 </head>
 <body>
     <a href="index.html" class="back-link"><i class="fas fa-arrow-right"></i> العودة للرئيسية</a>
     <h1>أحدث الإصدارات</h1>
-    <p>تعرف على أحدث الكتب المضافة للمكتبة.</p>
+    <div class="books-grid">
+        <div class="book-card"><img src="https://via.placeholder.com/250x300" alt=""><div class="book-info"><span class="badge">جديد</span><h3>الخيميائي</h3><p>باولو كويلو</p><div class="price">120 درهم</div></div></div>
+        <div class="book-card"><img src="https://via.placeholder.com/250x300" alt=""><div class="book-info"><span class="badge">جديد</span><h3>الحالة الحرجة</h3><p>د. مدحت عبد الهادي</p><div class="price">95 درهم</div></div></div>
+        <div class="book-card"><img src="https://via.placeholder.com/250x300" alt=""><div class="book-info"><span class="badge">جديد</span><h3>نظرية الفستق</h3><p>فهد عامر</p><div class="price">110 درهم</div></div></div>
+    </div>
 </body>
 </html>

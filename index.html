@@ -14,31 +14,48 @@
             font-family: 'Segoe UI', 'Tajawal', system-ui, sans-serif;
         }
 
-        /* ===== نظام الألوان باستخدام light-dark() ===== */
+        /* ===== نظام الألوان (الوضع الفاتح - افتراضي) ===== */
         :root {
-            /* تفعيل نظام الألوان (light dark) */
-            color-scheme: light dark;
-            
-            /* الألوان الأساسية - يتم اختيارها تلقائياً حسب الوضع */
-            --bg-body: light-dark(#F8F5F0, #121212);        /* خلفية كريمية فاتحة / خلفية داكنة */
-            --text-primary: light-dark(#2A363B, #E0E0E0);   /* رمادي دافئ / أبيض ناعم */
-            --text-secondary: light-dark(#5A6B72, #B0B0B0); /* رمادي متوسط / رمادي فاتح */
-            --border-light: light-dark(#E8E0D5, #333333);   /* بيج فاتح / رمادي داكن */
-            --card-bg: light-dark(#FFFFFF, #1E1E1E);        /* أبيض ناعم / رمادي غامق */
-            --footer-bg: light-dark(#2A363B, #0A0A0A);      /* رمادي داكن دافئ / أسود */
-            --footer-text: light-dark(#E8E0D5, #CCCCCC);    /* بيج فاتح / رمادي فاتح */
-            --footer-link: light-dark(#B0B0B0, #AAAAAA);    /* رمادي متوسط / رمادي */
-            --hero-gradient: light-dark(linear-gradient(135deg, #E8E0D5 0%, #D8CFC0 100%), 
-                                       linear-gradient(135deg, #2A2A2A 0%, #1A1A1A 100%));
-            --search-bg: light-dark(#FFFFFF, #2D2D2D);      /* أبيض / رمادي غامق */
-            --btn-primary-bg: light-dark(#B8915C, #B8915C); /* ذهبي دافئ */
-            --btn-primary-text: light-dark(#FFFFFF, #121212); /* أبيض / أسود */
-            --btn-outline-border: light-dark(#B8915C, #D4A373);
-            --btn-outline-text: light-dark(#B8915C, #D4A373);
-            --wishlist-bg: light-dark(#FFFFFF, #1E1E1E);
-            --accent-color: light-dark(#B8915C, #D4A373);   /* ذهبي دافئ */
-            --danger: light-dark(#C0392B, #E06B6B);
-            --success: light-dark(#27AE60, #6FCF97);
+            --bg-body: #F8F5F0;          /* خلفية كريمية فاتحة */
+            --text-primary: #2A363B;      /* رمادي دافئ */
+            --text-secondary: #5A6B72;    /* رمادي متوسط */
+            --border-light: #E8E0D5;      /* بيج فاتح */
+            --card-bg: #FFFFFF;            /* أبيض ناعم */
+            --footer-bg: #2A363B;          /* رمادي داكن دافئ */
+            --footer-text: #E8E0D5;        /* بيج فاتح */
+            --footer-link: #B0B0B0;        /* رمادي متوسط */
+            --hero-gradient: linear-gradient(135deg, #E8E0D5 0%, #D8CFC0 100%);
+            --search-bg: #FFFFFF;
+            --btn-primary-bg: #B8915C;      /* ذهبي دافئ */
+            --btn-primary-text: #FFFFFF;
+            --btn-outline-border: #B8915C;
+            --btn-outline-text: #B8915C;
+            --wishlist-bg: #FFFFFF;
+            --accent-color: #B8915C;        /* ذهبي دافئ */
+            --danger: #C0392B;
+            --success: #27AE60;
+        }
+
+        /* ===== نظام الألوان (الوضع الليلي) ===== */
+        [data-theme="dark"] {
+            --bg-body: #121212;
+            --text-primary: #E0E0E0;
+            --text-secondary: #B0B0B0;
+            --border-light: #333333;
+            --card-bg: #1E1E1E;
+            --footer-bg: #0A0A0A;
+            --footer-text: #CCCCCC;
+            --footer-link: #AAAAAA;
+            --hero-gradient: linear-gradient(135deg, #2A2A2A 0%, #1A1A1A 100%);
+            --search-bg: #2D2D2D;
+            --btn-primary-bg: #B8915C;
+            --btn-primary-text: #121212;
+            --btn-outline-border: #D4A373;
+            --btn-outline-text: #D4A373;
+            --wishlist-bg: #1E1E1E;
+            --accent-color: #D4A373;
+            --danger: #E06B6B;
+            --success: #6FCF97;
         }
 
         body {
@@ -893,11 +910,11 @@
 </div>
 
 <script>
-    // تبديل الوضع الليلي
+    // تبديل الوضع الليلي (حل بديل عن light-dark)
     const themeToggle = document.getElementById('themeToggle');
     const html = document.documentElement;
     
-    // استرجاع الوضع المحفوظ
+    // استرجاع الوضع المحفوظ (الوضع الفاتح افتراضياً)
     const savedTheme = localStorage.getItem('theme') || 'light';
     html.setAttribute('data-theme', savedTheme);
     updateIcon(savedTheme);
@@ -928,12 +945,10 @@
         const wishlistBadge = document.getElementById('wishlistBadge');
         const wishlistCount = document.getElementById('wishlistCount');
 
-        // تحديث الأرقام
         cartBadge.textContent = cart.length;
         wishlistBadge.textContent = wishlist.length;
         wishlistCount.textContent = wishlist.length;
 
-        // إخفاء الشارة إذا كانت القيمة 0
         cartBadge.style.display = cart.length === 0 ? 'none' : 'inline-flex';
         wishlistBadge.style.display = wishlist.length === 0 ? 'none' : 'inline-flex';
     }
@@ -956,13 +971,7 @@
         }
     }
 
-    // تحديث الشارات عند تحميل الصفحة
     updateBadges();
-
-    // تفعيل الإشعارات والتذكير
-    function notifyMe() {
-        alert('سيتم إعلامك فور توفر الكتاب');
-    }
 </script>
 </body>
 </html>

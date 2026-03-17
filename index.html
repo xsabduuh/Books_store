@@ -95,6 +95,21 @@
         }
         .logo i { color: var(--accent-color); }
 
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
         .search-bar {
             flex: 1;
             max-width: 400px;
@@ -673,14 +688,25 @@
         <i class="fas fa-book-open"></i>
         <span>مكتبة النور</span>
     </div>
+    <div class="nav-links">
+        <a href="about.html">عن المكتبة</a>
+        <a href="blog.html">المدونة</a>
+        <a href="shipping.html">الشحن والتوصيل</a>
+        <a href="returns.html">سياسة الإرجاع</a>
+        <a href="new-releases.html">أحدث الإصدارات</a>
+        <a href="bestsellers.html">الكتب الأكثر مبيعاً</a>
+        <a href="wishlist.html">قائمة الرغبات</a>
+        <a href="offers.html">عروض خاصة</a>
+        <a href="contact.html">اتصل بنا</a>
+    </div>
     <div class="search-bar">
         <input type="text" placeholder="ابحث عن كتاب، مؤلف، تصنيف...">
         <button><i class="fas fa-search"></i></button>
     </div>
     <div class="nav-icons">
-        <a href="#"><i class="far fa-heart"></i> المفضلة <span class="badge">3</span></a>
-        <a href="#"><i class="fas fa-shopping-cart"></i> السلة <span class="badge">1</span></a>
-        <a href="#"><i class="far fa-user"></i> حسابي</a>
+        <a href="wishlist.html"><i class="far fa-heart"></i> المفضلة <span class="badge" id="wishlistBadge">0</span></a>
+        <a href="cart.html"><i class="fas fa-shopping-cart"></i> السلة <span class="badge" id="cartBadge">0</span></a>
+        <a href="account.html"><i class="far fa-user"></i> حسابي</a>
         <button class="theme-toggle" id="themeToggle" aria-label="تبديل الوضع">
             <i class="fas fa-moon"></i>
         </button>
@@ -698,8 +724,8 @@
             <div class="stat-item"><div class="stat-number">48h</div><div class="stat-label">توصيل</div></div>
         </div>
         <div class="hero-btns">
-            <button class="btn-primary"><i class="fas fa-gift"></i> تسوق الهدايا</button>
-            <button class="btn-outline"><i class="fas fa-percent"></i> العروض</button>
+            <button class="btn-primary" onclick="window.location.href='offers.html'"><i class="fas fa-gift"></i> تسوق الهدايا</button>
+            <button class="btn-outline" onclick="window.location.href='offers.html'"><i class="fas fa-percent"></i> العروض</button>
         </div>
     </div>
     <div class="hero-image">
@@ -711,9 +737,9 @@
 <div class="wishlist-bar">
     <div class="wishlist-text">
         <i class="fas fa-bookmark"></i>
-        <span><strong>القائمة المفضلة:</strong> 3 كتب في انتظارك</span>
+        <span><strong>القائمة المفضلة:</strong> <span id="wishlistCount">0</span> كتب في انتظارك</span>
     </div>
-    <button class="notify-btn" onclick="alert('سيتم إعلامك عند توفر الكتاب')">
+    <button class="notify-btn" onclick="window.location.href='wishlist.html'">
         <i class="fas fa-bell"></i> نبهني عند التوفر
     </button>
 </div>
@@ -721,7 +747,7 @@
 <!-- باقات مميزة (أفضل الكتب مبيعاً) -->
 <div class="section-header">
     <h2 class="section-title">📚 الأكثر مبيعاً</h2>
-    <a href="#" class="section-link">عرض الكل <i class="fas fa-arrow-left"></i></a>
+    <a href="bestsellers.html" class="section-link">عرض الكل <i class="fas fa-arrow-left"></i></a>
 </div>
 
 <div class="books-grid">
@@ -742,8 +768,8 @@
                 <span class="old-price">110</span>
             </div>
             <div class="book-actions">
-                <button class="btn-cart" onclick="alert('تمت الإضافة إلى السلة')"><i class="fas fa-cart-plus"></i> أضف للسلة</button>
-                <button class="btn-wishlist" onclick="alert('تمت الإضافة للمفضلة')"><i class="far fa-heart"></i></button>
+                <button class="btn-cart" onclick="addToCart('فن اللامبالاة', 85)"><i class="fas fa-cart-plus"></i> أضف للسلة</button>
+                <button class="btn-wishlist" onclick="addToWishlist('فن اللامبالاة')"><i class="far fa-heart"></i></button>
             </div>
         </div>
     </div>
@@ -763,8 +789,8 @@
                 <span class="old-price">95</span>
             </div>
             <div class="book-actions">
-                <button class="btn-cart" onclick="alert('تمت الإضافة إلى السلة')"><i class="fas fa-cart-plus"></i> أضف للسلة</button>
-                <button class="btn-wishlist" onclick="alert('تمت الإضافة للمفضلة')"><i class="far fa-heart"></i></button>
+                <button class="btn-cart" onclick="addToCart('متعة أن تكون في العشرين', 75)"><i class="fas fa-cart-plus"></i> أضف للسلة</button>
+                <button class="btn-wishlist" onclick="addToWishlist('متعة أن تكون في العشرين')"><i class="far fa-heart"></i></button>
             </div>
         </div>
     </div>
@@ -785,8 +811,8 @@
                 <span class="old-price">90</span>
             </div>
             <div class="book-actions">
-                <button class="btn-cart" onclick="alert('تمت الإضافة إلى السلة')"><i class="fas fa-cart-plus"></i> أضف للسلة</button>
-                <button class="btn-wishlist" onclick="alert('تمت الإضافة للمفضلة')"><i class="far fa-heart"></i></button>
+                <button class="btn-cart" onclick="addToCart('الأنثى كما يجب أن تكون', 70)"><i class="fas fa-cart-plus"></i> أضف للسلة</button>
+                <button class="btn-wishlist" onclick="addToWishlist('الأنثى كما يجب أن تكون')"><i class="far fa-heart"></i></button>
             </div>
         </div>
     </div>
@@ -806,8 +832,8 @@
                 <span class="old-price">100</span>
             </div>
             <div class="book-actions">
-                <button class="btn-cart" onclick="alert('تمت الإضافة إلى السلة')"><i class="fas fa-cart-plus"></i> أضف للسلة</button>
-                <button class="btn-wishlist" onclick="alert('تمت الإضافة للمفضلة')"><i class="far fa-heart"></i></button>
+                <button class="btn-cart" onclick="addToCart('أحببت وغداً', 80)"><i class="fas fa-cart-plus"></i> أضف للسلة</button>
+                <button class="btn-wishlist" onclick="addToWishlist('أحببت وغداً')"><i class="far fa-heart"></i></button>
             </div>
         </div>
     </div>
@@ -817,7 +843,7 @@
 <div class="book-detail-section">
     <div class="detail-container">
         <div class="detail-image">
-            <img src="IMG_2514.JPG" alt="فن اللامبالاة" onerror="this.onerror=null; this.src='https://via.placeholder.com/280x400?text=فن+اللامبالاة';">
+            <img src="image_9499cc70.png" alt="فن اللامبالاة" onerror="this.onerror=null; this.src='https://via.placeholder.com/280x400?text=فن+اللامبالاة';">
         </div>
         <div class="detail-meta">
             <h1>فن اللامبالاة</h1>
@@ -836,8 +862,8 @@
                 <p>كتاب "فن اللامبالاة" ليس مجرد دليل للتخلص من القلق، بل هو دعوة لاختيار ما يهم حقاً في الحياة. بأسلوب ساخر وعميق، يعيد مارك مانسون تعريف النجاح والسعادة.</p>
             </div>
             <div class="detail-actions">
-                <button class="btn-primary btn-lg" onclick="alert('تمت الإضافة إلى السلة')"><i class="fas fa-shopping-cart"></i> أضف للسلة</button>
-                <button class="btn-outline btn-lg" onclick="alert('تمت الإضافة للمفضلة')"><i class="far fa-heart"></i> أضف للمفضلة</button>
+                <button class="btn-primary btn-lg" onclick="addToCart('فن اللامبالاة', 85)"><i class="fas fa-shopping-cart"></i> أضف للسلة</button>
+                <button class="btn-outline btn-lg" onclick="addToWishlist('فن اللامبالاة')"><i class="far fa-heart"></i> أضف للمفضلة</button>
             </div>
             <!-- خيارات الشحن (توصيل فقط) -->
             <div class="shipping-options">
@@ -866,28 +892,28 @@
         <div class="footer-col">
             <h4>مكتبة النور</h4>
             <ul>
-                <li><a href="#"><i class="fas fa-chevron-left"></i> عن المكتبة</a></li>
-                <li><a href="#"><i class="fas fa-chevron-left"></i> المدونة</a></li>
-                <li><a href="#"><i class="fas fa-chevron-left"></i> الشحن والتوصيل</a></li>
-                <li><a href="#"><i class="fas fa-chevron-left"></i> سياسة الإرجاع</a></li>
+                <li><a href="about.html"><i class="fas fa-chevron-left"></i> عن المكتبة</a></li>
+                <li><a href="blog.html"><i class="fas fa-chevron-left"></i> المدونة</a></li>
+                <li><a href="shipping.html"><i class="fas fa-chevron-left"></i> الشحن والتوصيل</a></li>
+                <li><a href="returns.html"><i class="fas fa-chevron-left"></i> سياسة الإرجاع</a></li>
             </ul>
         </div>
         <div class="footer-col">
             <h4>روابط سريعة</h4>
             <ul>
-                <li><a href="#"><i class="fas fa-chevron-left"></i> أحدث الإصدارات</a></li>
-                <li><a href="#"><i class="fas fa-chevron-left"></i> الكتب الأكثر مبيعاً</a></li>
-                <li><a href="#"><i class="fas fa-chevron-left"></i> قائمة الرغبات</a></li>
-                <li><a href="#"><i class="fas fa-chevron-left"></i> عروض خاصة</a></li>
+                <li><a href="new-releases.html"><i class="fas fa-chevron-left"></i> أحدث الإصدارات</a></li>
+                <li><a href="bestsellers.html"><i class="fas fa-chevron-left"></i> الكتب الأكثر مبيعاً</a></li>
+                <li><a href="wishlist.html"><i class="fas fa-chevron-left"></i> قائمة الرغبات</a></li>
+                <li><a href="offers.html"><i class="fas fa-chevron-left"></i> عروض خاصة</a></li>
             </ul>
         </div>
         <div class="footer-col">
             <h4>خدمة العملاء</h4>
             <ul>
-                <li><a href="#"><i class="fas fa-chevron-left"></i> اتصل بنا</a></li>
-                <li><a href="#"><i class="fas fa-chevron-left"></i> الدعم الفوري</a></li>
-                <li><a href="#"><i class="fas fa-chevron-left"></i> الأسئلة الشائعة</a></li>
-                <li><a href="#"><i class="fas fa-chevron-left"></i> الشكاوى والاقتراحات</a></li>
+                <li><a href="contact.html"><i class="fas fa-chevron-left"></i> اتصل بنا</a></li>
+                <li><a href="support.html"><i class="fas fa-chevron-left"></i> الدعم الفوري</a></li>
+                <li><a href="faq.html"><i class="fas fa-chevron-left"></i> الأسئلة الشائعة</a></li>
+                <li><a href="feedback.html"><i class="fas fa-chevron-left"></i> الشكاوى والاقتراحات</a></li>
             </ul>
         </div>
         <div class="footer-col">
@@ -934,6 +960,37 @@
         localStorage.setItem('theme', newTheme);
         updateIcon(newTheme);
     });
+
+    // إدارة السلة والمفضلة
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+    function updateBadges() {
+        document.getElementById('cartBadge').textContent = cart.length;
+        document.getElementById('wishlistBadge').textContent = wishlist.length;
+        document.getElementById('wishlistCount').textContent = wishlist.length;
+    }
+
+    function addToCart(item, price) {
+        cart.push({ name: item, price: price });
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateBadges();
+        alert(`تمت إضافة "${item}" إلى السلة`);
+    }
+
+    function addToWishlist(item) {
+        if (!wishlist.includes(item)) {
+            wishlist.push(item);
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            updateBadges();
+            alert(`تمت إضافة "${item}" إلى المفضلة`);
+        } else {
+            alert(`"${item}" موجود بالفعل في المفضلة`);
+        }
+    }
+
+    // تحديث الشارات عند تحميل الصفحة
+    updateBadges();
 
     // تفعيل الإشعارات والتذكير
     function notifyMe() {

@@ -158,6 +158,7 @@
             position: absolute;
             top: -8px;
             left: 12px;
+            transition: 0.2s;
         }
 
         /* زر تبديل الوضع الليلي */
@@ -678,8 +679,8 @@
         <button><i class="fas fa-search"></i></button>
     </div>
     <div class="nav-icons">
-        <a href="wishlist.html"><i class="far fa-heart"></i> المفضلة <span class="badge" id="wishlistBadge">0</span></a>
-        <a href="cart.html"><i class="fas fa-shopping-cart"></i> السلة <span class="badge" id="cartBadge">0</span></a>
+        <a href="wishlist.html"><i class="far fa-heart"></i> المفضلة <span class="badge" id="wishlistBadge" style="display: none;">0</span></a>
+        <a href="cart.html"><i class="fas fa-shopping-cart"></i> السلة <span class="badge" id="cartBadge" style="display: none;">0</span></a>
         <a href="account.html"><i class="far fa-user"></i> حسابي</a>
         <button class="theme-toggle" id="themeToggle" aria-label="تبديل الوضع">
             <i class="fas fa-moon"></i>
@@ -817,7 +818,7 @@
 <div class="book-detail-section">
     <div class="detail-container">
         <div class="detail-image">
-            <img src="IMG_2514.JPG" alt="فن اللامبالاة" onerror="this.onerror=null; this.src='https://via.placeholder.com/280x400?text=فن+اللامبالاة';">
+            <img src="image_9499cc70.png" alt="فن اللامبالاة" onerror="this.onerror=null; this.src='https://via.placeholder.com/280x400?text=فن+اللامبالاة';">
         </div>
         <div class="detail-meta">
             <h1>فن اللامبالاة</h1>
@@ -940,9 +941,18 @@
     let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 
     function updateBadges() {
-        document.getElementById('cartBadge').textContent = cart.length;
-        document.getElementById('wishlistBadge').textContent = wishlist.length;
-        document.getElementById('wishlistCount').textContent = wishlist.length;
+        const cartBadge = document.getElementById('cartBadge');
+        const wishlistBadge = document.getElementById('wishlistBadge');
+        const wishlistCount = document.getElementById('wishlistCount');
+
+        // تحديث الأرقام
+        cartBadge.textContent = cart.length;
+        wishlistBadge.textContent = wishlist.length;
+        wishlistCount.textContent = wishlist.length;
+
+        // إخفاء الشارة إذا كانت القيمة 0
+        cartBadge.style.display = cart.length === 0 ? 'none' : 'inline-flex';
+        wishlistBadge.style.display = wishlist.length === 0 ? 'none' : 'inline-flex';
     }
 
     function addToCart(item, price) {

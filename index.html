@@ -14,13 +14,58 @@
             font-family: 'Segoe UI', 'Tajawal', system-ui, sans-serif;
         }
 
+        /* متغيرات الألوان للوضع النهاري (افتراضي) */
+        :root {
+            --bg-body: #f5f3f0;
+            --text-primary: #1e2a2e;
+            --text-secondary: #2a3b40;
+            --border-light: #e0dcd5;
+            --card-bg: white;
+            --footer-bg: #1e2a2e;
+            --footer-text: #e0dcd5;
+            --footer-link: #bdc6cc;
+            --hero-gradient: linear-gradient(135deg, #e8e1d6 0%, #d7cdbd 100%);
+            --search-bg: white;
+            --btn-primary-bg: #1e2a2e;
+            --btn-primary-text: white;
+            --btn-outline-border: #1e2a2e;
+            --btn-outline-text: #1e2a2e;
+            --wishlist-bg: white;
+            --accent-color: #b8915c;
+            --danger: #c0392b;
+            --success: #27ae60;
+        }
+
+        /* متغيرات الألوان للوضع الليلي */
+        [data-theme="dark"] {
+            --bg-body: #121212;
+            --text-primary: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --border-light: #333;
+            --card-bg: #1e1e1e;
+            --footer-bg: #0a0a0a;
+            --footer-text: #ccc;
+            --footer-link: #aaa;
+            --hero-gradient: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+            --search-bg: #2d2d2d;
+            --btn-primary-bg: #b8915c;
+            --btn-primary-text: #121212;
+            --btn-outline-border: #b8915c;
+            --btn-outline-text: #b8915c;
+            --wishlist-bg: #1e1e1e;
+            --accent-color: #d4a373;
+            --danger: #e06b6b;
+            --success: #6fcf97;
+        }
+
         body {
-            background: #f5f3f0;
-            color: #1e2a2e;
+            background: var(--bg-body);
+            color: var(--text-primary);
             line-height: 1.6;
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 16px;
+            transition: background 0.3s, color 0.2s;
         }
 
         /* ===== شريط التنقل ===== */
@@ -29,14 +74,15 @@
             align-items: center;
             justify-content: space-between;
             padding: 16px 0;
-            border-bottom: 1px solid #e0dcd5;
+            border-bottom: 1px solid var(--border-light);
             margin-bottom: 24px;
             flex-wrap: wrap;
             gap: 12px;
-            background: #f5f3f0;
+            background: var(--bg-body);
             position: sticky;
             top: 0;
             z-index: 100;
+            transition: background 0.3s;
         }
 
         .logo {
@@ -45,17 +91,17 @@
             gap: 8px;
             font-size: 1.4rem;
             font-weight: 700;
-            color: #1e2a2e;
+            color: var(--text-primary);
         }
-        .logo i { color: #b8915c; }
+        .logo i { color: var(--accent-color); }
 
         .search-bar {
             flex: 1;
             max-width: 400px;
             display: flex;
-            background: white;
+            background: var(--search-bg);
             border-radius: 40px;
-            border: 1px solid #d9d0c1;
+            border: 1px solid var(--border-light);
             overflow: hidden;
             box-shadow: 0 2px 8px rgba(0,0,0,0.02);
         }
@@ -66,17 +112,21 @@
             font-size: 0.95rem;
             outline: none;
             background: transparent;
+            color: var(--text-primary);
+        }
+        .search-bar input::placeholder {
+            color: var(--text-secondary);
         }
         .search-bar button {
             background: transparent;
             border: none;
             padding: 0 16px;
-            color: #b8915c;
+            color: var(--accent-color);
             cursor: pointer;
             font-size: 1.2rem;
             transition: 0.2s;
         }
-        .search-bar button:hover { color: #1e2a2e; }
+        .search-bar button:hover { color: var(--text-primary); }
 
         .nav-icons {
             display: flex;
@@ -84,7 +134,7 @@
             gap: 20px;
         }
         .nav-icons a {
-            color: #1e2a2e;
+            color: var(--text-primary);
             text-decoration: none;
             display: flex;
             align-items: center;
@@ -93,9 +143,9 @@
             transition: 0.2s;
             position: relative;
         }
-        .nav-icons a:hover { color: #b8915c; }
+        .nav-icons a:hover { color: var(--accent-color); }
         .badge {
-            background: #b8915c;
+            background: var(--accent-color);
             color: white;
             font-size: 0.7rem;
             font-weight: 600;
@@ -110,9 +160,29 @@
             left: 12px;
         }
 
+        /* زر تبديل الوضع الليلي */
+        .theme-toggle {
+            background: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 1.2rem;
+        }
+        .theme-toggle:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
         /* ===== القسم الرئيسي (Hero) ===== */
         .hero {
-            background: linear-gradient(135deg, #e8e1d6 0%, #d7cdbd 100%);
+            background: var(--hero-gradient);
             border-radius: 32px;
             padding: 48px 32px;
             margin-bottom: 48px;
@@ -122,6 +192,7 @@
             flex-wrap: wrap;
             gap: 30px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: background 0.3s;
         }
         .hero-text { flex: 1 1 300px; }
         .hero-text h1 {
@@ -131,14 +202,14 @@
             margin-bottom: 16px;
         }
         .hero-text h1 span {
-            color: #b8915c;
-            border-bottom: 3px solid #b8915c;
+            color: var(--accent-color);
+            border-bottom: 3px solid var(--accent-color);
             display: inline-block;
             padding-bottom: 4px;
         }
         .hero-text p {
             font-size: 1.2rem;
-            color: #2a3b40;
+            color: var(--text-secondary);
             margin-bottom: 24px;
             opacity: 0.9;
         }
@@ -153,11 +224,11 @@
         .stat-number {
             font-size: 2rem;
             font-weight: 700;
-            color: #1e2a2e;
+            color: var(--text-primary);
         }
         .stat-label {
             font-size: 0.9rem;
-            color: #5e6f7a;
+            color: var(--text-secondary);
         }
         .hero-btns {
             display: flex;
@@ -165,8 +236,8 @@
             flex-wrap: wrap;
         }
         .btn-primary {
-            background: #1e2a2e;
-            color: white;
+            background: var(--btn-primary-bg);
+            color: var(--btn-primary-text);
             border: none;
             padding: 14px 32px;
             border-radius: 40px;
@@ -180,13 +251,13 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         .btn-primary:hover {
-            background: #2f4047;
+            opacity: 0.9;
             transform: translateY(-2px);
         }
         .btn-outline {
             background: transparent;
-            color: #1e2a2e;
-            border: 1px solid #1e2a2e;
+            color: var(--btn-outline-text);
+            border: 1px solid var(--btn-outline-border);
             padding: 14px 32px;
             border-radius: 40px;
             font-size: 1rem;
@@ -198,8 +269,8 @@
             transition: 0.2s;
         }
         .btn-outline:hover {
-            background: #1e2a2e;
-            color: white;
+            background: var(--btn-outline-border);
+            color: var(--bg-body);
         }
         .hero-image {
             flex: 1 1 250px;
@@ -211,6 +282,7 @@
             height: auto;
             max-height: 280px;
             object-fit: contain;
+            border-radius: 16px;
         }
 
         /* ===== أقسام العناوين ===== */
@@ -225,7 +297,7 @@
             font-weight: 600;
         }
         .section-link {
-            color: #b8915c;
+            color: var(--accent-color);
             text-decoration: none;
             font-weight: 500;
             display: flex;
@@ -242,12 +314,12 @@
         }
 
         .book-card {
-            background: white;
+            background: var(--card-bg);
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.03);
             transition: 0.25s;
-            border: 1px solid #eae5dd;
+            border: 1px solid var(--border-light);
             position: relative;
             display: flex;
             flex-direction: column;
@@ -261,7 +333,7 @@
             position: absolute;
             top: 12px;
             right: 12px;
-            background: #c0392b;
+            background: var(--danger);
             color: white;
             padding: 4px 12px;
             border-radius: 40px;
@@ -271,7 +343,7 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         .book-badge.new {
-            background: #27ae60;
+            background: var(--success);
         }
 
         .book-img {
@@ -279,7 +351,7 @@
             aspect-ratio: 2/3;
             object-fit: cover;
             background: #f0ebe4;
-            border-bottom: 1px solid #f0ebe4;
+            border-bottom: 1px solid var(--border-light);
         }
 
         .book-info {
@@ -292,7 +364,7 @@
         .book-category {
             font-size: 0.75rem;
             letter-spacing: 0.5px;
-            color: #b8915c;
+            color: var(--accent-color);
             text-transform: uppercase;
             font-weight: 600;
             margin-bottom: 4px;
@@ -307,7 +379,7 @@
 
         .book-author {
             font-size: 0.9rem;
-            color: #6b7b86;
+            color: var(--text-secondary);
             margin-bottom: 8px;
         }
 
@@ -322,7 +394,7 @@
             font-size: 0.8rem;
         }
         .reviews-count {
-            color: #8f9ea8;
+            color: var(--text-secondary);
             font-size: 0.8rem;
         }
 
@@ -335,11 +407,11 @@
         .current-price {
             font-size: 1.4rem;
             font-weight: 700;
-            color: #1e2a2e;
+            color: var(--text-primary);
         }
         .old-price {
             font-size: 0.9rem;
-            color: #b2b9bf;
+            color: var(--text-secondary);
             text-decoration: line-through;
         }
 
@@ -351,8 +423,8 @@
         }
         .btn-cart {
             flex: 1;
-            background: #1e2a2e;
-            color: white;
+            background: var(--btn-primary-bg);
+            color: var(--btn-primary-text);
             border: none;
             padding: 12px 0;
             border-radius: 40px;
@@ -366,15 +438,15 @@
             transition: 0.2s;
         }
         .btn-cart:hover {
-            background: #2f4047;
+            opacity: 0.9;
         }
         .btn-wishlist {
             width: 46px;
             height: 46px;
             border-radius: 50%;
-            background: #f5f3f0;
-            border: 1px solid #e0dcd5;
-            color: #1e2a2e;
+            background: var(--bg-body);
+            border: 1px solid var(--border-light);
+            color: var(--text-primary);
             font-size: 1.1rem;
             cursor: pointer;
             transition: 0.2s;
@@ -384,18 +456,18 @@
         }
         .btn-wishlist:hover {
             background: #ffe5e5;
-            color: #c0392b;
-            border-color: #c0392b;
+            color: var(--danger);
+            border-color: var(--danger);
         }
 
         /* ===== صفحة تفاصيل الكتاب ===== */
         .book-detail-section {
-            background: white;
+            background: var(--card-bg);
             border-radius: 28px;
             padding: 32px;
             margin-bottom: 48px;
             box-shadow: 0 6px 20px rgba(0,0,0,0.02);
-            border: 1px solid #eae5dd;
+            border: 1px solid var(--border-light);
         }
         .detail-container {
             display: grid;
@@ -413,7 +485,7 @@
         }
         .detail-meta .author-lg {
             font-size: 1.1rem;
-            color: #6b7b86;
+            color: var(--text-secondary);
             margin-bottom: 12px;
         }
         .rating-lg {
@@ -425,7 +497,7 @@
         .rating-lg .stars { font-size: 1.2rem; }
         .rating-score {
             font-weight: 600;
-            color: #1e2a2e;
+            color: var(--text-primary);
         }
         .detail-price {
             display: flex;
@@ -436,7 +508,7 @@
         .detail-price .current-price { font-size: 2rem; }
         .badge-stock {
             background: #e0f5e9;
-            color: #27ae60;
+            color: var(--success);
             padding: 6px 14px;
             border-radius: 40px;
             font-size: 0.8rem;
@@ -454,7 +526,7 @@
         }
         /* خيارات الشحن */
         .shipping-options {
-            border-top: 1px solid #eae5dd;
+            border-top: 1px solid var(--border-light);
             padding-top: 20px;
             margin-top: 12px;
         }
@@ -467,16 +539,16 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            color: #1e2a2e;
+            color: var(--text-primary);
         }
         .shipping-item i {
-            color: #b8915c;
+            color: var(--accent-color);
             font-size: 1.2rem;
         }
 
         /* ===== قائمة الرغبات والإشعارات ===== */
         .wishlist-bar {
-            background: white;
+            background: var(--wishlist-bg);
             border-radius: 60px;
             padding: 12px 24px;
             margin-bottom: 40px;
@@ -484,7 +556,7 @@
             align-items: center;
             justify-content: space-between;
             box-shadow: 0 2px 12px rgba(0,0,0,0.03);
-            border: 1px solid #e0dcd5;
+            border: 1px solid var(--border-light);
         }
         .wishlist-text {
             display: flex;
@@ -492,13 +564,13 @@
             gap: 12px;
         }
         .wishlist-text i {
-            color: #c0392b;
+            color: var(--danger);
             font-size: 1.2rem;
         }
         .notify-btn {
             background: transparent;
-            border: 1px solid #b8915c;
-            color: #b8915c;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
             padding: 8px 20px;
             border-radius: 40px;
             font-weight: 500;
@@ -506,17 +578,18 @@
             transition: 0.2s;
         }
         .notify-btn:hover {
-            background: #b8915c;
+            background: var(--accent-color);
             color: white;
         }
 
         /* ===== الفوتر ===== */
         .footer {
-            background: #1e2a2e;
-            color: #e0dcd5;
+            background: var(--footer-bg);
+            color: var(--footer-text);
             border-radius: 40px 40px 0 0;
             padding: 48px 32px 24px;
             margin-top: 60px;
+            transition: background 0.3s;
         }
         .footer-grid {
             display: grid;
@@ -535,7 +608,7 @@
             margin-bottom: 10px;
         }
         .footer-col a {
-            color: #bdc6cc;
+            color: var(--footer-link);
             text-decoration: none;
             transition: 0.2s;
             display: flex;
@@ -543,7 +616,7 @@
             gap: 6px;
         }
         .footer-col a:hover {
-            color: #b8915c;
+            color: var(--accent-color);
         }
         .social-links {
             display: flex;
@@ -562,7 +635,7 @@
             transition: 0.2s;
         }
         .social-links a:hover {
-            background: #b8915c;
+            background: var(--accent-color);
         }
         .copyright {
             text-align: center;
@@ -592,7 +665,7 @@
         }
     </style>
 </head>
-<body>
+<body data-theme="light">
 
 <!-- شريط التنقل -->
 <div class="navbar">
@@ -608,6 +681,9 @@
         <a href="#"><i class="far fa-heart"></i> المفضلة <span class="badge">3</span></a>
         <a href="#"><i class="fas fa-shopping-cart"></i> السلة <span class="badge">1</span></a>
         <a href="#"><i class="far fa-user"></i> حسابي</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="تبديل الوضع">
+            <i class="fas fa-moon"></i>
+        </button>
     </div>
 </div>
 
@@ -627,7 +703,7 @@
         </div>
     </div>
     <div class="hero-image">
-        <img src="images/hero-stack.png" alt="كتب متنوعة" onerror="this.style.backgroundColor='#b8915c'; this.style.minWidth='200px'; this.style.height='200px'; this.style.borderRadius='20px'">
+        <img src="images/IMG_2707.JPG" alt="كتب متنوعة" onerror="this.style.backgroundColor='#b8915c'; this.style.minWidth='200px'; this.style.height='200px'; this.style.borderRadius='20px'">
     </div>
 </div>
 
@@ -649,10 +725,10 @@
 </div>
 
 <div class="books-grid">
-    <!-- كتاب 1: فن اللامبالاة -->
+    <!-- كتاب 1: فن اللامبالاة (IMG_2514.JPG) -->
     <div class="book-card">
         <div class="book-badge">الأكثر مبيعاً</div>
-        <img src="images/book1.jpg" alt="فن اللامبالاة" class="book-img" onerror="this.style.backgroundColor='#d9d0c1'">
+        <img src="images/IMG_2514.JPG" alt="فن اللامبالاة" class="book-img" onerror="this.style.backgroundColor='#d9d0c1'">
         <div class="book-info">
             <div class="book-category">تطوير ذات</div>
             <div class="book-title">فن اللامبالاة</div>
@@ -671,9 +747,9 @@
             </div>
         </div>
     </div>
-    <!-- كتاب 2: متعة أن تكون في العشرين -->
+    <!-- كتاب 2: متعة أن تكون في العشرين (IMG_2515.JPG) -->
     <div class="book-card">
-        <img src="images/book2.jpg" alt="متعة أن تكون في العشرين" class="book-img" onerror="this.style.backgroundColor='#d9d0c1'">
+        <img src="images/IMG_2515.JPG" alt="متعة أن تكون في العشرين" class="book-img" onerror="this.style.backgroundColor='#d9d0c1'">
         <div class="book-info">
             <div class="book-category">تطوير ذات</div>
             <div class="book-title">متعة أن تكون في العشرين</div>
@@ -692,10 +768,10 @@
             </div>
         </div>
     </div>
-    <!-- كتاب 3: الأنثى كما يجب أن تكون -->
+    <!-- كتاب 3: الأنثى كما يجب أن تكون (IMG_2516.JPG) -->
     <div class="book-card">
         <div class="book-badge new">جديد</div>
-        <img src="images/book3.jpg" alt="الأنثى كما يجب أن تكون" class="book-img" onerror="this.style.backgroundColor='#d9d0c1'">
+        <img src="images/IMG_2516.JPG" alt="الأنثى كما يجب أن تكون" class="book-img" onerror="this.style.backgroundColor='#d9d0c1'">
         <div class="book-info">
             <div class="book-category">أدب</div>
             <div class="book-title">الأنثى كما يجب أن تكون</div>
@@ -714,9 +790,9 @@
             </div>
         </div>
     </div>
-    <!-- كتاب 4: أحببت وغداً -->
+    <!-- كتاب 4: أحببت وغداً (IMG_2517.JPG) -->
     <div class="book-card">
-        <img src="images/book4.jpg" alt="أحببت وغداً" class="book-img" onerror="this.style.backgroundColor='#d9d0c1'">
+        <img src="images/IMG_2517.JPG" alt="أحببت وغداً" class="book-img" onerror="this.style.backgroundColor='#d9d0c1'">
         <div class="book-info">
             <div class="book-category">علم نفس</div>
             <div class="book-title">أحببت وغداً</div>
@@ -741,7 +817,7 @@
 <div class="book-detail-section">
     <div class="detail-container">
         <div class="detail-image">
-            <img src="images/book-detail.jpg" alt="فن اللامبالاة" onerror="this.style.backgroundColor='#d9d0c1'; this.style.height='280px'">
+            <img src="images/image_9499cc70.png" alt="فن اللامبالاة" onerror="this.style.backgroundColor='#d9d0c1'; this.style.height='280px'">
         </div>
         <div class="detail-meta">
             <h1>فن اللامبالاة</h1>
@@ -756,7 +832,7 @@
                 <span class="old-price">110 درهم</span>
                 <span class="badge-stock"><i class="fas fa-check-circle"></i> متوفر</span>
             </div>
-            <div style="margin: 16px 0; line-height: 1.8; color: #2a3b40;">
+            <div style="margin: 16px 0; line-height: 1.8; color: var(--text-secondary);">
                 <p>كتاب "فن اللامبالاة" ليس مجرد دليل للتخلص من القلق، بل هو دعوة لاختيار ما يهم حقاً في الحياة. بأسلوب ساخر وعميق، يعيد مارك مانسون تعريف النجاح والسعادة.</p>
             </div>
             <div class="detail-actions">
@@ -833,6 +909,32 @@
 </div>
 
 <script>
+    // تبديل الوضع الليلي
+    const themeToggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    
+    // استرجاع الوضع المحفوظ
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', savedTheme);
+    updateIcon(savedTheme);
+
+    function updateIcon(theme) {
+        const icon = themeToggle.querySelector('i');
+        if (theme === 'dark') {
+            icon.className = 'fas fa-sun';
+        } else {
+            icon.className = 'fas fa-moon';
+        }
+    }
+
+    themeToggle.addEventListener('click', () => {
+        const current = html.getAttribute('data-theme');
+        const newTheme = current === 'light' ? 'dark' : 'light';
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateIcon(newTheme);
+    });
+
     // تفعيل الإشعارات والتذكير
     function notifyMe() {
         alert('سيتم إعلامك فور توفر الكتاب');

@@ -8,7 +8,13 @@
     <meta name="description" content="متجر مكتبة النور لبيع الكتب العربية مع توصيل سريع لجميع المدن. تشكيلة واسعة من أفضل الكتب في تطوير الذات، الأدب، علم النفس والمزيد.">
     <meta name="keywords" content="كتب, متجر كتب, كتب عربية, مكتبة, شراء كتب, توصيل كتب">
     <meta name="author" content="مكتبة النور">
-    <!-- Font Awesome 6 (الأيقونات) - استخدام نسخة أخف عبر subset إن أمكن، لكن سنبقيها للتبسيط -->
+    <!-- Open Graph (للتواصل الاجتماعي) -->
+    <meta property="og:title" content="مكتبة النور - متجر الكتب العربية">
+    <meta property="og:description" content="أكثر من 10,000 عنوان عربي وعالمي. توصيل سريع لجميع المدن.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://xsabduuh.github.io/Books_store/">
+    <meta property="og:image" content="https://xsabduuh.github.io/Books_store/IMG_2707.JPG">
+    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -74,6 +80,11 @@
             margin: 0 auto;
             padding: 0 16px;
             transition: background 0.3s, color 0.2s;
+        }
+
+        /* تحسين الأداء للبطاقات */
+        .book-card {
+            will-change: transform;
         }
 
         /* ===== شريط التنقل ===== */
@@ -320,6 +331,7 @@
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
             gap: 24px;
             margin-bottom: 48px;
+            position: relative;
         }
 
         .book-card {
@@ -327,7 +339,7 @@
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            transition: 0.25s;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
             border: 1px solid var(--border-light);
             position: relative;
             display: flex;
@@ -469,6 +481,24 @@
             border-color: var(--danger);
         }
 
+        /* رسالة عدم وجود نتائج */
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 1px solid var(--border-light);
+            display: none;
+        }
+        .no-results i {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
         /* ===== صفحة تفاصيل الكتاب ===== */
         .book-detail-section {
             background: var(--card-bg);
@@ -591,7 +621,7 @@
             color: white;
         }
 
-        /* ===== Toast notification (إشعارات خفيفة) ===== */
+        /* ===== Toast notification ===== */
         .toast {
             position: fixed;
             bottom: 20px;
@@ -702,6 +732,22 @@
             }
         }
     </style>
+    <!-- structured data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BookStore",
+        "name": "مكتبة النور",
+        "description": "متجر كتب عربية مع توصيل سريع لجميع المدن",
+        "url": "https://xsabduuh.github.io/Books_store/",
+        "logo": "https://xsabduuh.github.io/Books_store/IMG_2707.JPG",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "الدار البيضاء",
+            "addressCountry": "المغرب"
+        }
+    }
+    </script>
 </head>
 <body data-theme="light">
     <!-- عنصر التوست (يظهر عند الإضافة) -->
@@ -852,6 +898,11 @@
             </div>
         </div>
     </div>
+    <!-- عنصر عدم وجود نتائج البحث -->
+    <div class="no-results" id="noResults">
+        <i class="fas fa-book-open"></i>
+        <p>لا توجد نتائج مطابقة للبحث</p>
+    </div>
 
     <!-- صفحة تفاصيل الكتاب (مثال) -->
     <div class="book-detail-section">
@@ -879,7 +930,7 @@
                     <button class="btn-primary btn-lg" onclick="addToCart('فن اللامبالاة', 85)" aria-label="إضافة إلى السلة"><i class="fas fa-shopping-cart"></i> أضف للسلة</button>
                     <button class="btn-outline btn-lg" onclick="addToWishlist('فن اللامبالاة')" aria-label="إضافة إلى المفضلة"><i class="far fa-heart"></i> أضف للمفضلة</button>
                 </div>
-                <!-- خيارات الشحن (توصيل فقط) -->
+                <!-- خيارات الشحن -->
                 <div class="shipping-options">
                     <div class="shipping-grid">
                         <div class="shipping-item">
@@ -949,6 +1000,15 @@
     </div>
 
     <script>
+        // ==================== دوال مساعدة آمنة ====================
+        function safeJSON(key) {
+            try {
+                return JSON.parse(localStorage.getItem(key)) || [];
+            } catch {
+                return [];
+            }
+        }
+
         // ==================== الوضع الليلي ====================
         const themeToggle = document.getElementById('themeToggle');
         const html = document.documentElement;
@@ -974,8 +1034,8 @@
         });
 
         // ==================== السلة والمفضلة (مع دعم الكميات) ====================
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+        let cart = safeJSON('cart');
+        let wishlist = safeJSON('wishlist');
 
         function formatPrice(price) {
             return price + ' درهم';
@@ -1027,30 +1087,49 @@
             }
         }
 
-        // ==================== البحث المباشر ====================
+        // ==================== البحث المباشر مع debounce ====================
+        let searchTimeout;
         const searchInput = document.getElementById('searchInput');
         const booksGrid = document.getElementById('booksGrid');
-        const bookCards = document.querySelectorAll('.book-card');
+        const noResults = document.getElementById('noResults');
 
-        searchInput.addEventListener('input', (e) => {
-            const value = e.target.value.trim().toLowerCase();
-            bookCards.forEach(card => {
+        function getCards() {
+            return document.querySelectorAll('.book-card');
+        }
+
+        function performSearch() {
+            const value = searchInput.value.trim().toLowerCase();
+            const cards = getCards();
+            let visibleCount = 0;
+
+            cards.forEach(card => {
                 const title = card.querySelector('.book-title').textContent.toLowerCase();
                 const category = card.querySelector('.book-category').textContent.toLowerCase();
                 const author = card.querySelector('.book-author').textContent.toLowerCase();
                 const matches = title.includes(value) || category.includes(value) || author.includes(value);
                 card.style.display = matches ? 'flex' : 'none';
+                if (matches) visibleCount++;
             });
+
+            // إظهار/إخفاء رسالة عدم وجود نتائج
+            if (visibleCount === 0 && value !== '') {
+                noResults.style.display = 'block';
+            } else {
+                noResults.style.display = 'none';
+            }
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(performSearch, 300); // debounce 300ms
         });
 
         // ==================== التهيئة ====================
         updateBadges();
 
-        // (اختياري) إضافة بعض الأنيميشن البسيطة
+        // إضافة will-change للبطاقات لتحسين الأداء
         document.querySelectorAll('.book-card').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transition = 'transform 0.2s ease, box-shadow 0.2s ease';
-            });
+            card.style.willChange = 'transform';
         });
     </script>
 </body>

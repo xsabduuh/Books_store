@@ -6,14 +6,29 @@
     <title>عروض خاصة - مكتبة النور</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        body { font-family: 'Segoe UI', 'Tajawal', sans-serif; background: #f5f3f0; color: #1e2a2e; max-width: 800px; margin: 0 auto; padding: 20px; }
-        a { color: #b8915c; text-decoration: none; }
-        .back-link { margin-bottom: 20px; display: block; }
+        :root {
+            --bg: #f5f3f0; --text: #1e2a2e; --card: white; --border: #e0dcd5; --accent: #b8915c; --discount: #27ae60;
+        }
+        [data-theme="dark"] { --bg: #121212; --text: #e0e0e0; --card: #1e1e1e; --border: #333; --accent: #d4a373; --discount: #6fcf97; }
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', 'Tajawal', sans-serif; padding: 20px; max-width: 1200px; margin: 0 auto; }
+        a { color: var(--accent); text-decoration: none; }
+        .back-link { margin-bottom: 30px; display: block; }
+        h1 { color: var(--accent); }
+        .offers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 30px; }
+        .offer-card { background: var(--card); border: 2px dashed var(--accent); border-radius: 20px; padding: 20px; display: flex; align-items: center; gap: 20px; }
+        .offer-discount { background: var(--discount); color: white; font-size: 2rem; font-weight: 700; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .offer-details { flex: 1; }
+        .old-price { text-decoration: line-through; color: #888; margin-left: 10px; }
+        .timer { font-size: 1.2rem; font-weight: 600; color: var(--danger); margin-top: 10px; }
     </style>
 </head>
 <body>
     <a href="index.html" class="back-link"><i class="fas fa-arrow-right"></i> العودة للرئيسية</a>
     <h1>عروض خاصة</h1>
-    <p>استفد من تخفيضاتنا على مجموعة مختارة من الكتب.</p>
+    <div class="offers-grid">
+        <div class="offer-card"><div class="offer-discount">30%</div><div class="offer-details"><h3>فن اللامبالاة</h3><p><span class="old-price">110</span> 85 درهم</p><div class="timer">ينتهي بعد 3 أيام</div></div></div>
+        <div class="offer-card"><div class="offer-discount">25%</div><div class="offer-details"><h3>أحببت وغداً</h3><p><span class="old-price">100</span> 75 درهم</p><div class="timer">ينتهي بعد 5 أيام</div></div></div>
+        <div class="offer-card"><div class="offer-discount">20%</div><div class="offer-details"><h3>الأنثى كما يجب</h3><p><span class="old-price">90</span> 72 درهم</p><div class="timer">ينتهي بعد يومين</div></div></div>
+    </div>
 </body>
 </html>

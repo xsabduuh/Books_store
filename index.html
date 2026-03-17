@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>مكتبة النور | متجر الكتب العربية</title>
-    <!-- Font Awesome 6 (الأيقونات) -->
+    <!-- تحسين SEO -->
+    <meta name="description" content="متجر مكتبة النور لبيع الكتب العربية مع توصيل سريع لجميع المدن. تشكيلة واسعة من أفضل الكتب في تطوير الذات، الأدب، علم النفس والمزيد.">
+    <meta name="keywords" content="كتب, متجر كتب, كتب عربية, مكتبة, شراء كتب, توصيل كتب">
+    <meta name="author" content="مكتبة النور">
+    <!-- Font Awesome 6 (الأيقونات) - استخدام نسخة أخف عبر subset إن أمكن، لكن سنبقيها للتبسيط -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -34,6 +38,8 @@
             --accent-color: #B8915C;        /* ذهبي دافئ */
             --danger: #C0392B;
             --success: #27AE60;
+            --toast-bg: #2A363B;
+            --toast-text: #FFFFFF;
         }
 
         /* ===== نظام الألوان (الوضع الليلي) ===== */
@@ -56,6 +62,8 @@
             --accent-color: #D4A373;
             --danger: #E06B6B;
             --success: #6FCF97;
+            --toast-bg: #333333;
+            --toast-text: #FFFFFF;
         }
 
         body {
@@ -583,6 +591,29 @@
             color: white;
         }
 
+        /* ===== Toast notification (إشعارات خفيفة) ===== */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--toast-bg);
+            color: var(--toast-text);
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 9999;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none;
+            max-width: 300px;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* ===== الفوتر ===== */
         .footer {
             background: var(--footer-bg);
@@ -663,315 +694,364 @@
                 max-width: 260px;
                 margin: 0 auto;
             }
+            .toast {
+                left: 20px;
+                right: 20px;
+                max-width: none;
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body data-theme="light">
+    <!-- عنصر التوست (يظهر عند الإضافة) -->
+    <div id="toast" class="toast"></div>
 
-<!-- شريط التنقل -->
-<div class="navbar">
-    <div class="logo">
-        <i class="fas fa-book-open"></i>
-        <span>مكتبة النور</span>
+    <!-- شريط التنقل -->
+    <div class="navbar">
+        <div class="logo">
+            <i class="fas fa-book-open"></i>
+            <span>مكتبة النور</span>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="ابحث عن كتاب، مؤلف، تصنيف..." id="searchInput" aria-label="بحث">
+            <button aria-label="بحث"><i class="fas fa-search"></i></button>
+        </div>
+        <div class="nav-icons">
+            <a href="wishlist.html" aria-label="المفضلة"><i class="far fa-heart"></i> المفضلة <span class="badge" id="wishlistBadge" style="display: none;">0</span></a>
+            <a href="cart.html" aria-label="السلة"><i class="fas fa-shopping-cart"></i> السلة <span class="badge" id="cartBadge" style="display: none;">0</span></a>
+            <a href="account.html" aria-label="حسابي"><i class="far fa-user"></i> حسابي</a>
+            <button class="theme-toggle" id="themeToggle" aria-label="تبديل الوضع">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
     </div>
-    <div class="search-bar">
-        <input type="text" placeholder="ابحث عن كتاب، مؤلف، تصنيف...">
-        <button><i class="fas fa-search"></i></button>
+
+    <!-- القسم الرئيسي (Hero) -->
+    <div class="hero">
+        <div class="hero-text">
+            <h1>اكتشف <span>كتباً</span><br>تغير حياتك</h1>
+            <p>أكثر من 10,000 عنوان عربي وعالمي. توصيل سريع لجميع المدن.</p>
+            <div class="hero-stats">
+                <div class="stat-item"><div class="stat-number">15k+</div><div class="stat-label">عنوان</div></div>
+                <div class="stat-item"><div class="stat-number">4.8</div><div class="stat-label">تقييم</div></div>
+                <div class="stat-item"><div class="stat-number">48h</div><div class="stat-label">توصيل</div></div>
+            </div>
+            <div class="hero-btns">
+                <button class="btn-primary" onclick="window.location.href='offers.html'"><i class="fas fa-gift"></i> تسوق الهدايا</button>
+                <button class="btn-outline" onclick="window.location.href='offers.html'"><i class="fas fa-percent"></i> العروض</button>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="IMG_2707.JPG" alt="كتب متنوعة" loading="lazy" onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200?text=صورة+الخلفية';">
+        </div>
     </div>
-    <div class="nav-icons">
-        <a href="wishlist.html"><i class="far fa-heart"></i> المفضلة <span class="badge" id="wishlistBadge" style="display: none;">0</span></a>
-        <a href="cart.html"><i class="fas fa-shopping-cart"></i> السلة <span class="badge" id="cartBadge" style="display: none;">0</span></a>
-        <a href="account.html"><i class="far fa-user"></i> حسابي</a>
-        <button class="theme-toggle" id="themeToggle" aria-label="تبديل الوضع">
-            <i class="fas fa-moon"></i>
+
+    <!-- شريط قائمة الرغبات والإشعارات -->
+    <div class="wishlist-bar">
+        <div class="wishlist-text">
+            <i class="fas fa-bookmark"></i>
+            <span><strong>القائمة المفضلة:</strong> <span id="wishlistCount">0</span> كتب في انتظارك</span>
+        </div>
+        <button class="notify-btn" onclick="window.location.href='wishlist.html'">
+            <i class="fas fa-bell"></i> نبهني عند التوفر
         </button>
     </div>
-</div>
 
-<!-- القسم الرئيسي (Hero) -->
-<div class="hero">
-    <div class="hero-text">
-        <h1>اكتشف <span>كتباً</span><br>تغير حياتك</h1>
-        <p>أكثر من 10,000 عنوان عربي وعالمي. توصيل سريع لجميع المدن.</p>
-        <div class="hero-stats">
-            <div class="stat-item"><div class="stat-number">15k+</div><div class="stat-label">عنوان</div></div>
-            <div class="stat-item"><div class="stat-number">4.8</div><div class="stat-label">تقييم</div></div>
-            <div class="stat-item"><div class="stat-number">48h</div><div class="stat-label">توصيل</div></div>
-        </div>
-        <div class="hero-btns">
-            <button class="btn-primary" onclick="window.location.href='offers.html'"><i class="fas fa-gift"></i> تسوق الهدايا</button>
-            <button class="btn-outline" onclick="window.location.href='offers.html'"><i class="fas fa-percent"></i> العروض</button>
-        </div>
+    <!-- باقات مميزة (أفضل الكتب مبيعاً) -->
+    <div class="section-header">
+        <h2 class="section-title">📚 الأكثر مبيعاً</h2>
+        <a href="bestsellers.html" class="section-link">عرض الكل <i class="fas fa-arrow-left"></i></a>
     </div>
-    <div class="hero-image">
-        <img src="IMG_2707.JPG" alt="كتب متنوعة" onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200?text=صورة+الخلفية';">
-    </div>
-</div>
 
-<!-- شريط قائمة الرغبات والإشعارات -->
-<div class="wishlist-bar">
-    <div class="wishlist-text">
-        <i class="fas fa-bookmark"></i>
-        <span><strong>القائمة المفضلة:</strong> <span id="wishlistCount">0</span> كتب في انتظارك</span>
+    <div class="books-grid" id="booksGrid">
+        <!-- كتاب 1: فن اللامبالاة (IMG_2514.JPG) -->
+        <div class="book-card" data-title="فن اللامبالاة" data-category="تطوير ذات" data-price="85">
+            <div class="book-badge">الأكثر مبيعاً</div>
+            <img src="IMG_2514.JPG" alt="غلاف كتاب فن اللامبالاة لمارك مانسون" class="book-img" loading="lazy" onerror="this.onerror=null; this.src='https://via.placeholder.com/200x300?text=فن+اللامبالاة';">
+            <div class="book-info">
+                <div class="book-category">تطوير ذات</div>
+                <div class="book-title">فن اللامبالاة</div>
+                <div class="book-author">مارك مانسون</div>
+                <div class="book-rating">
+                    <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
+                    <span class="reviews-count">(1,342)</span>
+                </div>
+                <div class="book-price">
+                    <span class="current-price">85</span>
+                    <span class="old-price">110</span>
+                </div>
+                <div class="book-actions">
+                    <button class="btn-cart" onclick="addToCart('فن اللامبالاة', 85)" aria-label="إضافة فن اللامبالاة إلى السلة"><i class="fas fa-cart-plus"></i> أضف للسلة</button>
+                    <button class="btn-wishlist" onclick="addToWishlist('فن اللامبالاة')" aria-label="إضافة فن اللامبالاة إلى المفضلة"><i class="far fa-heart"></i></button>
+                </div>
+            </div>
+        </div>
+        <!-- كتاب 2: متعة أن تكون في العشرين (IMG_2515.JPG) -->
+        <div class="book-card" data-title="متعة أن تكون في العشرين" data-category="تطوير ذات" data-price="75">
+            <img src="IMG_2515.JPG" alt="غلاف كتاب متعة أن تكون في العشرين لعلا ديوب" class="book-img" loading="lazy" onerror="this.onerror=null; this.src='https://via.placeholder.com/200x300?text=متعة+أن+تكون+في+العشرين';">
+            <div class="book-info">
+                <div class="book-category">تطوير ذات</div>
+                <div class="book-title">متعة أن تكون في العشرين</div>
+                <div class="book-author">علا ديوب</div>
+                <div class="book-rating">
+                    <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+                    <span class="reviews-count">(876)</span>
+                </div>
+                <div class="book-price">
+                    <span class="current-price">75</span>
+                    <span class="old-price">95</span>
+                </div>
+                <div class="book-actions">
+                    <button class="btn-cart" onclick="addToCart('متعة أن تكون في العشرين', 75)" aria-label="إضافة متعة أن تكون في العشرين إلى السلة"><i class="fas fa-cart-plus"></i> أضف للسلة</button>
+                    <button class="btn-wishlist" onclick="addToWishlist('متعة أن تكون في العشرين')" aria-label="إضافة إلى المفضلة"><i class="far fa-heart"></i></button>
+                </div>
+            </div>
+        </div>
+        <!-- كتاب 3: الأنثى كما يجب أن تكون (IMG_2516.JPG) -->
+        <div class="book-card" data-title="الأنثى كما يجب أن تكون" data-category="أدب" data-price="70">
+            <div class="book-badge new">جديد</div>
+            <img src="IMG_2516.JPG" alt="غلاف كتاب الأنثى كما يجب أن تكون لعلي مناضل العكيلي" class="book-img" loading="lazy" onerror="this.onerror=null; this.src='https://via.placeholder.com/200x300?text=الأنثى+كما+يجب+أن+تكون';">
+            <div class="book-info">
+                <div class="book-category">أدب</div>
+                <div class="book-title">الأنثى كما يجب أن تكون</div>
+                <div class="book-author">علي مناضل العكيلي</div>
+                <div class="book-rating">
+                    <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></span>
+                    <span class="reviews-count">(234)</span>
+                </div>
+                <div class="book-price">
+                    <span class="current-price">70</span>
+                    <span class="old-price">90</span>
+                </div>
+                <div class="book-actions">
+                    <button class="btn-cart" onclick="addToCart('الأنثى كما يجب أن تكون', 70)" aria-label="إضافة الأنثى كما يجب أن تكون إلى السلة"><i class="fas fa-cart-plus"></i> أضف للسلة</button>
+                    <button class="btn-wishlist" onclick="addToWishlist('الأنثى كما يجب أن تكون')" aria-label="إضافة إلى المفضلة"><i class="far fa-heart"></i></button>
+                </div>
+            </div>
+        </div>
+        <!-- كتاب 4: أحببت وغداً (IMG_2517.JPG) -->
+        <div class="book-card" data-title="أحببت وغداً" data-category="علم نفس" data-price="80">
+            <img src="IMG_2517.JPG" alt="غلاف كتاب أحببت وغداً لد. عماد رشاد عثمان" class="book-img" loading="lazy" onerror="this.onerror=null; this.src='https://via.placeholder.com/200x300?text=أحببت+وغداً';">
+            <div class="book-info">
+                <div class="book-category">علم نفس</div>
+                <div class="book-title">أحببت وغداً</div>
+                <div class="book-author">د. عماد رشاد عثمان</div>
+                <div class="book-rating">
+                    <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
+                    <span class="reviews-count">(1,521)</span>
+                </div>
+                <div class="book-price">
+                    <span class="current-price">80</span>
+                    <span class="old-price">100</span>
+                </div>
+                <div class="book-actions">
+                    <button class="btn-cart" onclick="addToCart('أحببت وغداً', 80)" aria-label="إضافة أحببت وغداً إلى السلة"><i class="fas fa-cart-plus"></i> أضف للسلة</button>
+                    <button class="btn-wishlist" onclick="addToWishlist('أحببت وغداً')" aria-label="إضافة إلى المفضلة"><i class="far fa-heart"></i></button>
+                </div>
+            </div>
+        </div>
     </div>
-    <button class="notify-btn" onclick="window.location.href='wishlist.html'">
-        <i class="fas fa-bell"></i> نبهني عند التوفر
-    </button>
-</div>
 
-<!-- باقات مميزة (أفضل الكتب مبيعاً) -->
-<div class="section-header">
-    <h2 class="section-title">📚 الأكثر مبيعاً</h2>
-    <a href="bestsellers.html" class="section-link">عرض الكل <i class="fas fa-arrow-left"></i></a>
-</div>
-
-<div class="books-grid">
-    <!-- كتاب 1: فن اللامبالاة (IMG_2514.JPG) -->
-    <div class="book-card">
-        <div class="book-badge">الأكثر مبيعاً</div>
-        <img src="IMG_2514.JPG" alt="فن اللامبالاة" class="book-img" onerror="this.onerror=null; this.src='https://via.placeholder.com/200x300?text=فن+اللامبالاة';">
-        <div class="book-info">
-            <div class="book-category">تطوير ذات</div>
-            <div class="book-title">فن اللامبالاة</div>
-            <div class="book-author">مارك مانسون</div>
-            <div class="book-rating">
-                <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
-                <span class="reviews-count">(1,342)</span>
+    <!-- صفحة تفاصيل الكتاب (مثال) -->
+    <div class="book-detail-section">
+        <div class="detail-container">
+            <div class="detail-image">
+                <img src="image_9499cc70.png" alt="فن اللامبالاة غلاف" loading="lazy" onerror="this.onerror=null; this.src='https://via.placeholder.com/280x400?text=فن+اللامبالاة';">
             </div>
-            <div class="book-price">
-                <span class="current-price">85</span>
-                <span class="old-price">110</span>
-            </div>
-            <div class="book-actions">
-                <button class="btn-cart" onclick="addToCart('فن اللامبالاة', 85)"><i class="fas fa-cart-plus"></i> أضف للسلة</button>
-                <button class="btn-wishlist" onclick="addToWishlist('فن اللامبالاة')"><i class="far fa-heart"></i></button>
-            </div>
-        </div>
-    </div>
-    <!-- كتاب 2: متعة أن تكون في العشرين (IMG_2515.JPG) -->
-    <div class="book-card">
-        <img src="IMG_2515.JPG" alt="متعة أن تكون في العشرين" class="book-img" onerror="this.onerror=null; this.src='https://via.placeholder.com/200x300?text=متعة+أن+تكون+في+العشرين';">
-        <div class="book-info">
-            <div class="book-category">تطوير ذات</div>
-            <div class="book-title">متعة أن تكون في العشرين</div>
-            <div class="book-author">علا ديوب</div>
-            <div class="book-rating">
-                <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
-                <span class="reviews-count">(876)</span>
-            </div>
-            <div class="book-price">
-                <span class="current-price">75</span>
-                <span class="old-price">95</span>
-            </div>
-            <div class="book-actions">
-                <button class="btn-cart" onclick="addToCart('متعة أن تكون في العشرين', 75)"><i class="fas fa-cart-plus"></i> أضف للسلة</button>
-                <button class="btn-wishlist" onclick="addToWishlist('متعة أن تكون في العشرين')"><i class="far fa-heart"></i></button>
-            </div>
-        </div>
-    </div>
-    <!-- كتاب 3: الأنثى كما يجب أن تكون (IMG_2516.JPG) -->
-    <div class="book-card">
-        <div class="book-badge new">جديد</div>
-        <img src="IMG_2516.JPG" alt="الأنثى كما يجب أن تكون" class="book-img" onerror="this.onerror=null; this.src='https://via.placeholder.com/200x300?text=الأنثى+كما+يجب+أن+تكون';">
-        <div class="book-info">
-            <div class="book-category">أدب</div>
-            <div class="book-title">الأنثى كما يجب أن تكون</div>
-            <div class="book-author">علي مناضل العكيلي</div>
-            <div class="book-rating">
-                <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></span>
-                <span class="reviews-count">(234)</span>
-            </div>
-            <div class="book-price">
-                <span class="current-price">70</span>
-                <span class="old-price">90</span>
-            </div>
-            <div class="book-actions">
-                <button class="btn-cart" onclick="addToCart('الأنثى كما يجب أن تكون', 70)"><i class="fas fa-cart-plus"></i> أضف للسلة</button>
-                <button class="btn-wishlist" onclick="addToWishlist('الأنثى كما يجب أن تكون')"><i class="far fa-heart"></i></button>
-            </div>
-        </div>
-    </div>
-    <!-- كتاب 4: أحببت وغداً (IMG_2517.JPG) -->
-    <div class="book-card">
-        <img src="IMG_2517.JPG" alt="أحببت وغداً" class="book-img" onerror="this.onerror=null; this.src='https://via.placeholder.com/200x300?text=أحببت+وغداً';">
-        <div class="book-info">
-            <div class="book-category">علم نفس</div>
-            <div class="book-title">أحببت وغداً</div>
-            <div class="book-author">د. عماد رشاد عثمان</div>
-            <div class="book-rating">
-                <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
-                <span class="reviews-count">(1,521)</span>
-            </div>
-            <div class="book-price">
-                <span class="current-price">80</span>
-                <span class="old-price">100</span>
-            </div>
-            <div class="book-actions">
-                <button class="btn-cart" onclick="addToCart('أحببت وغداً', 80)"><i class="fas fa-cart-plus"></i> أضف للسلة</button>
-                <button class="btn-wishlist" onclick="addToWishlist('أحببت وغداً')"><i class="far fa-heart"></i></button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- صفحة تفاصيل الكتاب (مثال) -->
-<div class="book-detail-section">
-    <div class="detail-container">
-        <div class="detail-image">
-            <img src="image_9499cc70.png" alt="فن اللامبالاة" onerror="this.onerror=null; this.src='https://via.placeholder.com/280x400?text=فن+اللامبالاة';">
-        </div>
-        <div class="detail-meta">
-            <h1>فن اللامبالاة</h1>
-            <div class="author-lg">مارك مانسون · ترجمة: محمد ياسر</div>
-            <div class="rating-lg">
-                <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
-                <span class="rating-score">4.5</span>
-                <span class="reviews-count">(1,342 تقييماً)</span>
-            </div>
-            <div class="detail-price">
-                <span class="current-price">85 <span style="font-size: 1rem;">درهم</span></span>
-                <span class="old-price">110 درهم</span>
-                <span class="badge-stock"><i class="fas fa-check-circle"></i> متوفر</span>
-            </div>
-            <div style="margin: 16px 0; line-height: 1.8; color: var(--text-secondary);">
-                <p>كتاب "فن اللامبالاة" ليس مجرد دليل للتخلص من القلق، بل هو دعوة لاختيار ما يهم حقاً في الحياة. بأسلوب ساخر وعميق، يعيد مارك مانسون تعريف النجاح والسعادة.</p>
-            </div>
-            <div class="detail-actions">
-                <button class="btn-primary btn-lg" onclick="addToCart('فن اللامبالاة', 85)"><i class="fas fa-shopping-cart"></i> أضف للسلة</button>
-                <button class="btn-outline btn-lg" onclick="addToWishlist('فن اللامبالاة')"><i class="far fa-heart"></i> أضف للمفضلة</button>
-            </div>
-            <!-- خيارات الشحن (توصيل فقط) -->
-            <div class="shipping-options">
-                <div class="shipping-grid">
-                    <div class="shipping-item">
-                        <i class="fas fa-truck"></i>
-                        <span>توصيل سريع (48 ساعة)</span>
-                    </div>
-                    <div class="shipping-item">
-                        <i class="fas fa-store"></i>
-                        <span>استلام من المعرض</span>
-                    </div>
-                    <div class="shipping-item">
-                        <i class="fas fa-gift"></i>
-                        <span>تغليف هدايا</span>
+            <div class="detail-meta">
+                <h1>فن اللامبالاة</h1>
+                <div class="author-lg">مارك مانسون · ترجمة: محمد ياسر</div>
+                <div class="rating-lg">
+                    <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
+                    <span class="rating-score">4.5</span>
+                    <span class="reviews-count">(1,342 تقييماً)</span>
+                </div>
+                <div class="detail-price">
+                    <span class="current-price">85 <span style="font-size: 1rem;">درهم</span></span>
+                    <span class="old-price">110 درهم</span>
+                    <span class="badge-stock"><i class="fas fa-check-circle"></i> متوفر</span>
+                </div>
+                <div style="margin: 16px 0; line-height: 1.8; color: var(--text-secondary);">
+                    <p>كتاب "فن اللامبالاة" ليس مجرد دليل للتخلص من القلق، بل هو دعوة لاختيار ما يهم حقاً في الحياة. بأسلوب ساخر وعميق، يعيد مارك مانسون تعريف النجاح والسعادة.</p>
+                </div>
+                <div class="detail-actions">
+                    <button class="btn-primary btn-lg" onclick="addToCart('فن اللامبالاة', 85)" aria-label="إضافة إلى السلة"><i class="fas fa-shopping-cart"></i> أضف للسلة</button>
+                    <button class="btn-outline btn-lg" onclick="addToWishlist('فن اللامبالاة')" aria-label="إضافة إلى المفضلة"><i class="far fa-heart"></i> أضف للمفضلة</button>
+                </div>
+                <!-- خيارات الشحن (توصيل فقط) -->
+                <div class="shipping-options">
+                    <div class="shipping-grid">
+                        <div class="shipping-item">
+                            <i class="fas fa-truck"></i>
+                            <span>توصيل سريع (48 ساعة)</span>
+                        </div>
+                        <div class="shipping-item">
+                            <i class="fas fa-store"></i>
+                            <span>استلام من المعرض</span>
+                        </div>
+                        <div class="shipping-item">
+                            <i class="fas fa-gift"></i>
+                            <span>تغليف هدايا</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- الفوتر -->
-<div class="footer">
-    <div class="footer-grid">
-        <div class="footer-col">
-            <h4>مكتبة النور</h4>
-            <ul>
-                <li><a href="about.html"><i class="fas fa-chevron-left"></i> عن المكتبة</a></li>
-                <li><a href="blog.html"><i class="fas fa-chevron-left"></i> المدونة</a></li>
-                <li><a href="shipping.html"><i class="fas fa-chevron-left"></i> الشحن والتوصيل</a></li>
-                <li><a href="returns.html"><i class="fas fa-chevron-left"></i> سياسة الإرجاع</a></li>
-            </ul>
-        </div>
-        <div class="footer-col">
-            <h4>روابط سريعة</h4>
-            <ul>
-                <li><a href="new-releases.html"><i class="fas fa-chevron-left"></i> أحدث الإصدارات</a></li>
-                <li><a href="bestsellers.html"><i class="fas fa-chevron-left"></i> الكتب الأكثر مبيعاً</a></li>
-                <li><a href="wishlist.html"><i class="fas fa-chevron-left"></i> قائمة الرغبات</a></li>
-                <li><a href="offers.html"><i class="fas fa-chevron-left"></i> عروض خاصة</a></li>
-            </ul>
-        </div>
-        <div class="footer-col">
-            <h4>خدمة العملاء</h4>
-            <ul>
-                <li><a href="contact.html"><i class="fas fa-chevron-left"></i> اتصل بنا</a></li>
-                <li><a href="support.html"><i class="fas fa-chevron-left"></i> الدعم الفوري</a></li>
-                <li><a href="faq.html"><i class="fas fa-chevron-left"></i> الأسئلة الشائعة</a></li>
-                <li><a href="feedback.html"><i class="fas fa-chevron-left"></i> الشكاوى والاقتراحات</a></li>
-            </ul>
-        </div>
-        <div class="footer-col">
-            <h4>تابعنا</h4>
-            <div class="social-links">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-x-twitter"></i></a>
-                <a href="#"><i class="fab fa-whatsapp"></i></a>
-                <a href="#"><i class="fab fa-tiktok"></i></a>
+    <!-- الفوتر -->
+    <div class="footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>مكتبة النور</h4>
+                <ul>
+                    <li><a href="about.html"><i class="fas fa-chevron-left"></i> عن المكتبة</a></li>
+                    <li><a href="blog.html"><i class="fas fa-chevron-left"></i> المدونة</a></li>
+                    <li><a href="shipping.html"><i class="fas fa-chevron-left"></i> الشحن والتوصيل</a></li>
+                    <li><a href="returns.html"><i class="fas fa-chevron-left"></i> سياسة الإرجاع</a></li>
+                </ul>
             </div>
-            <p style="margin-top: 16px; color: #bdc6cc;"><i class="fas fa-phone-alt"></i> +212 600-123456</p>
-            <p style="color: #bdc6cc;"><i class="fas fa-envelope"></i> info@alnour.ma</p>
+            <div class="footer-col">
+                <h4>روابط سريعة</h4>
+                <ul>
+                    <li><a href="new-releases.html"><i class="fas fa-chevron-left"></i> أحدث الإصدارات</a></li>
+                    <li><a href="bestsellers.html"><i class="fas fa-chevron-left"></i> الكتب الأكثر مبيعاً</a></li>
+                    <li><a href="wishlist.html"><i class="fas fa-chevron-left"></i> قائمة الرغبات</a></li>
+                    <li><a href="offers.html"><i class="fas fa-chevron-left"></i> عروض خاصة</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>خدمة العملاء</h4>
+                <ul>
+                    <li><a href="contact.html"><i class="fas fa-chevron-left"></i> اتصل بنا</a></li>
+                    <li><a href="support.html"><i class="fas fa-chevron-left"></i> الدعم الفوري</a></li>
+                    <li><a href="faq.html"><i class="fas fa-chevron-left"></i> الأسئلة الشائعة</a></li>
+                    <li><a href="feedback.html"><i class="fas fa-chevron-left"></i> الشكاوى والاقتراحات</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>تابعنا</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+                <p style="margin-top: 16px; color: #bdc6cc;"><i class="fas fa-phone-alt"></i> +212 600-123456</p>
+                <p style="color: #bdc6cc;"><i class="fas fa-envelope"></i> info@alnour.ma</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2026 مكتبة النور. جميع الحقوق محفوظة.</p>
         </div>
     </div>
-    <div class="copyright">
-        <p>© 2026 مكتبة النور. جميع الحقوق محفوظة.</p>
-    </div>
-</div>
 
-<script>
-    // تبديل الوضع الليلي (حل بديل عن light-dark)
-    const themeToggle = document.getElementById('themeToggle');
-    const html = document.documentElement;
-    
-    // استرجاع الوضع المحفوظ (الوضع الفاتح افتراضياً)
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    html.setAttribute('data-theme', savedTheme);
-    updateIcon(savedTheme);
+    <script>
+        // ==================== الوضع الليلي ====================
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
+        updateIcon(savedTheme);
 
-    function updateIcon(theme) {
-        const icon = themeToggle.querySelector('i');
-        if (theme === 'dark') {
-            icon.className = 'fas fa-sun';
-        } else {
-            icon.className = 'fas fa-moon';
+        function updateIcon(theme) {
+            const icon = themeToggle.querySelector('i');
+            if (theme === 'dark') {
+                icon.className = 'fas fa-sun';
+            } else {
+                icon.className = 'fas fa-moon';
+            }
         }
-    }
 
-    themeToggle.addEventListener('click', () => {
-        const current = html.getAttribute('data-theme');
-        const newTheme = current === 'light' ? 'dark' : 'light';
-        html.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        updateIcon(newTheme);
-    });
+        themeToggle.addEventListener('click', () => {
+            const current = html.getAttribute('data-theme');
+            const newTheme = current === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateIcon(newTheme);
+        });
 
-    // إدارة السلة والمفضلة
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+        // ==================== السلة والمفضلة (مع دعم الكميات) ====================
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 
-    function updateBadges() {
-        const cartBadge = document.getElementById('cartBadge');
-        const wishlistBadge = document.getElementById('wishlistBadge');
-        const wishlistCount = document.getElementById('wishlistCount');
+        function formatPrice(price) {
+            return price + ' درهم';
+        }
 
-        cartBadge.textContent = cart.length;
-        wishlistBadge.textContent = wishlist.length;
-        wishlistCount.textContent = wishlist.length;
+        function showToast(message, duration = 2000) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, duration);
+        }
 
-        cartBadge.style.display = cart.length === 0 ? 'none' : 'inline-flex';
-        wishlistBadge.style.display = wishlist.length === 0 ? 'none' : 'inline-flex';
-    }
+        function updateBadges() {
+            const cartBadge = document.getElementById('cartBadge');
+            const wishlistBadge = document.getElementById('wishlistBadge');
+            const wishlistCount = document.getElementById('wishlistCount');
 
-    function addToCart(item, price) {
-        cart.push({ name: item, price: price });
-        localStorage.setItem('cart', JSON.stringify(cart));
-        updateBadges();
-        alert(`تمت إضافة "${item}" إلى السلة`);
-    }
+            const totalItems = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+            cartBadge.textContent = totalItems;
+            wishlistBadge.textContent = wishlist.length;
+            wishlistCount.textContent = wishlist.length;
 
-    function addToWishlist(item) {
-        if (!wishlist.includes(item)) {
-            wishlist.push(item);
-            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            cartBadge.style.display = totalItems === 0 ? 'none' : 'inline-flex';
+            wishlistBadge.style.display = wishlist.length === 0 ? 'none' : 'inline-flex';
+        }
+
+        function addToCart(item, price) {
+            const existing = cart.find(p => p.name === item);
+            if (existing) {
+                existing.qty = (existing.qty || 1) + 1;
+            } else {
+                cart.push({ name: item, price: price, qty: 1 });
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
             updateBadges();
-            alert(`تمت إضافة "${item}" إلى المفضلة`);
-        } else {
-            alert(`"${item}" موجود بالفعل في المفضلة`);
+            showToast(`✅ تمت إضافة "${item}" إلى السلة`);
         }
-    }
 
-    updateBadges();
-</script>
+        function addToWishlist(item) {
+            if (!wishlist.includes(item)) {
+                wishlist.push(item);
+                localStorage.setItem('wishlist', JSON.stringify(wishlist));
+                updateBadges();
+                showToast(`❤️ تمت إضافة "${item}" إلى المفضلة`);
+            } else {
+                showToast(`"${item}" موجود بالفعل في المفضلة`, 1500);
+            }
+        }
+
+        // ==================== البحث المباشر ====================
+        const searchInput = document.getElementById('searchInput');
+        const booksGrid = document.getElementById('booksGrid');
+        const bookCards = document.querySelectorAll('.book-card');
+
+        searchInput.addEventListener('input', (e) => {
+            const value = e.target.value.trim().toLowerCase();
+            bookCards.forEach(card => {
+                const title = card.querySelector('.book-title').textContent.toLowerCase();
+                const category = card.querySelector('.book-category').textContent.toLowerCase();
+                const author = card.querySelector('.book-author').textContent.toLowerCase();
+                const matches = title.includes(value) || category.includes(value) || author.includes(value);
+                card.style.display = matches ? 'flex' : 'none';
+            });
+        });
+
+        // ==================== التهيئة ====================
+        updateBadges();
+
+        // (اختياري) إضافة بعض الأنيميشن البسيطة
+        document.querySelectorAll('.book-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transition = 'transform 0.2s ease, box-shadow 0.2s ease';
+            });
+        });
+    </script>
 </body>
 </html>

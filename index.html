@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <!-- تم تصحيح الـ viewport: إضافة viewport-fit=cover و name بدلاً من property -->
+    <!-- viewport الصحيح مع viewport-fit=cover لأجهزة iPhone -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0, user-scalable=yes">
     <title>مكتبة النور | متجر الكتب العربية</title>
     <meta name="description" content="متجر مكتبة النور لبيع الكتب العربية مع توصيل سريع لجميع المدن.">
@@ -25,7 +25,6 @@
             box-sizing: border-box;
         }
 
-        /* ========== CSS VARIABLES ========== */
         :root {
             --bg-body: #FAF7F2;
             --text-primary: #1C2B33;
@@ -42,8 +41,6 @@
             --success: #2D9E6B;
             --icon-bg: rgba(201,147,90,0.12);
             --icon-hover: rgba(201,147,90,0.25);
-            
-            /* Safe area insets for iPhone */
             --sat: env(safe-area-inset-top);
             --sab: env(safe-area-inset-bottom);
             --sar: env(safe-area-inset-right);
@@ -75,28 +72,27 @@
             line-height: 1.6;
             transition: background 0.35s, color 0.25s;
             overflow-x: hidden;
-            /* إضافة مساحة آمنة للـ iPhone */
             padding-top: var(--sat);
             padding-bottom: var(--sab);
         }
 
-        /* ========== NAVBAR (Fully Responsive) ========== */
+        /* ========== NAVBAR ========== */
         .navbar {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 12px 24px;
+            padding: 12px 20px;
             background: var(--bg-body);
             border-bottom: 1px solid var(--border-light);
             position: sticky;
             top: 0;
             z-index: 200;
             transition: background 0.35s, box-shadow 0.3s;
-            gap: 16px;
+            gap: 12px;
             flex-wrap: wrap;
         }
         @media (max-width: 768px) {
-            .navbar { padding: 12px 16px; gap: 12px; }
+            .navbar { padding: 10px 16px; gap: 10px; }
         }
         @media (max-width: 580px) {
             .navbar { flex-direction: column; align-items: stretch; }
@@ -118,15 +114,15 @@
             align-items: center;
             gap: 8px;
             font-family: 'Amiri', serif;
-            font-size: clamp(1.2rem, 4vw, 1.5rem);
+            font-size: clamp(1.1rem, 4vw, 1.5rem);
             font-weight: 700;
             color: var(--text-primary);
             text-decoration: none;
             white-space: nowrap;
         }
         .logo-icon {
-            width: 38px;
-            height: 38px;
+            width: 36px;
+            height: 36px;
             background: var(--accent);
             border-radius: 12px;
             display: flex;
@@ -137,15 +133,12 @@
         }
         .logo:hover .logo-icon { transform: rotate(-5deg) scale(1.05); }
 
-        /* Search Bar */
         .search-wrapper {
             flex: 1;
             max-width: 420px;
             position: relative;
         }
-        @media (max-width: 768px) {
-            .search-wrapper { max-width: 280px; }
-        }
+        @media (max-width: 768px) { .search-wrapper { max-width: 260px; } }
         .search-bar {
             display: flex;
             background: var(--search-bg);
@@ -160,22 +153,21 @@
         .search-bar input {
             flex: 1;
             border: none;
-            padding: 10px 16px;
-            font-size: 0.9rem;
+            padding: 9px 14px;
+            font-size: 0.85rem;
             background: transparent;
             color: var(--text-primary);
         }
         .search-bar button {
             background: var(--accent);
             border: none;
-            padding: 0 16px;
+            padding: 0 14px;
             color: white;
             cursor: pointer;
             transition: background 0.2s;
         }
         .search-bar button:hover { background: var(--accent-dark); }
 
-        /* Autocomplete */
         .search-suggestions {
             position: absolute;
             top: 100%;
@@ -183,8 +175,8 @@
             left: 0;
             background: var(--card-bg);
             border: 1px solid var(--border-light);
-            border-radius: 16px;
-            margin-top: 8px;
+            border-radius: 14px;
+            margin-top: 6px;
             box-shadow: 0 8px 24px rgba(0,0,0,0.12);
             z-index: 100;
             max-height: 280px;
@@ -193,18 +185,18 @@
         }
         .search-suggestions.active { display: block; }
         .suggestion-item {
-            padding: 10px 16px;
+            padding: 10px 14px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             cursor: pointer;
             transition: background 0.2s;
             border-bottom: 1px solid var(--border-light);
         }
         .suggestion-item:hover { background: var(--accent-light); }
         .suggestion-icon {
-            width: 36px;
-            height: 36px;
+            width: 32px;
+            height: 32px;
             background: var(--accent-light);
             border-radius: 10px;
             display: flex;
@@ -212,10 +204,14 @@
             justify-content: center;
             color: var(--accent);
         }
-        .suggestion-title { font-weight: 700; font-size: 0.9rem; }
-        .suggestion-author { font-size: 0.75rem; color: var(--text-secondary); }
+        .suggestion-title { font-weight: 700; font-size: 0.85rem; }
+        .suggestion-author { font-size: 0.7rem; color: var(--text-secondary); }
 
-        .nav-actions { display: flex; align-items: center; gap: 6px; }
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
         .nav-btn {
             position: relative;
             display: flex;
@@ -250,9 +246,10 @@
             align-items: center;
             justify-content: center;
         }
+
         .theme-toggle {
-            width: 38px;
-            height: 38px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             border: 1.5px solid var(--border-light);
             background: var(--icon-bg);
@@ -269,10 +266,10 @@
             transform: rotate(15deg);
         }
 
-        /* ========== HERO (Responsive) ========== */
+        /* ========== HERO ========== */
         .hero {
             background: var(--hero-bg);
-            padding: clamp(40px, 8vw, 70px) clamp(20px, 5vw, 32px);
+            padding: clamp(40px, 8vw, 70px) clamp(16px, 5vw, 32px);
             margin: 0;
         }
         .hero-inner {
@@ -296,31 +293,31 @@
             background: rgba(201,147,90,0.15);
             border: 1px solid rgba(201,147,90,0.3);
             color: var(--accent);
-            padding: 5px 14px;
+            padding: 5px 12px;
             border-radius: 50px;
             font-size: 0.8rem;
             margin-bottom: 16px;
         }
         .hero-text h1 {
-            font-size: clamp(1.8rem, 6vw, 3rem);
+            font-size: clamp(1.6rem, 6vw, 3rem);
             font-weight: 900;
             line-height: 1.2;
             color: #FFFFFF;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
         .hero-text p {
             font-size: clamp(0.9rem, 3vw, 1.1rem);
             color: rgba(255,255,255,0.7);
-            margin-bottom: 28px;
+            margin-bottom: 24px;
         }
         .hero-stats {
             display: flex;
             gap: clamp(16px, 4vw, 32px);
             justify-content: center;
-            margin-bottom: 28px;
+            margin-bottom: 24px;
         }
         .stat-number {
-            font-size: clamp(1.4rem, 5vw, 1.9rem);
+            font-size: clamp(1.3rem, 5vw, 1.9rem);
             font-weight: 800;
             color: #FFFFFF;
         }
@@ -332,8 +329,8 @@
             justify-content: center;
         }
         .btn-primary, .btn-ghost {
-            padding: 12px 24px;
-            font-size: clamp(0.85rem, 3vw, 0.95rem);
+            padding: 10px 20px;
+            font-size: clamp(0.8rem, 3vw, 0.95rem);
             border-radius: 50px;
             font-weight: 700;
             cursor: pointer;
@@ -360,7 +357,7 @@
         .categories-section {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 30px 24px 0;
+            padding: 30px 20px 0;
         }
         .categories-scroll {
             display: flex;
@@ -371,12 +368,12 @@
         }
         .cat-btn {
             flex-shrink: 0;
-            padding: 8px 18px;
+            padding: 7px 16px;
             border-radius: 50px;
             border: 1.5px solid var(--border-light);
             background: transparent;
             color: var(--text-secondary);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
@@ -391,16 +388,18 @@
         .main-content {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 30px 24px 60px;
+            padding: 30px 20px 60px;
         }
         .section-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 28px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
         }
         .section-title {
-            font-size: clamp(1.3rem, 5vw, 1.6rem);
+            font-size: clamp(1.2rem, 5vw, 1.6rem);
             font-weight: 800;
         }
         .section-title-bar {
@@ -413,31 +412,35 @@
             color: var(--accent);
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             display: flex;
             align-items: center;
             gap: 6px;
         }
 
-        /* ========== BOOKS GRID - الحل السحري للجوالات ========== */
-        /* استخدام auto-fit + minmax لجعل الأعمدة تتكيف تلقائياً */
+        /* ========== BOOKS GRID - Responsive Grid ========== */
         .books-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: clamp(16px, 3vw, 24px);
             margin-bottom: 50px;
         }
-        /* على الشاشات الصغيرة جداً، نجعل الحد الأدنى للعرض أصغر قليلاً */
         @media (max-width: 550px) {
             .books-grid {
                 grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
                 gap: 12px;
             }
         }
+        @media (max-width: 380px) {
+            .books-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+        }
 
         .book-card {
             background: var(--card-bg);
-            border-radius: 20px;
+            border-radius: 18px;
             overflow: hidden;
             border: 1px solid var(--border-light);
             transition: transform 0.3s, box-shadow 0.3s;
@@ -446,7 +449,10 @@
             transform: translateY(-5px);
             box-shadow: 0 12px 28px rgba(0,0,0,0.1);
         }
-        .book-img-wrap { position: relative; overflow: hidden; }
+        .book-img-wrap {
+            position: relative;
+            overflow: hidden;
+        }
         .book-img {
             width: 100%;
             aspect-ratio: 2/3;
@@ -456,37 +462,37 @@
         .book-card:hover .book-img { transform: scale(1.05); }
         .book-badge {
             position: absolute;
-            top: 12px;
-            right: 12px;
+            top: 10px;
+            right: 10px;
             background: var(--danger);
             color: white;
-            padding: 4px 10px;
-            border-radius: 50px;
+            padding: 3px 10px;
+            border-radius: 30px;
             font-size: 0.7rem;
             font-weight: 700;
             z-index: 5;
         }
         .book-badge.new { background: var(--success); }
-        
+
         .quick-add {
             position: absolute;
             inset: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
             opacity: 0;
             transition: opacity 0.3s;
             background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
-            border-radius: 20px;
+            border-radius: 18px;
         }
         .book-card:hover .quick-add { opacity: 1; }
         .quick-btn {
             background: white;
             border: none;
-            padding: 8px 14px;
-            border-radius: 50px;
-            font-size: 0.75rem;
+            padding: 7px 12px;
+            border-radius: 40px;
+            font-size: 0.7rem;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.2s;
@@ -496,10 +502,12 @@
         .book-card:hover .quick-btn { transform: translateY(0); }
         .quick-btn:hover { background: var(--accent); color: white; }
         .quick-btn.heart:hover { background: var(--danger); color: white; }
-        
-        .book-info { padding: 12px 14px 14px; }
+
+        .book-info {
+            padding: 10px 12px 14px;
+        }
         .book-category {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: var(--accent);
             text-transform: uppercase;
             font-weight: 700;
@@ -511,38 +519,41 @@
             margin-bottom: 4px;
         }
         .book-author {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--text-secondary);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         .book-rating {
             display: flex;
             align-items: center;
-            gap: 5px;
-            margin-bottom: 10px;
+            gap: 4px;
+            margin-bottom: 8px;
         }
-        .stars { color: #F5C142; font-size: 0.7rem; }
-        .reviews-count { font-size: 0.7rem; color: var(--text-secondary); }
+        .stars { color: #F5C142; font-size: 0.7rem; letter-spacing: 1px; }
+        .reviews-count { font-size: 0.65rem; color: var(--text-secondary); }
         .book-price {
             display: flex;
             align-items: baseline;
-            gap: 8px;
+            gap: 6px;
             flex-wrap: wrap;
         }
         .current-price {
             font-size: clamp(1rem, 4vw, 1.2rem);
             font-weight: 800;
         }
-        .old-price { font-size: 0.7rem; text-decoration: line-through; color: var(--text-secondary); }
+        .old-price {
+            font-size: 0.7rem;
+            text-decoration: line-through;
+            color: var(--text-secondary);
+        }
         .discount-pct {
             font-size: 0.65rem;
             background: rgba(217,79,79,0.15);
             color: var(--danger);
-            padding: 2px 6px;
+            padding: 2px 5px;
             border-radius: 20px;
         }
 
-        /* No Results */
         .no-results {
             grid-column: 1 / -1;
             text-align: center;
@@ -550,11 +561,11 @@
             display: none;
         }
 
-        /* Featured Section */
+        /* ========== FEATURED SECTION ========== */
         .featured-section {
             background: var(--card-bg);
-            border-radius: 28px;
-            padding: clamp(20px, 4vw, 36px);
+            border-radius: 24px;
+            padding: clamp(20px, 4vw, 32px);
             border: 1px solid var(--border-light);
         }
         .detail-container {
@@ -572,20 +583,50 @@
             border-radius: 18px;
             box-shadow: 0 16px 32px rgba(0,0,0,0.1);
         }
+        .detail-featured-badge {
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            background: var(--accent);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+        }
         .detail-meta h2 {
-            font-size: clamp(1.5rem, 5vw, 2rem);
+            font-size: clamp(1.4rem, 5vw, 2rem);
             font-family: 'Amiri', serif;
         }
-        .detail-price .current-price { font-size: clamp(1.5rem, 5vw, 2rem); }
+        .detail-price .current-price { font-size: clamp(1.4rem, 5vw, 2rem); }
+        .detail-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--accent);
+            border: 1.5px solid var(--accent);
+            padding: 10px 22px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-outline:hover {
+            background: var(--accent);
+            color: white;
+        }
 
-        /* Toast & Scroll Top */
+        /* ========== TOAST & SCROLL TOP ========== */
         .toast {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background: var(--toast-bg, #1C2B33);
+            background: var(--footer-bg);
             color: white;
-            padding: 12px 20px;
+            padding: 10px 18px;
             border-radius: 40px;
             font-size: 0.85rem;
             z-index: 9999;
@@ -599,12 +640,12 @@
             position: fixed;
             bottom: 20px;
             left: 20px;
-            width: 44px;
-            height: 44px;
+            width: 42px;
+            height: 42px;
             background: var(--accent);
             color: white;
             border: none;
-            border-radius: 14px;
+            border-radius: 12px;
             cursor: pointer;
             opacity: 0;
             transform: translateY(20px);
@@ -613,25 +654,70 @@
         }
         .scroll-top.visible { opacity: 1; transform: translateY(0); }
 
-        /* Footer */
+        /* ========== FOOTER ========== */
         .footer {
             background: var(--footer-bg);
-            color: var(--footer-text, #EDE5D8);
-            padding: 40px 24px 24px;
+            color: #EDE5D8;
+            padding: 40px 20px 24px;
+        }
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
         }
         .footer-top {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             gap: 30px;
-            padding-bottom: 40px;
+            padding-bottom: 30px;
             border-bottom: 1px solid rgba(255,255,255,0.1);
             margin-bottom: 30px;
         }
+        .footer-brand p {
+            max-width: 260px;
+            font-size: 0.85rem;
+            color: #9AABB5;
+        }
         .footer-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 24px;
+        }
+        .footer-col h4 {
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+        }
+        .footer-col a {
+            color: #9AABB5;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+            transition: color 0.2s;
+        }
+        .footer-col a:hover { color: var(--accent); padding-right: 3px; }
+        .social-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .social-links a {
+            width: 34px;
+            height: 34px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9AABB5;
+            transition: all 0.2s;
+        }
+        .social-links a:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-2px);
         }
         .footer-bottom {
             display: flex;
@@ -639,40 +725,25 @@
             justify-content: space-between;
             align-items: center;
             gap: 15px;
+            font-size: 0.75rem;
+            color: #9AABB5;
         }
         @media (max-width: 600px) {
             .footer-bottom { flex-direction: column; text-align: center; }
         }
-        .social-links { display: flex; gap: 10px; }
-        .social-links a {
-            width: 38px;
-            height: 38px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--footer-link, #9AABB5);
-            transition: all 0.2s;
-        }
-        .social-links a:hover {
-            background: var(--accent);
-            color: white;
-            transform: translateY(-3px);
-        }
-        .footer-col a {
-            color: var(--footer-link, #9AABB5);
+        .footer-contact { display: flex; gap: 20px; flex-wrap: wrap; }
+        .footer-contact a {
+            color: #9AABB5;
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 6px;
-            font-size: 0.85rem;
-            margin-bottom: 10px;
+            gap: 5px;
         }
-        .footer-col a:hover { color: var(--accent); padding-right: 4px; }
+        .footer-contact a:hover { color: var(--accent); }
     </style>
 </head>
 <body>
+
     <div id="toast" class="toast"><i class="fas fa-check-circle"></i> <span id="toastMsg"></span></div>
     <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
 
@@ -737,6 +808,7 @@
             <a href="bestsellers.html" class="section-link">عرض الكل <i class="fas fa-arrow-left"></i></a>
         </div>
         <div class="books-grid" id="booksGrid">
+            <!-- Book 1 -->
             <div class="book-card" data-category="تطوير ذات">
                 <div class="book-badge">الأكثر مبيعاً</div>
                 <div class="book-img-wrap">
@@ -754,6 +826,7 @@
                     <div class="book-price"><span class="current-price">85 درهم</span><span class="old-price">110 درهم</span><span class="discount-pct">23%-</span></div>
                 </div>
             </div>
+            <!-- Book 2 -->
             <div class="book-card" data-category="تطوير ذات">
                 <div class="book-img-wrap">
                     <img src="IMG_2515.JPG" alt="متعة أن تكون في العشرين" class="book-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23c9913a\'%3E%3Cpath d=\'M4 4h16v16H4z\'/%3E%3C/svg%3E'">
@@ -770,6 +843,7 @@
                     <div class="book-price"><span class="current-price">75 درهم</span><span class="old-price">95 درهم</span><span class="discount-pct">21%-</span></div>
                 </div>
             </div>
+            <!-- Book 3 -->
             <div class="book-card" data-category="أدب">
                 <div class="book-badge new">جديد</div>
                 <div class="book-img-wrap">
@@ -787,6 +861,7 @@
                     <div class="book-price"><span class="current-price">70 درهم</span><span class="old-price">90 درهم</span><span class="discount-pct">22%-</span></div>
                 </div>
             </div>
+            <!-- Book 4 -->
             <div class="book-card" data-category="علم نفس">
                 <div class="book-img-wrap">
                     <img src="IMG_2517.JPG" alt="أحببت وغداً" class="book-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23c9913a\'%3E%3Cpath d=\'M4 4h16v16H4z\'/%3E%3C/svg%3E'">
@@ -809,7 +884,10 @@
         <div class="section-header"><div class="section-title-wrap"><div class="section-title-bar"></div><h2 class="section-title">⭐ كتاب مميز</h2></div></div>
         <div class="featured-section">
             <div class="detail-container">
-                <div class="detail-image"><div class="detail-featured-badge">⭐ الأكثر مبيعاً</div><img src="IMG_2514.JPG" alt="فن اللامبالاة" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23c9913a\'%3E%3Cpath d=\'M4 4h16v16H4z\'/%3E%3C/svg%3E'"></div>
+                <div class="detail-image">
+                    <div class="detail-featured-badge">⭐ الأكثر مبيعاً</div>
+                    <img src="IMG_2514.JPG" alt="فن اللامبالاة" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23c9913a\'%3E%3Cpath d=\'M4 4h16v16H4z\'/%3E%3C/svg%3E'">
+                </div>
                 <div class="detail-meta">
                     <h2>فن اللامبالاة</h2>
                     <div class="author-lg">مارك مانسون · ترجمة: محمد ياسر</div>
@@ -829,10 +907,28 @@
     <footer class="footer">
         <div class="footer-inner">
             <div class="footer-top">
-                <div class="footer-brand"><div class="footer-logo"><div class="logo-icon"><i class="fas fa-book-open"></i></div>مكتبة النور</div><p>وجهتك الأولى للكتب العربية. نؤمن بأن الكتاب المناسب يغير حياة الإنسان.</p><div class="social-links"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-x-twitter"></i></a></div></div>
-                <div class="footer-grid"><div class="footer-col"><h4>مكتبة النور</h4><ul><li><a href="#"><i class="fas fa-chevron-left"></i> عن المكتبة</a></li><li><a href="#"><i class="fas fa-chevron-left"></i> المدونة</a></li><li><a href="#"><i class="fas fa-chevron-left"></i> الشحن والتوصيل</a></li></ul></div></div>
+                <div class="footer-brand">
+                    <div class="footer-logo"><div class="logo-icon"><i class="fas fa-book-open"></i></div>مكتبة النور</div>
+                    <p>وجهتك الأولى للكتب العربية. نؤمن بأن الكتاب المناسب يغير حياة الإنسان.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-x-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-grid">
+                    <div class="footer-col"><h4>مكتبة النور</h4><ul><li><a href="#"><i class="fas fa-chevron-left"></i> عن المكتبة</a></li><li><a href="#"><i class="fas fa-chevron-left"></i> المدونة</a></li><li><a href="#"><i class="fas fa-chevron-left"></i> الشحن والتوصيل</a></li></ul></div>
+                    <div class="footer-col"><h4>روابط سريعة</h4><ul><li><a href="#"><i class="fas fa-chevron-left"></i> أحدث الإصدارات</a></li><li><a href="#"><i class="fas fa-chevron-left"></i> الأكثر مبيعاً</a></li><li><a href="#"><i class="fas fa-chevron-left"></i> قائمة الرغبات</a></li></ul></div>
+                    <div class="footer-col"><h4>خدمة العملاء</h4><ul><li><a href="#"><i class="fas fa-chevron-left"></i> اتصل بنا</a></li><li><a href="#"><i class="fas fa-chevron-left"></i> الدعم الفوري</a></li><li><a href="#"><i class="fas fa-chevron-left"></i> الأسئلة الشائعة</a></li></ul></div>
+                </div>
             </div>
-            <div class="footer-bottom"><p>© 2026 مكتبة النور. جميع الحقوق محفوظة.</p><div class="footer-contact"><a href="tel:+212600123456"><i class="fas fa-phone"></i> +212 600-123456</a><a href="mailto:info@alnour.ma"><i class="fas fa-envelope"></i> info@alnour.ma</a></div></div>
+            <div class="footer-bottom">
+                <p>© 2026 مكتبة النور. جميع الحقوق محفوظة.</p>
+                <div class="footer-contact">
+                    <a href="tel:+212600123456"><i class="fas fa-phone"></i> +212 600-123456</a>
+                    <a href="mailto:info@alnour.ma"><i class="fas fa-envelope"></i> info@alnour.ma</a>
+                </div>
+            </div>
         </div>
     </footer>
 
@@ -842,7 +938,9 @@
         const themeToggle = document.getElementById('themeToggle');
         const savedTheme = localStorage.getItem('theme') || 'light';
         html.setAttribute('data-theme', savedTheme);
-        function updateThemeIcon(theme) { themeToggle.querySelector('i').className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon'; }
+        function updateThemeIcon(theme) {
+            themeToggle.querySelector('i').className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        }
         updateThemeIcon(savedTheme);
         themeToggle.addEventListener('click', () => {
             const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
@@ -862,7 +960,12 @@
         // Cart & Wishlist
         let cart = JSON.parse(localStorage.getItem('cart') || '[]');
         let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
-        function showToast(msg) { const t = document.getElementById('toast'); document.getElementById('toastMsg').textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2500); }
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            document.getElementById('toastMsg').textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2500);
+        }
         function updateBadges() {
             const total = cart.reduce((s, i) => s + (i.qty || 1), 0);
             document.getElementById('cartBadge').textContent = total;
@@ -879,11 +982,15 @@
             showToast(`تمت إضافة "${name}" إلى السلة`);
         };
         window.addToWishlist = function(name) {
-            if (!wishlist.includes(name)) { wishlist.push(name); localStorage.setItem('wishlist', JSON.stringify(wishlist)); updateBadges(); showToast(`تمت إضافة "${name}" إلى المفضلة ❤️`); }
-            else showToast(`"${name}" موجود بالفعل في المفضلة`);
+            if (!wishlist.includes(name)) {
+                wishlist.push(name);
+                localStorage.setItem('wishlist', JSON.stringify(wishlist));
+                updateBadges();
+                showToast(`تمت إضافة "${name}" إلى المفضلة ❤️`);
+            } else showToast(`"${name}" موجود بالفعل في المفضلة`);
         };
 
-        // Search
+        // Search with autocomplete
         const searchInput = document.getElementById('searchInput');
         const suggestionsBox = document.getElementById('searchSuggestions');
         function getBookData() {
@@ -907,12 +1014,47 @@
             });
             document.getElementById('noResults').style.display = (visible === 0 && val) ? 'block' : 'none';
         }
+        function updateSuggestions() {
+            const query = searchInput.value.trim().toLowerCase();
+            if (!query) { suggestionsBox.classList.remove('active'); return; }
+            const books = getBookData();
+            const matches = books.filter(b => b.title.toLowerCase().includes(query) || b.author.toLowerCase().includes(query));
+            if (matches.length === 0) { suggestionsBox.classList.remove('active'); return; }
+            let html = '';
+            matches.slice(0, 6).forEach(book => {
+                html += `<div class="suggestion-item" onclick="selectSuggestion('${escapeHtml(book.title)}')">
+                            <div class="suggestion-icon"><i class="fas fa-book"></i></div>
+                            <div class="suggestion-info">
+                                <div class="suggestion-title">${escapeHtml(book.title)}</div>
+                                <div class="suggestion-author">${escapeHtml(book.author)}</div>
+                            </div>
+                         </div>`;
+            });
+            suggestionsBox.innerHTML = html;
+            suggestionsBox.classList.add('active');
+        }
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;');
+        }
+        window.selectSuggestion = function(title) {
+            searchInput.value = title;
+            suggestionsBox.classList.remove('active');
+            performSearch(title);
+        };
         let searchTimeout;
-        searchInput.addEventListener('input', (e) => {
+        searchInput.addEventListener('input', () => {
             clearTimeout(searchTimeout);
-            searchTimeout = setTimeout(() => performSearch(e.target.value), 280);
+            updateSuggestions();
+            searchTimeout = setTimeout(() => performSearch(searchInput.value), 280);
+        });
+        document.addEventListener('click', (e) => {
+            if (!searchInput.contains(e.target) && !suggestionsBox.contains(e.target)) {
+                suggestionsBox.classList.remove('active');
+            }
         });
 
+        // Category filter
         window.filterCategory = function(cat, btn) {
             document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
@@ -925,7 +1067,9 @@
             });
             document.getElementById('noResults').style.display = visible === 0 ? 'block' : 'none';
             searchInput.value = '';
+            suggestionsBox.classList.remove('active');
         };
+
         updateBadges();
         setTimeout(() => document.querySelectorAll('.book-card').forEach(c => c.style.display = 'flex'), 100);
     </script>

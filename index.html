@@ -1,1137 +1,1494 @@
 <!DOCTYPE html>
+
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>مكتبة النور | متجر الكتب العربية</title>
-    <!-- تحسين SEO -->
-    <meta name="description" content="متجر مكتبة النور لبيع الكتب العربية مع توصيل سريع لجميع المدن. تشكيلة واسعة من أفضل الكتب في تطوير الذات، الأدب، علم النفس والمزيد.">
-    <meta name="keywords" content="كتب, متجر كتب, كتب عربية, مكتبة, شراء كتب, توصيل كتب">
+    <meta name="description" content="متجر مكتبة النور لبيع الكتب العربية مع توصيل سريع لجميع المدن.">
+    <meta name="keywords" content="كتب, متجر كتب, كتب عربية, مكتبة, شراء كتب">
     <meta name="author" content="مكتبة النور">
-    <!-- Open Graph (للتواصل الاجتماعي) -->
     <meta property="og:title" content="مكتبة النور - متجر الكتب العربية">
-    <meta property="og:description" content="كل كتاب يهمك، يطرق باباك سريعا.">
+    <meta property="og:description" content="كل كتاب يهمك، يطرق بابك سريعاً.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://xsabduuh.github.io/Books_store/">
     <meta property="og:image" content="https://xsabduuh.github.io/Books_store/IMG_2707.JPG">
-    <!-- Font Awesome 6 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', 'Tajawal', system-ui, sans-serif;
-        }
 
-        /* ===== نظام الألوان (الوضع الفاتح - افتراضي) ===== */
-        :root {
-            --bg-body: #F8F5F0;          /* خلفية كريمية فاتحة */
-            --text-primary: #2A363B;      /* رمادي دافئ */
-            --text-secondary: #5A6B72;    /* رمادي متوسط */
-            --border-light: #E8E0D5;      /* بيج فاتح */
-            --card-bg: #FFFFFF;            /* أبيض ناعم */
-            --footer-bg: #2A363B;          /* رمادي داكن دافئ */
-            --footer-text: #E8E0D5;        /* بيج فاتح */
-            --footer-link: #B0B0B0;        /* رمادي متوسط */
-            --hero-gradient: linear-gradient(135deg, #E8E0D5 0%, #D8CFC0 100%);
-            --search-bg: #FFFFFF;
-            --btn-primary-bg: #B8915C;      /* ذهبي دافئ */
-            --btn-primary-text: #FFFFFF;
-            --btn-outline-border: #B8915C;
-            --btn-outline-text: #B8915C;
-            --wishlist-bg: #FFFFFF;
-            --accent-color: #B8915C;        /* ذهبي دافئ */
-            --danger: #C0392B;
-            --success: #27AE60;
-            --toast-bg: #2A363B;
-            --toast-text: #FFFFFF;
-        }
+```
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-        /* ===== نظام الألوان (الوضع الليلي) ===== */
-        [data-theme="dark"] {
-            --bg-body: #121212;
-            --text-primary: #E0E0E0;
-            --text-secondary: #B0B0B0;
-            --border-light: #333333;
-            --card-bg: #1E1E1E;
-            --footer-bg: #0A0A0A;
-            --footer-text: #CCCCCC;
-            --footer-link: #AAAAAA;
-            --hero-gradient: linear-gradient(135deg, #2A2A2A 0%, #1A1A1A 100%);
-            --search-bg: #2D2D2D;
-            --btn-primary-bg: #B8915C;
-            --btn-primary-text: #121212;
-            --btn-outline-border: #D4A373;
-            --btn-outline-text: #D4A373;
-            --wishlist-bg: #1E1E1E;
-            --accent-color: #D4A373;
-            --danger: #E06B6B;
-            --success: #6FCF97;
-            --toast-bg: #333333;
-            --toast-text: #FFFFFF;
-        }
-
-        body {
-            background: var(--bg-body);
-            color: var(--text-primary);
-            line-height: 1.6;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 16px;
-            transition: background 0.3s, color 0.2s;
-        }
-
-        /* تحسين الأداء للبطاقات */
-        .book-card {
-            will-change: transform;
-        }
-
-        /* ===== شريط التنقل ===== */
-        .navbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px 0;
-            border-bottom: 1px solid var(--border-light);
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-            gap: 12px;
-            background: var(--bg-body);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            transition: background 0.3s;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-        .logo i { color: var(--accent-color); }
-
-        .search-bar {
-            flex: 1;
-            max-width: 400px;
-            display: flex;
-            background: var(--search-bg);
-            border-radius: 40px;
-            border: 1px solid var(--border-light);
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-        }
-        .search-bar input {
-            flex: 1;
-            border: none;
-            padding: 12px 16px;
-            font-size: 0.95rem;
-            outline: none;
-            background: transparent;
-            color: var(--text-primary);
-        }
-        .search-bar input::placeholder {
-            color: var(--text-secondary);
-        }
-        .search-bar button {
-            background: transparent;
-            border: none;
-            padding: 0 16px;
-            color: var(--accent-color);
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: 0.2s;
-        }
-        .search-bar button:hover { color: var(--text-primary); }
-
-        .nav-icons {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-        .nav-icons a {
-            color: var(--text-primary);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-weight: 500;
-            transition: 0.2s;
-            position: relative;
-        }
-        .nav-icons a:hover { color: var(--accent-color); }
-        .badge {
-            background: var(--accent-color);
-            color: white;
-            font-size: 0.7rem;
-            font-weight: 600;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            position: absolute;
-            top: -8px;
-            left: 12px;
-            transition: 0.2s;
-        }
-
-        /* زر تبديل الوضع الليلي */
-        .theme-toggle {
-            background: transparent;
-            border: 1px solid var(--accent-color);
-            color: var(--accent-color);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: 0.2s;
-            font-size: 1.2rem;
-        }
-        .theme-toggle:hover {
-            background: var(--accent-color);
-            color: white;
-        }
-
-        /* ===== القسم الرئيسي (Hero) ===== */
-        .hero {
-            background: var(--hero-gradient);
-            border-radius: 32px;
-            padding: 48px 32px;
-            margin-bottom: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            transition: background 0.3s;
-        }
-        .hero-text { flex: 1 1 300px; }
-        .hero-text h1 {
-            font-size: 2.8rem;
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 16px;
-        }
-        .hero-text h1 span {
-            color: var(--accent-color);
-            border-bottom: 3px solid var(--accent-color);
-            display: inline-block;
-            padding-bottom: 4px;
-        }
-        .hero-text p {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            margin-bottom: 24px;
-            opacity: 0.9;
-        }
-        .hero-stats {
-            display: flex;
-            gap: 24px;
-            margin-bottom: 28px;
-        }
-        .stat-item {
-            text-align: center;
-        }
-        .stat-number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-        .stat-label {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-        .hero-btns {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-        .btn-primary {
-            background: var(--btn-primary-bg);
-            color: var(--btn-primary-text);
-            border: none;
-            padding: 14px 32px;
-            border-radius: 40px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: 0.2s;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        .btn-primary:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-        }
-        .btn-outline {
-            background: transparent;
-            color: var(--btn-outline-text);
-            border: 1px solid var(--btn-outline-border);
-            padding: 14px 32px;
-            border-radius: 40px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: 0.2s;
-        }
-        .btn-outline:hover {
-            background: var(--btn-outline-border);
-            color: var(--bg-body);
-        }
-        .hero-image {
-            flex: 1 1 250px;
-            display: flex;
-            justify-content: center;
-        }
-        .hero-image img {
-            max-width: 100%;
-            height: auto;
-            max-height: 280px;
-            object-fit: contain;
-            border-radius: 16px;
-        }
-
-        /* ===== أقسام العناوين ===== */
-        .section-header {
-            display: flex;
-            align-items: baseline;
-            justify-content: space-between;
-            margin-bottom: 24px;
-        }
-        .section-title {
-            font-size: 1.8rem;
-            font-weight: 600;
-        }
-        .section-link {
-            color: var(--accent-color);
-            text-decoration: none;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        /* ===== شبكة الكتب ===== */
-        .books-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 24px;
-            margin-bottom: 48px;
-            position: relative;
-        }
-
-        .book-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            border: 1px solid var(--border-light);
-            position: relative;
-            display: flex;
-            flex-direction: column;
-        }
-        .book-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 28px rgba(0,0,0,0.08);
-        }
-
-        .book-badge {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: var(--danger);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 40px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            z-index: 2;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        .book-badge.new {
-            background: var(--success);
-        }
-
-        .book-img {
-            width: 100%;
-            aspect-ratio: 2/3;
-            object-fit: cover;
-            background: #f0ebe4;
-            border-bottom: 1px solid var(--border-light);
-        }
-
-        .book-info {
-            padding: 16px 16px 20px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .book-category {
-            font-size: 0.75rem;
-            letter-spacing: 0.5px;
-            color: var(--accent-color);
-            text-transform: uppercase;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .book-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 4px;
-            line-height: 1.3;
-        }
-
-        .book-author {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-bottom: 8px;
-        }
-
-        .book-rating {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            margin-bottom: 8px;
-        }
-        .stars {
-            color: #f4b740;
-            font-size: 0.8rem;
-        }
-        .reviews-count {
-            color: var(--text-secondary);
-            font-size: 0.8rem;
-        }
-
-        .book-price {
-            display: flex;
-            align-items: baseline;
-            gap: 8px;
-            margin-bottom: 12px;
-        }
-        .current-price {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-        .old-price {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            text-decoration: line-through;
-        }
-
-        .book-actions {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: auto;
-        }
-        .btn-cart {
-            flex: 1;
-            background: var(--btn-primary-bg);
-            color: var(--btn-primary-text);
-            border: none;
-            padding: 12px 0;
-            border-radius: 40px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: 0.2s;
-        }
-        .btn-cart:hover {
-            opacity: 0.9;
-        }
-        .btn-wishlist {
-            width: 46px;
-            height: 46px;
-            border-radius: 50%;
-            background: var(--bg-body);
-            border: 1px solid var(--border-light);
-            color: var(--text-primary);
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .btn-wishlist:hover {
-            background: #ffe5e5;
-            color: var(--danger);
-            border-color: var(--danger);
-        }
-
-        /* رسالة عدم وجود نتائج */
-        .no-results {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 40px;
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            background: var(--card-bg);
-            border-radius: 20px;
-            border: 1px solid var(--border-light);
-            display: none;
-        }
-        .no-results i {
-            font-size: 2rem;
-            color: var(--accent-color);
-            margin-bottom: 10px;
-        }
-
-        /* ===== صفحة تفاصيل الكتاب ===== */
-        .book-detail-section {
-            background: var(--card-bg);
-            border-radius: 28px;
-            padding: 32px;
-            margin-bottom: 48px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.02);
-            border: 1px solid var(--border-light);
-        }
-        .detail-container {
-            display: grid;
-            grid-template-columns: 280px 1fr;
-            gap: 32px;
-        }
-        .detail-image img {
-            width: 100%;
-            border-radius: 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        }
-        .detail-meta h1 {
-            font-size: 2rem;
-            margin-bottom: 4px;
-        }
-        .detail-meta .author-lg {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            margin-bottom: 12px;
-        }
-        .rating-lg {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 16px;
-        }
-        .rating-lg .stars { font-size: 1.2rem; }
-        .rating-score {
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-        .detail-price {
-            display: flex;
-            align-items: baseline;
-            gap: 12px;
-            margin: 20px 0;
-        }
-        .detail-price .current-price { font-size: 2rem; }
-        .badge-stock {
-            background: #e0f5e9;
-            color: var(--success);
-            padding: 6px 14px;
-            border-radius: 40px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-        .detail-actions {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-            margin: 24px 0;
-        }
-        .btn-lg {
-            padding: 16px 40px;
-            font-size: 1rem;
-        }
-        /* خيارات الشحن */
-        .shipping-options {
-            border-top: 1px solid var(--border-light);
-            padding-top: 20px;
-            margin-top: 12px;
-        }
-        .shipping-grid {
-            display: flex;
-            gap: 24px;
-            flex-wrap: wrap;
-        }
-        .shipping-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--text-primary);
-        }
-        .shipping-item i {
-            color: var(--accent-color);
-            font-size: 1.2rem;
-        }
-
-        /* ===== قائمة الرغبات والإشعارات ===== */
-        .wishlist-bar {
-            background: var(--wishlist-bg);
-            border-radius: 60px;
-            padding: 12px 24px;
-            margin-bottom: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.03);
-            border: 1px solid var(--border-light);
-        }
-        .wishlist-text {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .wishlist-text i {
-            color: var(--danger);
-            font-size: 1.2rem;
-        }
-        .notify-btn {
-            background: transparent;
-            border: 1px solid var(--accent-color);
-            color: var(--accent-color);
-            padding: 8px 20px;
-            border-radius: 40px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .notify-btn:hover {
-            background: var(--accent-color);
-            color: white;
-        }
-
-        /* ===== Toast notification ===== */
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--toast-bg);
-            color: var(--toast-text);
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            z-index: 9999;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.3s, transform 0.3s;
-            pointer-events: none;
-            max-width: 300px;
-        }
-        .toast.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ===== الفوتر ===== */
-        .footer {
-            background: var(--footer-bg);
-            color: var(--footer-text);
-            border-radius: 40px 40px 0 0;
-            padding: 48px 32px 24px;
-            margin-top: 60px;
-            transition: background 0.3s;
-        }
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 32px;
-            margin-bottom: 32px;
-        }
-        .footer-col h4 {
-            color: white;
-            margin-bottom: 16px;
-        }
-        .footer-col ul {
-            list-style: none;
-        }
-        .footer-col li {
-            margin-bottom: 10px;
-        }
-        .footer-col a {
-            color: var(--footer-link);
-            text-decoration: none;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .footer-col a:hover {
-            color: var(--accent-color);
-        }
-        .social-links {
-            display: flex;
-            gap: 16px;
-            margin-top: 12px;
-        }
-        .social-links a {
-            background: #2f4047;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            transition: 0.2s;
-        }
-        .social-links a:hover {
-            background: var(--accent-color);
-        }
-        .copyright {
-            text-align: center;
-            padding-top: 24px;
-            border-top: 1px solid #2f4047;
-            color: #8f9ea8;
-            font-size: 0.9rem;
-        }
-
-        /* ===== تحسينات الجوال ===== */
-        @media (max-width: 700px) {
-            .navbar {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .search-bar { max-width: 100%; }
-            .hero { text-align: center; }
-            .hero-stats { justify-content: center; }
-            .hero-btns { justify-content: center; }
-            .detail-container {
-                grid-template-columns: 1fr;
-            }
-            .detail-image {
-                max-width: 260px;
-                margin: 0 auto;
-            }
-            .toast {
-                left: 20px;
-                right: 20px;
-                max-width: none;
-                text-align: center;
-            }
-        }
-    </style>
-    <!-- structured data (JSON-LD) -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "BookStore",
-        "name": "مكتبة النور",
-        "description": "متجر كتب عربية مع توصيل سريع لجميع المدن",
-        "url": "https://xsabduuh.github.io/Books_store/",
-        "logo": "https://xsabduuh.github.io/Books_store/IMG_2707.JPG",
-        "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "الدار البيضاء",
-            "addressCountry": "المغرب"
-        }
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
-    </script>
-</head>
-<body data-theme="light">
-    <!-- عنصر التوست (يظهر عند الإضافة) -->
-    <div id="toast" class="toast"></div>
 
-    <!-- شريط التنقل -->
-    <div class="navbar">
-        <div class="logo">
-            <i class="fas fa-book-open"></i>
-            <span>مكتبة النور</span>
-        </div>
-        <div class="search-bar">
-            <input type="text" placeholder="ابحث عن كتاب، مؤلف، تصنيف..." id="searchInput" aria-label="بحث">
-            <button aria-label="بحث"><i class="fas fa-search"></i></button>
-        </div>
-        <div class="nav-icons">
-            <a href="wishlist.html" aria-label="المفضلة"><i class="far fa-heart"></i> المفضلة <span class="badge" id="wishlistBadge" style="display: none;">0</span></a>
-            <a href="cart.html" aria-label="السلة"><i class="fas fa-shopping-cart"></i> السلة <span class="badge" id="cartBadge" style="display: none;">0</span></a>
-            <a href="account.html" aria-label="حسابي"><i class="far fa-user"></i> حسابي</a>
-            <button class="theme-toggle" id="themeToggle" aria-label="تبديل الوضع">
-                <i class="fas fa-moon"></i>
-            </button>
-        </div>
+    :root {
+        --bg-body: #FAF7F2;
+        --text-primary: #1C2B33;
+        --text-secondary: #6B7F89;
+        --border-light: #EDE5D8;
+        --card-bg: #FFFFFF;
+        --footer-bg: #1C2B33;
+        --footer-text: #EDE5D8;
+        --footer-link: #9AABB5;
+        --hero-bg: #1C2B33;
+        --search-bg: #FFFFFF;
+        --accent: #C9935A;
+        --accent-dark: #A87040;
+        --accent-light: #F5E8D6;
+        --danger: #D94F4F;
+        --success: #2D9E6B;
+        --toast-bg: #1C2B33;
+        --toast-text: #FFFFFF;
+        --overlay: rgba(28,43,51,0.55);
+    }
+
+    [data-theme="dark"] {
+        --bg-body: #111820;
+        --text-primary: #EDE5D8;
+        --text-secondary: #9AABB5;
+        --border-light: #263340;
+        --card-bg: #192330;
+        --footer-bg: #0D1318;
+        --footer-text: #CCCCCC;
+        --footer-link: #8899A6;
+        --hero-bg: #0D1318;
+        --search-bg: #1C2B33;
+        --accent: #D4A06A;
+        --accent-dark: #C9935A;
+        --accent-light: #2A2018;
+        --danger: #E06B6B;
+        --success: #5BBF92;
+        --toast-bg: #263340;
+        --toast-text: #EDE5D8;
+        --overlay: rgba(0,0,0,0.6);
+    }
+
+    body {
+        background: var(--bg-body);
+        color: var(--text-primary);
+        font-family: 'Tajawal', sans-serif;
+        line-height: 1.6;
+        transition: background 0.35s, color 0.25s;
+        overflow-x: hidden;
+    }
+
+    /* ─────────────── NAVBAR ─────────────── */
+    .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 32px;
+        background: var(--bg-body);
+        border-bottom: 1px solid var(--border-light);
+        position: sticky;
+        top: 0;
+        z-index: 200;
+        transition: background 0.35s, box-shadow 0.3s;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+    .navbar.scrolled {
+        box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: 'Amiri', serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        text-decoration: none;
+        white-space: nowrap;
+    }
+    .logo-icon {
+        width: 42px;
+        height: 42px;
+        background: var(--accent);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.1rem;
+        box-shadow: 0 4px 12px rgba(201,147,90,0.35);
+        transition: transform 0.3s;
+    }
+    .logo:hover .logo-icon { transform: rotate(-5deg) scale(1.08); }
+
+    .search-bar {
+        flex: 1;
+        max-width: 420px;
+        display: flex;
+        background: var(--search-bg);
+        border-radius: 50px;
+        border: 1.5px solid var(--border-light);
+        overflow: hidden;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .search-bar:focus-within {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(201,147,90,0.15);
+    }
+    .search-bar input {
+        flex: 1;
+        border: none;
+        padding: 12px 18px;
+        font-size: 0.95rem;
+        outline: none;
+        background: transparent;
+        color: var(--text-primary);
+        font-family: 'Tajawal', sans-serif;
+    }
+    .search-bar input::placeholder { color: var(--text-secondary); }
+    .search-bar button {
+        background: var(--accent);
+        border: none;
+        padding: 0 20px;
+        color: white;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background 0.2s;
+    }
+    .search-bar button:hover { background: var(--accent-dark); }
+
+    .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .nav-btn {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+        padding: 8px 12px;
+        border-radius: 12px;
+        color: var(--text-primary);
+        text-decoration: none;
+        font-size: 0.72rem;
+        font-weight: 600;
+        transition: background 0.2s, color 0.2s;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        font-family: 'Tajawal', sans-serif;
+    }
+    .nav-btn i { font-size: 1.15rem; }
+    .nav-btn:hover { background: var(--accent-light); color: var(--accent); }
+    .nav-btn .badge {
+        position: absolute;
+        top: 4px;
+        left: 6px;
+        background: var(--accent);
+        color: white;
+        font-size: 0.65rem;
+        font-weight: 700;
+        min-width: 18px;
+        height: 18px;
+        border-radius: 9px;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 0 4px;
+        animation: badgePop 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    @keyframes badgePop {
+        from { transform: scale(0); }
+        to { transform: scale(1); }
+    }
+    .theme-toggle {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: 1.5px solid var(--border-light);
+        background: transparent;
+        color: var(--text-primary);
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ─────────────── HERO ─────────────── */
+    .hero {
+        background: var(--hero-bg);
+        position: relative;
+        overflow: hidden;
+        padding: 80px 32px 70px;
+        margin: 0;
+    }
+
+    .hero::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse 70% 90% at 80% 50%, rgba(201,147,90,0.18) 0%, transparent 70%),
+                    radial-gradient(ellipse 50% 60% at 10% 80%, rgba(201,147,90,0.08) 0%, transparent 60%);
+    }
+
+    /* decorative lines */
+    .hero::after {
+        content: '';
+        position: absolute;
+        top: -40px; left: -40px;
+        width: 300px; height: 300px;
+        border: 1px solid rgba(201,147,90,0.1);
+        border-radius: 50%;
+    }
+
+    .hero-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 48px;
+        flex-wrap: wrap;
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero-text { flex: 1 1 340px; }
+
+    .hero-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(201,147,90,0.15);
+        border: 1px solid rgba(201,147,90,0.3);
+        color: var(--accent);
+        padding: 6px 16px;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 20px;
+        animation: fadeInDown 0.7s ease both;
+    }
+
+    .hero-text h1 {
+        font-size: clamp(2rem, 5vw, 3.2rem);
+        font-weight: 900;
+        line-height: 1.15;
+        color: #FFFFFF;
+        margin-bottom: 18px;
+        animation: fadeInDown 0.8s 0.1s ease both;
+    }
+
+    .hero-text h1 .highlight {
+        color: var(--accent);
+        position: relative;
+    }
+    .hero-text h1 .highlight::after {
+        content: '';
+        position: absolute;
+        bottom: 2px;
+        right: 0; left: 0;
+        height: 3px;
+        background: var(--accent);
+        border-radius: 2px;
+    }
+
+    .hero-text p {
+        font-size: 1.15rem;
+        color: rgba(255,255,255,0.65);
+        margin-bottom: 32px;
+        animation: fadeInDown 0.8s 0.2s ease both;
+    }
+
+    .hero-stats {
+        display: flex;
+        gap: 32px;
+        margin-bottom: 36px;
+        animation: fadeInDown 0.8s 0.3s ease both;
+    }
+    .stat-item { text-align: center; }
+    .stat-number {
+        font-size: 1.9rem;
+        font-weight: 800;
+        color: #FFFFFF;
+        line-height: 1;
+    }
+    .stat-label {
+        font-size: 0.82rem;
+        color: rgba(255,255,255,0.5);
+        margin-top: 4px;
+    }
+    .stat-divider {
+        width: 1px;
+        background: rgba(255,255,255,0.1);
+        align-self: stretch;
+    }
+
+    .hero-btns {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        animation: fadeInDown 0.8s 0.4s ease both;
+    }
+
+    .btn-primary {
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        padding: 14px 30px;
+        border-radius: 50px;
+        font-size: 0.95rem;
+        font-weight: 700;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: 0.25s;
+        box-shadow: 0 6px 20px rgba(201,147,90,0.4);
+        font-family: 'Tajawal', sans-serif;
+        text-decoration: none;
+    }
+    .btn-primary:hover {
+        background: var(--accent-dark);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 28px rgba(201,147,90,0.45);
+    }
+    .btn-ghost {
+        background: rgba(255,255,255,0.08);
+        color: rgba(255,255,255,0.85);
+        border: 1.5px solid rgba(255,255,255,0.2);
+        padding: 14px 30px;
+        border-radius: 50px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: 0.25s;
+        font-family: 'Tajawal', sans-serif;
+    }
+    .btn-ghost:hover {
+        background: rgba(255,255,255,0.15);
+        border-color: rgba(255,255,255,0.4);
+        transform: translateY(-2px);
+    }
+
+    .hero-image {
+        flex: 0 0 auto;
+        position: relative;
+        animation: fadeInRight 0.9s 0.2s ease both;
+    }
+    .hero-image img {
+        width: 260px;
+        height: 340px;
+        object-fit: cover;
+        border-radius: 24px;
+        box-shadow: 0 30px 80px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05);
+    }
+    .hero-image-badge {
+        position: absolute;
+        bottom: -16px;
+        right: -16px;
+        background: var(--accent);
+        color: white;
+        padding: 12px 18px;
+        border-radius: 16px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        box-shadow: 0 8px 24px rgba(201,147,90,0.4);
+        line-height: 1.3;
+    }
+
+    @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-18px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInRight {
+        from { opacity: 0; transform: translateX(24px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* ─────────────── CATEGORIES BAR ─────────────── */
+    .categories-section {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 36px 32px 0;
+    }
+
+    .categories-scroll {
+        display: flex;
+        gap: 10px;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        scrollbar-width: none;
+    }
+    .categories-scroll::-webkit-scrollbar { display: none; }
+
+    .cat-btn {
+        flex-shrink: 0;
+        padding: 9px 20px;
+        border-radius: 50px;
+        border: 1.5px solid var(--border-light);
+        background: transparent;
+        color: var(--text-secondary);
+        font-size: 0.88rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s;
+        font-family: 'Tajawal', sans-serif;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .cat-btn:hover, .cat-btn.active {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: white;
+    }
+
+    /* ─────────────── MAIN CONTENT ─────────────── */
+    .main-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 32px 80px;
+    }
+
+    /* ─────────────── SECTION HEADER ─────────────── */
+    .section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 28px;
+    }
+    .section-title-wrap { display: flex; align-items: center; gap: 12px; }
+    .section-title-bar {
+        width: 4px;
+        height: 28px;
+        background: var(--accent);
+        border-radius: 2px;
+    }
+    .section-title {
+        font-size: 1.6rem;
+        font-weight: 800;
+    }
+    .section-link {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: gap 0.2s;
+    }
+    .section-link:hover { gap: 10px; }
+
+    /* ─────────────── BOOKS GRID ─────────────── */
+    .books-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+        gap: 24px;
+        margin-bottom: 60px;
+    }
+
+    .book-card {
+        background: var(--card-bg);
+        border-radius: 20px;
+        overflow: hidden;
+        border: 1px solid var(--border-light);
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        transition: transform 0.3s cubic-bezier(0.34,1.2,0.64,1), box-shadow 0.3s ease;
+        will-change: transform;
+        animation: cardFadeIn 0.5s ease both;
+    }
+    @keyframes cardFadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .book-card:nth-child(1) { animation-delay: 0.05s; }
+    .book-card:nth-child(2) { animation-delay: 0.12s; }
+    .book-card:nth-child(3) { animation-delay: 0.19s; }
+    .book-card:nth-child(4) { animation-delay: 0.26s; }
+
+    .book-card:hover {
+        transform: translateY(-8px) scale(1.01);
+        box-shadow: 0 20px 48px rgba(0,0,0,0.10);
+    }
+
+    /* quick-add overlay on hover */
+    .book-card::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: var(--overlay);
+        opacity: 0;
+        transition: opacity 0.3s;
+        border-radius: 20px;
+        pointer-events: none;
+    }
+    .book-card:hover::after { opacity: 1; }
+
+    .quick-add {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s;
+        z-index: 10;
+        gap: 10px;
+    }
+    .book-card:hover .quick-add { opacity: 1; }
+
+    .quick-btn {
+        background: white;
+        color: var(--text-primary);
+        border: none;
+        padding: 10px 18px;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background 0.2s, color 0.2s, transform 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-family: 'Tajawal', sans-serif;
+        transform: translateY(8px);
+        transition: transform 0.3s ease, background 0.2s;
+    }
+    .book-card:hover .quick-btn { transform: translateY(0); }
+    .quick-btn:hover { background: var(--accent); color: white; }
+    .quick-btn.heart:hover { background: var(--danger); color: white; }
+
+    .book-badge {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: var(--danger);
+        color: white;
+        padding: 4px 12px;
+        border-radius: 50px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        z-index: 5;
+        letter-spacing: 0.3px;
+    }
+    .book-badge.new { background: var(--success); }
+    .book-badge.sale { background: var(--accent); }
+
+    .book-img-wrap {
+        position: relative;
+        overflow: hidden;
+    }
+    .book-img {
+        width: 100%;
+        aspect-ratio: 2/3;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.5s ease;
+    }
+    .book-card:hover .book-img { transform: scale(1.06); }
+
+    .book-info {
+        padding: 16px 18px 20px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    .book-category {
+        font-size: 0.72rem;
+        letter-spacing: 0.8px;
+        color: var(--accent);
+        text-transform: uppercase;
+        font-weight: 700;
+        margin-bottom: 6px;
+    }
+    .book-title {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 4px;
+        line-height: 1.35;
+    }
+    .book-author {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        margin-bottom: 10px;
+    }
+    .book-rating {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-bottom: 12px;
+    }
+    .stars { color: #F5C142; font-size: 0.78rem; }
+    .reviews-count { color: var(--text-secondary); font-size: 0.78rem; }
+
+    .book-price {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        margin-top: auto;
+    }
+    .current-price {
+        font-size: 1.25rem;
+        font-weight: 800;
+        color: var(--text-primary);
+    }
+    .old-price {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        text-decoration: line-through;
+    }
+    .discount-pct {
+        font-size: 0.72rem;
+        font-weight: 700;
+        background: rgba(217,79,79,0.12);
+        color: var(--danger);
+        padding: 2px 7px;
+        border-radius: 50px;
+    }
+
+    /* ─────────────── NO RESULTS ─────────────── */
+    .no-results {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 60px 20px;
+        color: var(--text-secondary);
+        display: none;
+    }
+    .no-results i {
+        font-size: 3rem;
+        color: var(--border-light);
+        display: block;
+        margin-bottom: 14px;
+    }
+    .no-results p { font-size: 1.1rem; }
+
+    /* ─────────────── FEATURED / DETAIL ─────────────── */
+    .featured-section {
+        background: var(--card-bg);
+        border-radius: 28px;
+        padding: 36px;
+        margin-bottom: 60px;
+        border: 1px solid var(--border-light);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    }
+    .detail-container {
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        gap: 40px;
+        align-items: start;
+    }
+    .detail-image {
+        position: relative;
+    }
+    .detail-image img {
+        width: 100%;
+        border-radius: 18px;
+        box-shadow: 0 16px 48px rgba(0,0,0,0.14);
+    }
+    .detail-featured-badge {
+        position: absolute;
+        top: -12px;
+        right: -12px;
+        background: var(--accent);
+        color: white;
+        padding: 6px 14px;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        box-shadow: 0 4px 12px rgba(201,147,90,0.4);
+    }
+    .detail-meta h2 {
+        font-family: 'Amiri', serif;
+        font-size: 2.1rem;
+        margin-bottom: 6px;
+        line-height: 1.2;
+    }
+    .author-lg {
+        font-size: 1rem;
+        color: var(--text-secondary);
+        margin-bottom: 14px;
+    }
+    .rating-lg {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+    .rating-lg .stars { font-size: 1.1rem; }
+    .rating-score { font-weight: 700; font-size: 1.05rem; }
+    .detail-price {
+        display: flex;
+        align-items: baseline;
+        gap: 14px;
+        margin-bottom: 24px;
+    }
+    .detail-price .current-price { font-size: 2.2rem; }
+    .badge-stock {
+        background: rgba(45,158,107,0.12);
+        color: var(--success);
+        padding: 5px 14px;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+    .detail-desc {
+        color: var(--text-secondary);
+        line-height: 1.85;
+        margin-bottom: 28px;
+        font-size: 0.98rem;
+    }
+    .detail-actions {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        margin-bottom: 28px;
+    }
+    .btn-outline {
+        background: transparent;
+        color: var(--accent);
+        border: 1.5px solid var(--accent);
+        padding: 13px 28px;
+        border-radius: 50px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: 0.2s;
+        font-family: 'Tajawal', sans-serif;
+    }
+    .btn-outline:hover {
+        background: var(--accent);
+        color: white;
+    }
+    .shipping-options {
+        border-top: 1px solid var(--border-light);
+        padding-top: 20px;
+    }
+    .shipping-grid {
+        display: flex;
+        gap: 28px;
+        flex-wrap: wrap;
+    }
+    .shipping-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--text-secondary);
+        font-size: 0.88rem;
+    }
+    .shipping-item i { color: var(--accent); font-size: 1rem; }
+
+    /* ─────────────── TOAST ─────────────── */
+    .toast {
+        position: fixed;
+        bottom: 28px;
+        right: 28px;
+        background: var(--toast-bg);
+        color: var(--toast-text);
+        padding: 14px 22px;
+        border-radius: 14px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+        z-index: 9999;
+        opacity: 0;
+        transform: translateY(16px) scale(0.95);
+        transition: opacity 0.3s, transform 0.3s;
+        pointer-events: none;
+        max-width: 320px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border-right: 3px solid var(--accent);
+    }
+    .toast.show {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    /* ─────────────── FOOTER ─────────────── */
+    .footer {
+        background: var(--footer-bg);
+        color: var(--footer-text);
+        padding: 60px 32px 32px;
+        margin-top: 0;
+    }
+    .footer-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .footer-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 40px;
+        flex-wrap: wrap;
+        padding-bottom: 40px;
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+        margin-bottom: 40px;
+    }
+    .footer-brand .footer-logo {
+        font-family: 'Amiri', serif;
+        font-size: 1.6rem;
+        color: white;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .footer-brand p {
+        color: var(--footer-link);
+        max-width: 260px;
+        font-size: 0.9rem;
+        line-height: 1.7;
+        margin-bottom: 20px;
+    }
+    .social-links {
+        display: flex;
+        gap: 10px;
+    }
+    .social-links a {
+        width: 38px;
+        height: 38px;
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--footer-link);
+        text-decoration: none;
+        transition: 0.2s;
+        font-size: 0.9rem;
+    }
+    .social-links a:hover {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: white;
+        transform: translateY(-3px);
+    }
+    .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 32px;
+    }
+    .footer-col h4 {
+        color: white;
+        font-size: 0.95rem;
+        font-weight: 700;
+        margin-bottom: 18px;
+        letter-spacing: 0.3px;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 10px; }
+    .footer-col a {
+        color: var(--footer-link);
+        text-decoration: none;
+        font-size: 0.88rem;
+        transition: 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+    }
+    .footer-col a:hover { color: var(--accent); padding-right: 4px; }
+    .footer-col a i { font-size: 0.7rem; opacity: 0.6; }
+    .footer-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+    .footer-bottom p {
+        color: rgba(255,255,255,0.3);
+        font-size: 0.85rem;
+    }
+    .footer-contact { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-contact a {
+        color: var(--footer-link);
+        text-decoration: none;
+        font-size: 0.85rem;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        transition: color 0.2s;
+    }
+    .footer-contact a:hover { color: var(--accent); }
+
+    /* ─────────────── SCROLL TO TOP ─────────────── */
+    .scroll-top {
+        position: fixed;
+        bottom: 28px;
+        left: 28px;
+        width: 46px;
+        height: 46px;
+        background: var(--accent);
+        color: white;
+        border: none;
+        border-radius: 14px;
+        cursor: pointer;
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 6px 20px rgba(201,147,90,0.4);
+        transition: opacity 0.3s, transform 0.3s;
+        opacity: 0;
+        transform: translateY(16px);
+        z-index: 900;
+    }
+    .scroll-top.visible { opacity: 1; transform: translateY(0); }
+    .scroll-top:hover { transform: translateY(-3px); }
+
+    /* ─────────────── RESPONSIVE ─────────────── */
+    @media (max-width: 768px) {
+        .navbar {
+            padding: 12px 20px;
+            flex-wrap: wrap;
+        }
+        .nav-btn span { display: none; }
+        .hero { padding: 56px 20px 50px; }
+        .hero-inner { flex-direction: column; text-align: center; }
+        .hero-image { display: none; }
+        .hero-stats { justify-content: center; }
+        .hero-btns { justify-content: center; }
+        .categories-section { padding: 28px 20px 0; }
+        .main-content { padding: 32px 20px 60px; }
+        .books-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; }
+        .detail-container { grid-template-columns: 1fr; }
+        .detail-image { max-width: 200px; margin: 0 auto; }
+        .footer { padding: 40px 20px 28px; }
+        .footer-top { flex-direction: column; }
+        .footer-grid { grid-template-columns: 1fr 1fr; }
+        .toast { left: 20px; right: 20px; max-width: none; bottom: 16px; }
+        .scroll-top { left: 16px; bottom: 16px; }
+    }
+    @media (max-width: 480px) {
+        .footer-grid { grid-template-columns: 1fr; }
+        .footer-bottom { flex-direction: column; text-align: center; }
+    }
+</style>
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BookStore",
+    "name": "مكتبة النور",
+    "description": "متجر كتب عربية مع توصيل سريع",
+    "url": "https://xsabduuh.github.io/Books_store/"
+}
+</script>
+```
+
+</head>
+<body>
+    <!-- Toast -->
+    <div id="toast" class="toast"><i class="fas fa-check-circle" style="color:var(--accent)"></i> <span id="toastMsg"></span></div>
+
+```
+<!-- Scroll to Top -->
+<button class="scroll-top" id="scrollTop" aria-label="عودة للأعلى" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+<!-- ═══ NAVBAR ═══ -->
+<nav class="navbar" id="navbar">
+    <a class="logo" href="#">
+        <div class="logo-icon"><i class="fas fa-book-open"></i></div>
+        <span>مكتبة النور</span>
+    </a>
+
+    <div class="search-bar">
+        <input type="text" placeholder="ابحث عن كتاب، مؤلف، تصنيف..." id="searchInput" aria-label="بحث">
+        <button aria-label="بحث"><i class="fas fa-search"></i></button>
     </div>
 
-    <!-- القسم الرئيسي (Hero) -->
-    <div class="hero">
+    <div class="nav-actions">
+        <a href="wishlist.html" class="nav-btn" aria-label="المفضلة">
+            <i class="far fa-heart"></i>
+            <span>المفضلة</span>
+            <span class="badge" id="wishlistBadge">0</span>
+        </a>
+        <a href="cart.html" class="nav-btn" aria-label="السلة">
+            <i class="fas fa-shopping-bag"></i>
+            <span>السلة</span>
+            <span class="badge" id="cartBadge">0</span>
+        </a>
+        <a href="account.html" class="nav-btn" aria-label="حسابي">
+            <i class="far fa-user"></i>
+            <span>حسابي</span>
+        </a>
+        <button class="theme-toggle" id="themeToggle" aria-label="تبديل الوضع">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+    <div class="hero-inner">
         <div class="hero-text">
-            <h1>اكتشف <span>كتباً</span><br>تغير حياتك</h1>
-            <p>كل كتاب يهمك، يطرق بابك سريعاً.</p>
+            <div class="hero-tag">
+                <i class="fas fa-bolt"></i>
+                توصيل خلال 48 ساعة فقط
+            </div>
+            <h1>اكتشف <span class="highlight">كتباً</span><br>تغير حياتك</h1>
+            <p>كل كتاب يهمك، يطرق بابك سريعاً — أكثر من 15 ألف عنوان بانتظارك.</p>
             <div class="hero-stats">
-                <div class="stat-item"><div class="stat-number">15k+</div><div class="stat-label">عنوان</div></div>
-                <div class="stat-item"><div class="stat-number">4.8</div><div class="stat-label">تقييم</div></div>
-                <div class="stat-item"><div class="stat-number">48h</div><div class="stat-label">توصيل</div></div>
+                <div class="stat-item">
+                    <div class="stat-number">15k+</div>
+                    <div class="stat-label">عنوان متاح</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <div class="stat-number">4.8</div>
+                    <div class="stat-label">تقييم العملاء</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <div class="stat-number">48h</div>
+                    <div class="stat-label">توصيل سريع</div>
+                </div>
             </div>
             <div class="hero-btns">
-                <button class="btn-primary" onclick="window.location.href='offers.html'"><i class="fas fa-gift"></i> تسوق الهدايا</button>
-                <button class="btn-outline" onclick="window.location.href='offers.html'"><i class="fas fa-percent"></i> العروض</button>
+                <button class="btn-primary" onclick="window.location.href='offers.html'">
+                    <i class="fas fa-gift"></i> تسوق الهدايا
+                </button>
+                <button class="btn-ghost" onclick="window.location.href='bestsellers.html'">
+                    <i class="fas fa-fire"></i> الأكثر مبيعاً
+                </button>
             </div>
         </div>
         <div class="hero-image">
-            <img src="IMG_2707.JPG" alt="كتب متنوعة" loading="lazy" onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200?text=صورة+الخلفية';">
+            <img src="IMG_2707.JPG" alt="كتب متنوعة" loading="eager"
+                 onerror="this.onerror=null; this.src='https://via.placeholder.com/260x340/2A3A44/C9935A?text=📚';">
+            <div class="hero-image-badge">
+                <div style="font-size:1.1rem;">🔥</div>
+                الأكثر مبيعاً<br>هذا الأسبوع
+            </div>
         </div>
     </div>
+</section>
 
-    <!-- شريط قائمة الرغبات والإشعارات -->
-    <div class="wishlist-bar">
-        <div class="wishlist-text">
-            <i class="fas fa-bookmark"></i>
-            <span><strong>القائمة المفضلة:</strong> <span id="wishlistCount">0</span> كتب في انتظارك</span>
-        </div>
-        <button class="notify-btn" onclick="window.location.href='wishlist.html'">
-            <i class="fas fa-bell"></i> نبهني عند التوفر
+<!-- ═══ CATEGORIES ═══ -->
+<div class="categories-section">
+    <div class="categories-scroll">
+        <button class="cat-btn active" onclick="filterCategory('all', this)">
+            <i class="fas fa-th-large"></i> الكل
+        </button>
+        <button class="cat-btn" onclick="filterCategory('تطوير ذات', this)">
+            <i class="fas fa-seedling"></i> تطوير الذات
+        </button>
+        <button class="cat-btn" onclick="filterCategory('أدب', this)">
+            <i class="fas fa-feather-alt"></i> الأدب
+        </button>
+        <button class="cat-btn" onclick="filterCategory('علم نفس', this)">
+            <i class="fas fa-brain"></i> علم النفس
+        </button>
+        <button class="cat-btn" onclick="filterCategory('تاريخ', this)">
+            <i class="fas fa-landmark"></i> التاريخ
+        </button>
+        <button class="cat-btn" onclick="filterCategory('روايات', this)">
+            <i class="fas fa-book"></i> الروايات
         </button>
     </div>
+</div>
 
-    <!-- باقات مميزة (أفضل الكتب مبيعاً) -->
+<!-- ═══ MAIN CONTENT ═══ -->
+<main class="main-content">
+
+    <!-- Section Header -->
     <div class="section-header">
-        <h2 class="section-title">📚 الأكثر مبيعاً</h2>
-        <a href="bestsellers.html" class="section-link">عرض الكل <i class="fas fa-arrow-left"></i></a>
+        <div class="section-title-wrap">
+            <div class="section-title-bar"></div>
+            <h2 class="section-title">📚 الأكثر مبيعاً</h2>
+        </div>
+        <a href="bestsellers.html" class="section-link">
+            عرض الكل <i class="fas fa-arrow-left"></i>
+        </a>
     </div>
 
+    <!-- Books Grid -->
     <div class="books-grid" id="booksGrid">
-        <!-- كتاب 1: فن اللامبالاة (IMG_2514.JPG) -->
-        <div class="book-card" data-title="فن اللامبالاة" data-category="تطوير ذات" data-price="85">
+
+        <!-- كتاب 1 -->
+        <div class="book-card" data-category="تطوير ذات">
             <div class="book-badge">الأكثر مبيعاً</div>
-            <img src="IMG_2514.JPG" alt="غلاف كتاب فن اللامبالاة لمارك مانسون" class="book-img" loading="lazy" onerror="this.onerror=null; this.src='https://via.placeholder.com/200x300?text=فن+اللامبالاة';">
+            <div class="book-img-wrap">
+                <img src="IMG_2514.JPG" alt="فن اللامبالاة" class="book-img" loading="lazy"
+                     onerror="this.onerror=null;this.src='https://via.placeholder.com/200x300/F5E8D6/C9935A?text=📖';">
+                <div class="quick-add">
+                    <button class="quick-btn" onclick="addToCart('فن اللامبالاة', 85); event.stopPropagation()">
+                        <i class="fas fa-cart-plus"></i> أضف للسلة
+                    </button>
+                    <button class="quick-btn heart" onclick="addToWishlist('فن اللامبالاة'); event.stopPropagation()">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+            </div>
             <div class="book-info">
                 <div class="book-category">تطوير ذات</div>
                 <div class="book-title">فن اللامبالاة</div>
                 <div class="book-author">مارك مانسون</div>
                 <div class="book-rating">
-                    <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
+                    <span class="stars">★★★★½</span>
                     <span class="reviews-count">(1,342)</span>
                 </div>
                 <div class="book-price">
                     <span class="current-price">85 درهم</span>
                     <span class="old-price">110 درهم</span>
-                </div>
-                <div class="book-actions">
-                    <button class="btn-cart" onclick="addToCart('فن اللامبالاة', 85)" aria-label="إضافة فن اللامبالاة إلى السلة"><i class="fas fa-cart-plus"></i> أضف للسلة</button>
-                    <button class="btn-wishlist" onclick="addToWishlist('فن اللامبالاة')" aria-label="إضافة فن اللامبالاة إلى المفضلة"><i class="far fa-heart"></i></button>
+                    <span class="discount-pct">23%-</span>
                 </div>
             </div>
         </div>
-        <!-- كتاب 2: متعة أن تكون في العشرين (IMG_2515.JPG) -->
-        <div class="book-card" data-title="متعة أن تكون في العشرين" data-category="تطوير ذات" data-price="75">
-            <img src="IMG_2515.JPG" alt="غلاف كتاب متعة أن تكون في العشرين لعلا ديوب" class="book-img" loading="lazy" onerror="this.onerror=null; this.src='https://via.placeholder.com/200x300?text=متعة+أن+تكون+في+العشرين';">
+
+        <!-- كتاب 2 -->
+        <div class="book-card" data-category="تطوير ذات">
+            <div class="book-img-wrap">
+                <img src="IMG_2515.JPG" alt="متعة أن تكون في العشرين" class="book-img" loading="lazy"
+                     onerror="this.onerror=null;this.src='https://via.placeholder.com/200x300/F5E8D6/C9935A?text=📖';">
+                <div class="quick-add">
+                    <button class="quick-btn" onclick="addToCart('متعة أن تكون في العشرين', 75); event.stopPropagation()">
+                        <i class="fas fa-cart-plus"></i> أضف للسلة
+                    </button>
+                    <button class="quick-btn heart" onclick="addToWishlist('متعة أن تكون في العشرين'); event.stopPropagation()">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+            </div>
             <div class="book-info">
                 <div class="book-category">تطوير ذات</div>
                 <div class="book-title">متعة أن تكون في العشرين</div>
                 <div class="book-author">علا ديوب</div>
                 <div class="book-rating">
-                    <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+                    <span class="stars">★★★★★</span>
                     <span class="reviews-count">(876)</span>
                 </div>
                 <div class="book-price">
                     <span class="current-price">75 درهم</span>
                     <span class="old-price">95 درهم</span>
-                </div>
-                <div class="book-actions">
-                    <button class="btn-cart" onclick="addToCart('متعة أن تكون في العشرين', 75)" aria-label="إضافة متعة أن تكون في العشرين إلى السلة"><i class="fas fa-cart-plus"></i> أضف للسلة</button>
-                    <button class="btn-wishlist" onclick="addToWishlist('متعة أن تكون في العشرين')" aria-label="إضافة إلى المفضلة"><i class="far fa-heart"></i></button>
+                    <span class="discount-pct">21%-</span>
                 </div>
             </div>
         </div>
-        <!-- كتاب 3: الأنثى كما يجب أن تكون (IMG_2516.JPG) -->
-        <div class="book-card" data-title="الأنثى كما يجب أن تكون" data-category="أدب" data-price="70">
+
+        <!-- كتاب 3 -->
+        <div class="book-card" data-category="أدب">
             <div class="book-badge new">جديد</div>
-            <img src="IMG_2516.JPG" alt="غلاف كتاب الأنثى كما يجب أن تكون لعلي مناضل العكيلي" class="book-img" loading="lazy" onerror="this.onerror=null; this.src='https://via.placeholder.com/200x300?text=الأنثى+كما+يجب+أن+تكون';">
+            <div class="book-img-wrap">
+                <img src="IMG_2516.JPG" alt="الأنثى كما يجب أن تكون" class="book-img" loading="lazy"
+                     onerror="this.onerror=null;this.src='https://via.placeholder.com/200x300/F5E8D6/C9935A?text=📖';">
+                <div class="quick-add">
+                    <button class="quick-btn" onclick="addToCart('الأنثى كما يجب أن تكون', 70); event.stopPropagation()">
+                        <i class="fas fa-cart-plus"></i> أضف للسلة
+                    </button>
+                    <button class="quick-btn heart" onclick="addToWishlist('الأنثى كما يجب أن تكون'); event.stopPropagation()">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+            </div>
             <div class="book-info">
                 <div class="book-category">أدب</div>
                 <div class="book-title">الأنثى كما يجب أن تكون</div>
                 <div class="book-author">علي مناضل العكيلي</div>
                 <div class="book-rating">
-                    <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></span>
+                    <span class="stars">★★★★☆</span>
                     <span class="reviews-count">(234)</span>
                 </div>
                 <div class="book-price">
                     <span class="current-price">70 درهم</span>
                     <span class="old-price">90 درهم</span>
-                </div>
-                <div class="book-actions">
-                    <button class="btn-cart" onclick="addToCart('الأنثى كما يجب أن تكون', 70)" aria-label="إضافة الأنثى كما يجب أن تكون إلى السلة"><i class="fas fa-cart-plus"></i> أضف للسلة</button>
-                    <button class="btn-wishlist" onclick="addToWishlist('الأنثى كما يجب أن تكون')" aria-label="إضافة إلى المفضلة"><i class="far fa-heart"></i></button>
+                    <span class="discount-pct">22%-</span>
                 </div>
             </div>
         </div>
-        <!-- كتاب 4: أحببت وغداً (IMG_2517.JPG) -->
-        <div class="book-card" data-title="أحببت وغداً" data-category="علم نفس" data-price="80">
-            <img src="IMG_2517.JPG" alt="غلاف كتاب أحببت وغداً لد. عماد رشاد عثمان" class="book-img" loading="lazy" onerror="this.onerror=null; this.src='https://via.placeholder.com/200x300?text=أحببت+وغداً';">
+
+        <!-- كتاب 4 -->
+        <div class="book-card" data-category="علم نفس">
+            <div class="book-img-wrap">
+                <img src="IMG_2517.JPG" alt="أحببت وغداً" class="book-img" loading="lazy"
+                     onerror="this.onerror=null;this.src='https://via.placeholder.com/200x300/F5E8D6/C9935A?text=📖';">
+                <div class="quick-add">
+                    <button class="quick-btn" onclick="addToCart('أحببت وغداً', 80); event.stopPropagation()">
+                        <i class="fas fa-cart-plus"></i> أضف للسلة
+                    </button>
+                    <button class="quick-btn heart" onclick="addToWishlist('أحببت وغداً'); event.stopPropagation()">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+            </div>
             <div class="book-info">
                 <div class="book-category">علم نفس</div>
                 <div class="book-title">أحببت وغداً</div>
                 <div class="book-author">د. عماد رشاد عثمان</div>
                 <div class="book-rating">
-                    <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
+                    <span class="stars">★★★★½</span>
                     <span class="reviews-count">(1,521)</span>
                 </div>
                 <div class="book-price">
                     <span class="current-price">80 درهم</span>
                     <span class="old-price">100 درهم</span>
-                </div>
-                <div class="book-actions">
-                    <button class="btn-cart" onclick="addToCart('أحببت وغداً', 80)" aria-label="إضافة أحببت وغداً إلى السلة"><i class="fas fa-cart-plus"></i> أضف للسلة</button>
-                    <button class="btn-wishlist" onclick="addToWishlist('أحببت وغداً')" aria-label="إضافة إلى المفضلة"><i class="far fa-heart"></i></button>
+                    <span class="discount-pct">20%-</span>
                 </div>
             </div>
         </div>
+
     </div>
-    <!-- عنصر عدم وجود نتائج البحث -->
+
+    <!-- No Results -->
     <div class="no-results" id="noResults">
-        <i class="fas fa-book-open"></i>
+        <i class="fas fa-search"></i>
         <p>لا توجد نتائج مطابقة للبحث</p>
     </div>
 
-    <!-- صفحة تفاصيل الكتاب (مثال) -->
-    <div class="book-detail-section">
+    <!-- ═══ FEATURED BOOK ═══ -->
+    <div class="section-header">
+        <div class="section-title-wrap">
+            <div class="section-title-bar"></div>
+            <h2 class="section-title">⭐ كتاب مميز</h2>
+        </div>
+    </div>
+
+    <div class="featured-section">
         <div class="detail-container">
             <div class="detail-image">
-                <img src="IMG_2514.JPG" alt="فن اللامبالاة غلاف" loading="lazy" onerror="this.onerror=null; this.src='https://via.placeholder.com/280x400?text=فن+اللامبالاة';">
+                <div class="detail-featured-badge">⭐ الأكثر مبيعاً</div>
+                <img src="IMG_2514.JPG" alt="فن اللامبالاة" loading="lazy"
+                     onerror="this.onerror=null;this.src='https://via.placeholder.com/260x380/F5E8D6/C9935A?text=📖';">
             </div>
             <div class="detail-meta">
-                <h1>فن اللامبالاة</h1>
+                <h2>فن اللامبالاة</h2>
                 <div class="author-lg">مارك مانسون · ترجمة: محمد ياسر</div>
                 <div class="rating-lg">
-                    <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
+                    <span class="stars">★★★★½</span>
                     <span class="rating-score">4.5</span>
                     <span class="reviews-count">(1,342 تقييماً)</span>
                 </div>
                 <div class="detail-price">
-                    <span class="current-price">85 <span style="font-size: 1rem;">درهم</span></span>
+                    <span class="current-price">85 <span style="font-size:1rem">درهم</span></span>
                     <span class="old-price">110 درهم</span>
                     <span class="badge-stock"><i class="fas fa-check-circle"></i> متوفر</span>
                 </div>
-                <div style="margin: 16px 0; line-height: 1.8; color: var(--text-secondary);">
-                    <p>كتاب "فن اللامبالاة" ليس مجرد دليل للتخلص من القلق، بل هو دعوة لاختيار ما يهم حقاً في الحياة. بأسلوب ساخر وعميق، يعيد مارك مانسون تعريف النجاح والسعادة.</p>
-                </div>
+                <p class="detail-desc">
+                    كتاب "فن اللامبالاة" ليس مجرد دليل للتخلص من القلق، بل هو دعوة لاختيار ما يهم حقاً في الحياة.
+                    بأسلوب ساخر وعميق، يعيد مارك مانسون تعريف النجاح والسعادة ليُبيّن أن السر لا يكمن في الإيجابية الزائفة،
+                    بل في مواجهة الحقيقة بشجاعة.
+                </p>
                 <div class="detail-actions">
-                    <button class="btn-primary btn-lg" onclick="addToCart('فن اللامبالاة', 85)" aria-label="إضافة إلى السلة"><i class="fas fa-shopping-cart"></i> أضف للسلة</button>
-                    <button class="btn-outline btn-lg" onclick="addToWishlist('فن اللامبالاة')" aria-label="إضافة إلى المفضلة"><i class="far fa-heart"></i> أضف للمفضلة</button>
+                    <button class="btn-primary" onclick="addToCart('فن اللامبالاة', 85)">
+                        <i class="fas fa-shopping-cart"></i> أضف للسلة
+                    </button>
+                    <button class="btn-outline" onclick="addToWishlist('فن اللامبالاة')">
+                        <i class="far fa-heart"></i> أضف للمفضلة
+                    </button>
                 </div>
-                <!-- خيارات الشحن -->
                 <div class="shipping-options">
                     <div class="shipping-grid">
-                        <div class="shipping-item">
-                            <i class="fas fa-truck"></i>
-                            <span>توصيل سريع (48 ساعة)</span>
-                        </div>
-                        <div class="shipping-item">
-                            <i class="fas fa-store"></i>
-                            <span>استلام من المعرض</span>
-                        </div>
-                        <div class="shipping-item">
-                            <i class="fas fa-gift"></i>
-                            <span>تغليف هدايا</span>
-                        </div>
+                        <div class="shipping-item"><i class="fas fa-truck"></i><span>توصيل سريع (48 ساعة)</span></div>
+                        <div class="shipping-item"><i class="fas fa-store"></i><span>استلام من المعرض</span></div>
+                        <div class="shipping-item"><i class="fas fa-gift"></i><span>تغليف هدايا</span></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- الفوتر -->
-    <div class="footer">
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h4>مكتبة النور</h4>
-                <ul>
-                    <li><a href="about.html"><i class="fas fa-chevron-left"></i> عن المكتبة</a></li>
-                    <li><a href="blog.html"><i class="fas fa-chevron-left"></i> المدونة</a></li>
-                    <li><a href="shipping.html"><i class="fas fa-chevron-left"></i> الشحن والتوصيل</a></li>
-                    <li><a href="returns.html"><i class="fas fa-chevron-left"></i> سياسة الإرجاع</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>روابط سريعة</h4>
-                <ul>
-                    <li><a href="new-releases.html"><i class="fas fa-chevron-left"></i> أحدث الإصدارات</a></li>
-                    <li><a href="bestsellers.html"><i class="fas fa-chevron-left"></i> الكتب الأكثر مبيعاً</a></li>
-                    <li><a href="wishlist.html"><i class="fas fa-chevron-left"></i> قائمة الرغبات</a></li>
-                    <li><a href="offers.html"><i class="fas fa-chevron-left"></i> عروض خاصة</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>خدمة العملاء</h4>
-                <ul>
-                    <li><a href="contact.html"><i class="fas fa-chevron-left"></i> اتصل بنا</a></li>
-                    <li><a href="support.html"><i class="fas fa-chevron-left"></i> الدعم الفوري</a></li>
-                    <li><a href="faq.html"><i class="fas fa-chevron-left"></i> الأسئلة الشائعة</a></li>
-                    <li><a href="feedback.html"><i class="fas fa-chevron-left"></i> الشكاوى والاقتراحات</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>تابعنا</h4>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-x-twitter"></i></a>
-                    <a href="#"><i class="fab fa-whatsapp"></i></a>
-                    <a href="#"><i class="fab fa-tiktok"></i></a>
+</main>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <div class="logo-icon" style="background:var(--accent);border-radius:10px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;color:white">
+                        <i class="fas fa-book-open" style="font-size:0.9rem"></i>
+                    </div>
+                    مكتبة النور
                 </div>
-                <p style="margin-top: 16px; color: #bdc6cc;"><i class="fas fa-phone-alt"></i> +212 600-123456</p>
-                <p style="color: #bdc6cc;"><i class="fas fa-envelope"></i> info@alnour.ma</p>
+                <p>وجهتك الأولى للكتب العربية. نؤمن بأن الكتاب المناسب يغير حياة الإنسان.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="فيسبوك"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="انستغرام"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="تويتر"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#" aria-label="واتساب"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" aria-label="تيك توك"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>مكتبة النور</h4>
+                    <ul>
+                        <li><a href="about.html"><i class="fas fa-chevron-left"></i> عن المكتبة</a></li>
+                        <li><a href="blog.html"><i class="fas fa-chevron-left"></i> المدونة</a></li>
+                        <li><a href="shipping.html"><i class="fas fa-chevron-left"></i> الشحن والتوصيل</a></li>
+                        <li><a href="returns.html"><i class="fas fa-chevron-left"></i> سياسة الإرجاع</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>روابط سريعة</h4>
+                    <ul>
+                        <li><a href="new-releases.html"><i class="fas fa-chevron-left"></i> أحدث الإصدارات</a></li>
+                        <li><a href="bestsellers.html"><i class="fas fa-chevron-left"></i> الأكثر مبيعاً</a></li>
+                        <li><a href="wishlist.html"><i class="fas fa-chevron-left"></i> قائمة الرغبات</a></li>
+                        <li><a href="offers.html"><i class="fas fa-chevron-left"></i> عروض خاصة</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>خدمة العملاء</h4>
+                    <ul>
+                        <li><a href="contact.html"><i class="fas fa-chevron-left"></i> اتصل بنا</a></li>
+                        <li><a href="support.html"><i class="fas fa-chevron-left"></i> الدعم الفوري</a></li>
+                        <li><a href="faq.html"><i class="fas fa-chevron-left"></i> الأسئلة الشائعة</a></li>
+                        <li><a href="feedback.html"><i class="fas fa-chevron-left"></i> الشكاوى والاقتراحات</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
-        <div class="copyright">
+        <div class="footer-bottom">
             <p>© 2026 مكتبة النور. جميع الحقوق محفوظة.</p>
+            <div class="footer-contact">
+                <a href="tel:+212600123456"><i class="fas fa-phone"></i> +212 600-123456</a>
+                <a href="mailto:info@alnour.ma"><i class="fas fa-envelope"></i> info@alnour.ma</a>
+            </div>
         </div>
     </div>
+</footer>
 
-    <script>
-        // ==================== دوال مساعدة آمنة ====================
-        function safeJSON(key) {
-            try {
-                return JSON.parse(localStorage.getItem(key)) || [];
-            } catch {
-                return [];
-            }
-        }
+<script>
+    // ══════════════ THEME ══════════════
+    const html = document.documentElement;
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', savedTheme);
+    updateThemeIcon(savedTheme);
 
-        // ==================== الوضع الليلي ====================
-        const themeToggle = document.getElementById('themeToggle');
-        const html = document.documentElement;
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        html.setAttribute('data-theme', savedTheme);
-        updateIcon(savedTheme);
+    function updateThemeIcon(theme) {
+        const icon = themeToggle.querySelector('i');
+        icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    }
+    themeToggle.addEventListener('click', () => {
+        const cur = html.getAttribute('data-theme');
+        const next = cur === 'light' ? 'dark' : 'light';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        updateThemeIcon(next);
+    });
 
-        function updateIcon(theme) {
-            const icon = themeToggle.querySelector('i');
-            if (theme === 'dark') {
-                icon.className = 'fas fa-sun';
-            } else {
-                icon.className = 'fas fa-moon';
-            }
-        }
+    // ══════════════ NAVBAR SCROLL ══════════════
+    window.addEventListener('scroll', () => {
+        document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+        document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 300);
+    }, { passive: true });
 
-        themeToggle.addEventListener('click', () => {
-            const current = html.getAttribute('data-theme');
-            const newTheme = current === 'light' ? 'dark' : 'light';
-            html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateIcon(newTheme);
-        });
+    // ══════════════ CART & WISHLIST ══════════════
+    function safeJSON(key) {
+        try { return JSON.parse(localStorage.getItem(key)) || []; }
+        catch { return []; }
+    }
 
-        // ==================== السلة والمفضلة (مع دعم الكميات) ====================
-        let cart = safeJSON('cart');
-        let wishlist = safeJSON('wishlist');
+    let cart = safeJSON('cart');
+    let wishlist = safeJSON('wishlist');
 
-        // دالة تنسيق السعر مع إضافة "درهم" بشكل موحد
-        function formatPrice(price) {
-            return price + ' درهم';
-        }
+    function showToast(msg) {
+        document.getElementById('toastMsg').textContent = msg;
+        const t = document.getElementById('toast');
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2500);
+    }
 
-        function showToast(message, duration = 2000) {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, duration);
-        }
+    function updateBadges() {
+        const total = cart.reduce((s, i) => s + (i.qty || 1), 0);
+        const cb = document.getElementById('cartBadge');
+        const wb = document.getElementById('wishlistBadge');
+        cb.textContent = total;
+        wb.textContent = wishlist.length;
+        cb.style.display = total > 0 ? 'inline-flex' : 'none';
+        wb.style.display = wishlist.length > 0 ? 'inline-flex' : 'none';
+    }
 
-        function updateBadges() {
-            const cartBadge = document.getElementById('cartBadge');
-            const wishlistBadge = document.getElementById('wishlistBadge');
-            const wishlistCount = document.getElementById('wishlistCount');
-
-            const totalItems = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
-            cartBadge.textContent = totalItems;
-            wishlistBadge.textContent = wishlist.length;
-            wishlistCount.textContent = wishlist.length;
-
-            cartBadge.style.display = totalItems === 0 ? 'none' : 'inline-flex';
-            wishlistBadge.style.display = wishlist.length === 0 ? 'none' : 'inline-flex';
-        }
-
-        function addToCart(item, price) {
-            const existing = cart.find(p => p.name === item);
-            if (existing) {
-                existing.qty = (existing.qty || 1) + 1;
-            } else {
-                cart.push({ name: item, price: price, qty: 1 });
-            }
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateBadges();
-            showToast(`✅ تمت إضافة "${item}" إلى السلة`);
-        }
-
-        function addToWishlist(item) {
-            if (!wishlist.includes(item)) {
-                wishlist.push(item);
-                localStorage.setItem('wishlist', JSON.stringify(wishlist));
-                updateBadges();
-                showToast(`❤️ تمت إضافة "${item}" إلى المفضلة`);
-            } else {
-                showToast(`"${item}" موجود بالفعل في المفضلة`, 1500);
-            }
-        }
-
-        // ==================== البحث المباشر مع debounce ====================
-        let searchTimeout;
-        const searchInput = document.getElementById('searchInput');
-        const booksGrid = document.getElementById('booksGrid');
-        const noResults = document.getElementById('noResults');
-
-        function getCards() {
-            return document.querySelectorAll('.book-card');
-        }
-
-        function performSearch() {
-            const value = searchInput.value.trim().toLowerCase();
-            const cards = getCards();
-            let visibleCount = 0;
-
-            cards.forEach(card => {
-                const title = card.querySelector('.book-title').textContent.toLowerCase();
-                const category = card.querySelector('.book-category').textContent.toLowerCase();
-                const author = card.querySelector('.book-author').textContent.toLowerCase();
-                const matches = title.includes(value) || category.includes(value) || author.includes(value);
-                card.style.display = matches ? 'flex' : 'none';
-                if (matches) visibleCount++;
-            });
-
-            // إظهار/إخفاء رسالة عدم وجود نتائج
-            if (visibleCount === 0 && value !== '') {
-                noResults.style.display = 'block';
-            } else {
-                noResults.style.display = 'none';
-            }
-        }
-
-        searchInput.addEventListener('input', (e) => {
-            clearTimeout(searchTimeout);
-            searchTimeout = setTimeout(performSearch, 300); // debounce 300ms
-        });
-
-        // ==================== التهيئة ====================
+    function addToCart(name, price) {
+        const ex = cart.find(p => p.name === name);
+        if (ex) { ex.qty = (ex.qty || 1) + 1; }
+        else { cart.push({ name, price, qty: 1 }); }
+        localStorage.setItem('cart', JSON.stringify(cart));
         updateBadges();
+        showToast(`تمت إضافة "${name}" إلى السلة`);
+    }
 
-        // إضافة will-change للبطاقات لتحسين الأداء
-        document.querySelectorAll('.book-card').forEach(card => {
-            card.style.willChange = 'transform';
+    function addToWishlist(name) {
+        if (!wishlist.includes(name)) {
+            wishlist.push(name);
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            updateBadges();
+            showToast(`تمت إضافة "${name}" إلى المفضلة ❤️`);
+        } else {
+            showToast(`"${name}" موجود بالفعل في المفضلة`);
+        }
+    }
+
+    // ══════════════ SEARCH (debounced) ══════════════
+    let searchTimeout;
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+            const val = e.target.value.trim().toLowerCase();
+            const cards = document.querySelectorAll('.book-card');
+            let visible = 0;
+            cards.forEach(card => {
+                const title = card.querySelector('.book-title')?.textContent.toLowerCase() || '';
+                const author = card.querySelector('.book-author')?.textContent.toLowerCase() || '';
+                const cat = card.querySelector('.book-category')?.textContent.toLowerCase() || '';
+                const match = !val || title.includes(val) || author.includes(val) || cat.includes(val);
+                card.style.display = match ? 'flex' : 'none';
+                if (match) visible++;
+            });
+            document.getElementById('noResults').style.display = (visible === 0 && val) ? 'block' : 'none';
+        }, 280);
+    });
+
+    // ══════════════ CATEGORY FILTER ══════════════
+    function filterCategory(cat, btn) {
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const cards = document.querySelectorAll('.book-card');
+        let visible = 0;
+        cards.forEach(card => {
+            const cardCat = card.getAttribute('data-category') || '';
+            const match = cat === 'all' || cardCat === cat;
+            card.style.display = match ? 'flex' : 'none';
+            if (match) visible++;
         });
-    </script>
+        document.getElementById('noResults').style.display = visible === 0 ? 'block' : 'none';
+        // Reset search
+        document.getElementById('searchInput').value = '';
+    }
+
+    // ══════════════ INIT ══════════════
+    updateBadges();
+</script>
+```
+
 </body>
 </html>

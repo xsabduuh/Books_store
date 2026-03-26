@@ -426,47 +426,6 @@
   }
   .total-currency { font-size: 0.9rem; color: var(--text-secondary); margin-left: 4px; }
 
-  /* Promo Section */
-  .promo-section {
-    margin-top: 16px;
-    display: flex;
-    gap: 8px;
-  }
-  .promo-input {
-    flex: 1;
-    padding: 10px 14px;
-    border: 1px solid var(--border-light);
-    border-radius: 10px;
-    font-family: 'Cairo', sans-serif;
-    font-size: 0.85rem;
-    background: var(--bg-body);
-    color: var(--text-primary);
-    outline: none;
-    transition: border-color 0.2s;
-    direction: ltr;
-    text-align: center;
-  }
-  .promo-input:focus { border-color: var(--accent); }
-  .promo-input::placeholder { color: var(--text-secondary); direction: rtl; }
-  .promo-btn {
-    padding: 10px 16px;
-    background: var(--accent-light);
-    border: 1px solid var(--border-light);
-    border-radius: 10px;
-    cursor: pointer;
-    font-family: 'Cairo', sans-serif;
-    font-weight: 600;
-    font-size: 0.82rem;
-    color: var(--text-primary);
-    transition: all 0.2s;
-    white-space: nowrap;
-  }
-  .promo-btn:hover {
-    background: var(--icon-bg);
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-
   /* Checkout Button */
   .checkout-btn {
     width: 100%;
@@ -494,18 +453,6 @@
   }
   .checkout-btn:active { transform: translateY(0); }
 
-  /* Secure Badge */
-  .secure-badge {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    margin-top: 12px;
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-  }
-  .secure-badge i { color: var(--success); }
-
   /* Continue Shopping Link */
   .continue-link {
     display: block;
@@ -519,63 +466,86 @@
   }
   .continue-link:hover { color: var(--accent-dark); }
 
-  /* Modal */
-  .modal-overlay {
+  /* === NEW MODAL FOR WHATSAPP INFO === */
+  .info-modal-overlay {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(26,18,9,0.6);
+    background: rgba(0,0,0,0.7);
     z-index: 200;
     align-items: center;
     justify-content: center;
     backdrop-filter: blur(4px);
     padding: 16px;
   }
-  .modal-overlay.active { display: flex; }
-  .modal-box {
+  .info-modal-overlay.active { display: flex; }
+  .info-modal {
     background: var(--card-bg);
-    border-radius: 20px;
-    padding: 36px 28px;
-    max-width: 360px;
+    border-radius: 24px;
+    padding: 28px 24px;
+    max-width: 420px;
     width: 100%;
     text-align: center;
     animation: popIn 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
     border: 1px solid var(--border-light);
   }
-  .modal-icon {
-    width: 80px; height: 80px;
-    background: linear-gradient(135deg, #e8f8ee, #d4f0de);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    margin: 0 auto 20px;
-    font-size: 2rem;
-    color: var(--success);
-    border: 3px solid #b8e8c8;
-  }
-  .modal-box h2 {
+  .info-modal h2 {
     font-family: 'Amiri', serif;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     margin-bottom: 8px;
     color: var(--text-primary);
   }
-  .modal-box p {
+  .info-modal p {
     color: var(--text-secondary);
-    font-size: 0.88rem;
-    margin-bottom: 24px;
+    font-size: 0.85rem;
+    margin-bottom: 20px;
   }
-  .modal-close {
+  .info-modal input {
+    width: 100%;
+    padding: 12px 16px;
+    margin-bottom: 14px;
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    background: var(--bg-body);
+    color: var(--text-primary);
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .info-modal input:focus {
+    border-color: var(--accent);
+  }
+  .info-modal button {
+    width: 100%;
+    padding: 12px;
     background: linear-gradient(135deg, var(--accent), var(--accent-dark));
     color: #fff;
     border: none;
-    padding: 12px 32px;
-    border-radius: 10px;
+    border-radius: 12px;
     font-family: 'Cairo', sans-serif;
     font-weight: 700;
-    font-size: 0.95rem;
+    font-size: 1rem;
     cursor: pointer;
     transition: all 0.2s;
+    margin-top: 6px;
   }
-  .modal-close:hover { transform: translateY(-2px); }
+  .info-modal button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(201,147,90,0.4);
+  }
+  .info-modal .close-modal {
+    background: transparent;
+    color: var(--text-secondary);
+    margin-top: 8px;
+    box-shadow: none;
+    font-size: 0.85rem;
+  }
+  .info-modal .close-modal:hover {
+    background: var(--accent-light);
+    transform: none;
+    box-shadow: none;
+  }
 
   /* Animations */
   @keyframes fadeDown {
@@ -658,18 +628,11 @@
     background: var(--danger);
     border-color: var(--danger);
   }
-  [data-theme="dark"] .promo-input {
+  [data-theme="dark"] .info-modal input {
     background: #1C2B33;
   }
-  [data-theme="dark"] .promo-btn {
+  [data-theme="dark"] .info-modal .close-modal:hover {
     background: #2A2018;
-  }
-  [data-theme="dark"] .modal-box {
-    background: #192330;
-  }
-  [data-theme="dark"] .book-thumb .fallback-icon {
-    color: var(--accent);
-    opacity: 0.7;
   }
 </style>
 </head>
@@ -686,7 +649,6 @@
       مكتبة النور
     </div>
     <div style="display: flex; gap: 12px; align-items: center;">
-      <!-- Dark mode toggle button -->
       <button id="darkModeToggle" style="background: none; border: none; cursor: pointer; font-size: 1.3rem; color: var(--accent); transition: all 0.2s; width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
         <i class="fas fa-moon"></i>
       </button>
@@ -706,20 +668,21 @@
 
 </div>
 
-<!-- Checkout Modal -->
-<div class="modal-overlay" id="checkoutModal">
-  <div class="modal-box">
-    <div class="modal-icon"><i class="fas fa-check"></i></div>
-    <h2>تم استلام طلبك!</h2>
-    <p>شكراً لك على الشراء من مكتبة النور.<br>سيتم التواصل معك قريباً لتأكيد الطلب.</p>
-    <button class="modal-close" onclick="closeModal()">
-      <i class="fas fa-home"></i> العودة للرئيسية
-    </button>
+<!-- Modal for WhatsApp info -->
+<div class="info-modal-overlay" id="infoModal">
+  <div class="info-modal">
+    <h2>معلومات الطلب</h2>
+    <p>يرجى إدخال بياناتك لإرسال الطلب عبر واتساب</p>
+    <input type="text" id="customerName" placeholder="الاسم الكامل" autocomplete="off">
+    <input type="tel" id="customerPhone" placeholder="رقم الهاتف (مثال: 06xxxxxxxx)" autocomplete="off">
+    <input type="text" id="customerRegion" placeholder="المنطقة / المدينة" autocomplete="off">
+    <button id="confirmOrderBtn">تأكيد وإرسال للواتساب</button>
+    <button class="close-modal" onclick="closeInfoModal()">إلغاء</button>
   </div>
 </div>
 
 <script data-cfasync="false">
-  // --- Dark Mode Handling ---
+  // --- Dark Mode ---
   const htmlEl = document.documentElement;
   const toggleBtn = document.getElementById('darkModeToggle');
   const icon = toggleBtn.querySelector('i');
@@ -737,18 +700,16 @@
     updateThemeIcon(next);
   });
 
-  // --- Book Image Mapping (same as wishlist) ---
+  // --- Book Images (same as wishlist) ---
   const bookImages = {
     'فن اللامبالاة': 'IMG_2514.JPG',
     'متعة أن تكون في العشرين': 'IMG_2515.JPG',
     'الأنثى كما يجب أن تكون': 'IMG_2516.JPG',
     'أحببت وغداً': 'IMG_2517.JPG'
   };
-
   function getBookImageUrl(bookName) {
     return bookImages[bookName] || null;
   }
-
   function renderBookThumb(bookName) {
     const imgUrl = getBookImageUrl(bookName);
     if (imgUrl) {
@@ -758,9 +719,8 @@
     }
   }
 
-  // --- Cart Data ---
+  // --- Cart data ---
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
-  // Ensure each item has qty and author
   cart = cart.map(item => ({
     name: item.name,
     author: item.author || '',
@@ -769,16 +729,9 @@
   }));
 
   const SHIPPING = 15;
-  let DISCOUNT = 0;
 
-  // Helper functions
   function saveCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
-  }
-
-  function showToast(msg) {
-    // Simple alert for promo messages (or could use a toast system)
-    alert(msg);
   }
 
   function render() {
@@ -794,7 +747,6 @@
       return;
     }
 
-    // Build items HTML
     let itemsHTML = '';
     cart.forEach((item, i) => {
       const delay = i * 0.06;
@@ -820,10 +772,9 @@
         </div>`;
     });
 
-    // Calculations
-    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-    const total = subtotal + SHIPPING - DISCOUNT;
-    const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+    const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+    const total = subtotal + SHIPPING;
+    const totalItems = cart.reduce((s, i) => s + i.qty, 0);
 
     container.innerHTML = `
       <div class="cart-layout">
@@ -841,20 +792,14 @@
           <div class="summary-body">
             <div class="summary-row"><span>المجموع الفرعي</span><span>${subtotal} درهم</span></div>
             <div class="summary-row"><span>رسوم الشحن</span><span>${SHIPPING} درهم</span></div>
-            ${DISCOUNT > 0 ? `<div class="summary-row"><span>الخصم</span><span style="color:var(--success)">- ${DISCOUNT} درهم</span></div>` : ''}
             <div class="summary-divider"></div>
             <div class="summary-total">
               <span class="total-label">الإجمالي</span>
               <span class="total-amount"><span class="total-currency">MAD</span>${total}</span>
             </div>
-            <div class="promo-section">
-              <input type="text" class="promo-input" id="promoCode" placeholder="كود الخصم (اختياري)">
-              <button class="promo-btn" onclick="applyPromo()"><i class="fas fa-tag"></i> تطبيق</button>
-            </div>
-            <button class="checkout-btn" onclick="checkout()">
-              <i class="fas fa-lock"></i> إتمام الشراء بأمان
+            <button class="checkout-btn" onclick="openInfoModal()">
+              <i class="fas fa-shopping-cart"></i> إتمام الشراء
             </button>
-            <div class="secure-badge"><i class="fas fa-shield-alt"></i> دفع آمن ومشفر</div>
           </div>
         </div>
       </div>
@@ -872,7 +817,6 @@
     });
   }
 
-  // Actions
   window.changeQty = function(index, delta) {
     cart[index].qty += delta;
     if (cart[index].qty <= 0) {
@@ -888,31 +832,58 @@
     render();
   };
 
-  window.applyPromo = function() {
-    const code = (document.getElementById('promoCode').value || '').toUpperCase().trim();
-    if (code === 'ALNOOR10') {
-      DISCOUNT = 10;
-      showToast('✅ تم تطبيق كود الخصم: خصم 10 درهم');
-    } else if (code === 'WELCOME') {
-      DISCOUNT = 5;
-      showToast('✅ تم تطبيق كود الخصم: خصم 5 درهم');
-    } else {
-      showToast('❌ كود الخصم غير صحيح');
-    }
-    render();
+  // --- WhatsApp Checkout Logic ---
+  function openInfoModal() {
+    if (cart.length === 0) return;
+    document.getElementById('infoModal').classList.add('active');
+  }
+
+  window.closeInfoModal = function() {
+    document.getElementById('infoModal').classList.remove('active');
   };
 
-  window.checkout = function() {
-    if (cart.length === 0) return;
-    document.getElementById('checkoutModal').classList.add('active');
+  function sendOrderToWhatsApp() {
+    const name = document.getElementById('customerName').value.trim();
+    const phone = document.getElementById('customerPhone').value.trim();
+    const region = document.getElementById('customerRegion').value.trim();
+
+    if (!name || !phone || !region) {
+      alert('يرجى ملء جميع الحقول (الاسم، رقم الهاتف، المنطقة)');
+      return;
+    }
+
+    // Build order details
+    const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+    const total = subtotal + SHIPPING;
+    let itemsList = '';
+    cart.forEach(item => {
+      itemsList += `📖 ${item.name} × ${item.qty} = ${item.price * item.qty} درهم\n`;
+    });
+
+    const message = `🛍️ *طلب جديد من مكتبة النور* 🛍️\n\n` +
+      `👤 *الاسم:* ${name}\n` +
+      `📞 *الهاتف:* ${phone}\n` +
+      `📍 *المنطقة:* ${region}\n\n` +
+      `📚 *الكتب:*\n${itemsList}\n` +
+      `🚚 *رسوم الشحن:* ${SHIPPING} درهم\n` +
+      `💰 *الإجمالي:* ${total} درهم\n\n` +
+      `شكراً لطلبكم! سنتواصل معكم قريباً لتأكيد الطلب.`;
+
+    const encodedMessage = encodeURIComponent(message);
+    // Replace with your WhatsApp number (country code without +)
+    const whatsappNumber = '212600123456'; // example number, change to yours
+    const url = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+    // Clear cart and close modal
     cart = [];
     localStorage.removeItem('cart');
-  };
+    render();
+    closeInfoModal();
+    // Redirect to WhatsApp
+    window.open(url, '_blank');
+  }
 
-  window.closeModal = function() {
-    document.getElementById('checkoutModal').classList.remove('active');
-    window.location.href = 'index.html';
-  };
+  document.getElementById('confirmOrderBtn').addEventListener('click', sendOrderToWhatsApp);
 
   // Initial render
   render();

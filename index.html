@@ -585,37 +585,129 @@
 
         /* Toast and Scroll Top */
         .toast {
+            position: fixed;
             bottom: 20px;
             right: 20px;
-            left: auto;
+            background: var(--toast-bg);
+            color: var(--toast-text);
             padding: 10px 18px;
+            border-radius: 14px;
             font-size: 0.8rem;
-            white-space: normal;
-            text-align: center;
+            font-weight: 600;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+            z-index: 9999;
+            opacity: 0;
+            transform: translateY(16px) scale(0.95);
+            transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none;
             max-width: 280px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-right: 3px solid var(--accent);
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
         }
         @media (max-width: 480px) {
             .toast {
                 left: 20px;
                 right: 20px;
                 max-width: none;
+                text-align: center;
             }
         }
         .scroll-top {
-            width: 40px;
-            height: 40px;
+            position: fixed;
             bottom: 20px;
             left: 20px;
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 20px rgba(201,147,90,0.4);
+            transition: opacity 0.3s, transform 0.3s, background 0.2s;
+            opacity: 0;
+            transform: translateY(16px);
+            z-index: 900;
+        }
+        .scroll-top.visible { opacity: 1; transform: translateY(0); }
+        .scroll-top:hover {
+            transform: translateY(-3px);
+            background: var(--accent-dark);
         }
 
         /* Footer */
         .footer {
+            background: var(--footer-bg);
+            color: var(--footer-text);
             padding: 40px 24px 24px;
+            transition: background 0.3s;
+        }
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
         }
         .footer-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
             gap: 30px;
+            flex-wrap: wrap;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            margin-bottom: 40px;
+        }
+        .footer-brand .footer-logo {
+            font-family: 'Amiri', serif;
+            font-size: 1.6rem;
+            color: white;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .footer-brand p {
+            color: var(--footer-link);
+            max-width: 260px;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        .social-links {
+            display: flex;
+            gap: 10px;
+        }
+        .social-links a {
+            width: 38px;
+            height: 38px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--footer-link);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+        .social-links a:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+            transform: translateY(-3px);
         }
         .footer-grid {
+            display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 24px;
         }
@@ -624,24 +716,65 @@
                 grid-template-columns: repeat(2, 1fr);
                 gap: 20px;
             }
-            .footer-bottom {
-                flex-direction: column;
-                text-align: center;
-                gap: 12px;
-            }
         }
         @media (max-width: 480px) {
             .footer-grid {
                 grid-template-columns: 1fr;
             }
         }
-
-        /* Additional responsiveness for buttons */
-        button, .btn-primary, .btn-ghost, .quick-btn, .btn-cart, .row-cart-btn {
-            cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
+        .footer-col h4 {
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+            letter-spacing: 0.3px;
         }
-        /* Ensure touch targets are at least 44px on mobile */
+        .footer-col ul { list-style: none; }
+        .footer-col li { margin-bottom: 10px; }
+        .footer-col a {
+            color: var(--footer-link);
+            text-decoration: none;
+            font-size: 0.88rem;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+        .footer-col a:hover {
+            color: var(--accent);
+            padding-right: 4px;
+        }
+        .footer-col a i { font-size: 0.7rem; opacity: 0.6; }
+        .footer-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        @media (max-width: 768px) {
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        .footer-bottom p {
+            color: rgba(255,255,255,0.3);
+            font-size: 0.85rem;
+        }
+        .footer-contact { display: flex; gap: 24px; flex-wrap: wrap; }
+        .footer-contact a {
+            color: var(--footer-link);
+            text-decoration: none;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            transition: color 0.2s;
+        }
+        .footer-contact a:hover { color: var(--accent); }
+
+        /* Additional mobile touch target improvements */
         @media (max-width: 768px) {
             .nav-btn, .theme-toggle, .cart-link, .back-btn, .cat-btn, .quick-btn, .btn-cart, .row-cart-btn, .btn-remove, .row-remove-btn, .add-all-btn, .checkout-btn, .modal-close, .promo-btn {
                 min-height: 44px;
@@ -658,8 +791,40 @@
             }
         }
 
-        /* Keep rest of original styles (animations, etc.) */
-        /* ... (existing animations and other styles remain unchanged) ... */
+        /* Animation keyframes (if used) */
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes heartbeat {
+            0%,100% { transform: scale(1); }
+            30% { transform: scale(1.18); }
+            60% { transform: scale(1.08); }
+        }
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.85); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes cardFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(24px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
     </style>
 </head>
 <body>
@@ -703,7 +868,7 @@
         </div>
     </nav>
 
-    <!-- Hero section (unchanged but responsive) -->
+    <!-- Hero section -->
     <section class="hero">
         <div class="hero-inner">
             <div class="hero-text">
@@ -786,7 +951,7 @@
         </div>
 
         <div class="books-grid" id="booksGrid">
-            <!-- كتاب 1 -->
+            <!-- Book 1 -->
             <div class="book-card" data-category="تطوير ذات">
                 <div class="book-badge">الأكثر مبيعاً</div>
                 <div class="book-img-wrap">
@@ -816,7 +981,7 @@
                     </div>
                 </div>
             </div>
-            <!-- كتاب 2 -->
+            <!-- Book 2 -->
             <div class="book-card" data-category="تطوير ذات">
                 <div class="book-img-wrap">
                     <img src="IMG_2515.JPG" alt="متعة أن تكون في العشرين" class="book-img" loading="lazy"
@@ -845,7 +1010,7 @@
                     </div>
                 </div>
             </div>
-            <!-- كتاب 3 -->
+            <!-- Book 3 -->
             <div class="book-card" data-category="أدب">
                 <div class="book-badge new">جديد</div>
                 <div class="book-img-wrap">
@@ -875,7 +1040,7 @@
                     </div>
                 </div>
             </div>
-            <!-- كتاب 4 -->
+            <!-- Book 4 -->
             <div class="book-card" data-category="علم نفس">
                 <div class="book-img-wrap">
                     <img src="IMG_2517.JPG" alt="أحببت وغداً" class="book-img" loading="lazy"

@@ -1,67 +1,821 @@
 <!DOCTYPE html>
+
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>قائمة الرغبات - مكتبة النور</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        :root {
-            --bg: #f5f3f0; --text: #1e2a2e; --card: white; --border: #e0dcd5; --accent: #b8915c; --danger: #c0392b;
-        }
-        [data-theme="dark"] { --bg: #121212; --text: #e0e0e0; --card: #1e1e1e; --border: #333; --accent: #d4a373; --danger: #e06b6b; }
-        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', 'Tajawal', sans-serif; padding: 20px; max-width: 1200px; margin: 0 auto; }
-        a { color: var(--accent); text-decoration: none; }
-        .back-link { margin-bottom: 30px; display: block; }
-        h1 { color: var(--accent); }
-        .wishlist-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px,1fr)); gap: 20px; }
-        .wishlist-item { background: var(--card); border: 1px solid var(--border); border-radius: 15px; padding: 15px; display: flex; align-items: center; gap: 15px; }
-        .item-img { width: 60px; height: 80px; background: #ccc; border-radius: 8px; }
-        .item-info { flex: 1; }
-        .item-title { font-weight: 600; }
-        .item-price { color: var(--accent); }
-        .remove-btn { background: none; border: none; color: var(--danger); cursor: pointer; font-size: 1.2rem; }
-        .empty-msg { text-align: center; padding: 50px; color: #888; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>قائمة المفضلة - مكتبة النور</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+  :root {
+    --ink: #1a1209;
+    --parchment: #faf6ee;
+    --sand: #f0e8d4;
+    --gold: #c9913a;
+    --gold-light: #e8b96a;
+    --gold-pale: #f5e6c8;
+    --sienna: #8b3a1a;
+    --rose: #c0392b;
+    --rose-pale: #fff0ee;
+    --heart: #e84393;
+    --text-muted: #7a6a55;
+    --border: #ddd0b8;
+    --shadow: rgba(26,18,9,0.10);
+  }
+
+- { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+font-family: ‘Cairo’, sans-serif;
+background: var(–parchment);
+color: var(–ink);
+min-height: 100vh;
+overflow-x: hidden;
+}
+
+/* Top accent bar */
+body::after {
+content: ‘’;
+position: fixed;
+top: 0; left: 0; right: 0;
+height: 4px;
+background: linear-gradient(90deg, var(–sienna), var(–gold), #e84393, var(–gold), var(–sienna));
+z-index: 100;
+}
+
+/* Soft bg glow */
+body::before {
+content: ‘’;
+position: fixed;
+inset: 0;
+background:
+radial-gradient(ellipse at 15% 15%, rgba(232,67,147,0.05) 0%, transparent 50%),
+radial-gradient(ellipse at 85% 85%, rgba(201,145,58,0.07) 0%, transparent 50%);
+pointer-events: none;
+z-index: 0;
+}
+
+.page-wrapper {
+position: relative;
+z-index: 1;
+max-width: 980px;
+margin: 0 auto;
+padding: 0 16px 80px;
+}
+
+/* ── Header ── */
+.site-header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 20px 0 16px;
+border-bottom: 1px solid var(–border);
+margin-bottom: 32px;
+}
+.back-btn {
+display: flex;
+align-items: center;
+gap: 8px;
+color: var(–gold);
+font-size: 0.9rem;
+font-weight: 600;
+text-decoration: none;
+transition: all 0.2s;
+}
+.back-btn:hover { color: var(–sienna); transform: translateX(3px); }
+
+.logo {
+font-family: ‘Amiri’, serif;
+font-size: 1.6rem;
+font-weight: 700;
+color: var(–ink);
+display: flex;
+align-items: center;
+gap: 8px;
+}
+.logo-icon {
+width: 36px; height: 36px;
+background: linear-gradient(135deg, var(–gold), var(–sienna));
+border-radius: 8px;
+display: flex; align-items: center; justify-content: center;
+color: #fff; font-size: 1rem;
+}
+
+.cart-link {
+color: var(–gold);
+font-size: 1.3rem;
+text-decoration: none;
+transition: color 0.2s;
+position: relative;
+}
+.cart-link:hover { color: var(–sienna); }
+.cart-badge {
+position: absolute;
+top: -6px; left: -6px;
+width: 16px; height: 16px;
+background: var(–sienna);
+color: #fff;
+font-size: 0.6rem;
+font-weight: 700;
+border-radius: 50%;
+display: flex; align-items: center; justify-content: center;
+}
+
+/* ── Page Title ── */
+.page-title-block {
+text-align: center;
+margin-bottom: 36px;
+animation: fadeDown 0.5s ease both;
+}
+.page-title-block h1 {
+font-family: ‘Amiri’, serif;
+font-size: 2rem;
+color: var(–ink);
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 12px;
+margin-bottom: 4px;
+}
+.title-heart {
+color: var(–heart);
+font-size: 1.4rem;
+animation: heartbeat 2s ease-in-out infinite;
+}
+.page-title-block .subtitle {
+color: var(–text-muted);
+font-size: 0.85rem;
+}
+.ornament {
+display: block;
+color: var(–heart);
+font-size: 1.1rem;
+letter-spacing: 8px;
+margin: 6px 0;
+opacity: 0.5;
+}
+
+/* ── Stats Bar ── */
+.stats-bar {
+display: flex;
+align-items: center;
+justify-content: space-between;
+background: #fff;
+border: 1px solid var(–border);
+border-radius: 12px;
+padding: 12px 20px;
+margin-bottom: 24px;
+box-shadow: 0 2px 12px var(–shadow);
+animation: fadeUp 0.4s ease both;
+}
+.stat-item {
+text-align: center;
+flex: 1;
+}
+.stat-num {
+font-family: ‘Amiri’, serif;
+font-size: 1.4rem;
+font-weight: 700;
+color: var(–gold);
+display: block;
+}
+.stat-label {
+font-size: 0.72rem;
+color: var(–text-muted);
+}
+.stat-divider {
+width: 1px;
+height: 32px;
+background: var(–border);
+flex-shrink: 0;
+}
+.add-all-btn {
+background: linear-gradient(135deg, var(–gold), var(–sienna));
+color: #fff;
+border: none;
+padding: 8px 16px;
+border-radius: 8px;
+font-family: ‘Cairo’, sans-serif;
+font-weight: 700;
+font-size: 0.8rem;
+cursor: pointer;
+display: flex;
+align-items: center;
+gap: 6px;
+transition: all 0.2s;
+white-space: nowrap;
+}
+.add-all-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(201,145,58,0.3); }
+
+/* ── Sort/Filter Bar ── */
+.controls-bar {
+display: flex;
+align-items: center;
+gap: 10px;
+margin-bottom: 20px;
+animation: fadeUp 0.45s ease both;
+}
+.sort-select {
+flex: 1;
+padding: 9px 14px;
+border: 1px solid var(–border);
+border-radius: 10px;
+background: #fff;
+font-family: ‘Cairo’, sans-serif;
+font-size: 0.85rem;
+color: var(–ink);
+outline: none;
+cursor: pointer;
+transition: border-color 0.2s;
+}
+.sort-select:focus { border-color: var(–gold); }
+
+.view-toggle {
+display: flex;
+gap: 4px;
+background: var(–sand);
+border: 1px solid var(–border);
+border-radius: 10px;
+padding: 4px;
+}
+.view-btn {
+width: 34px; height: 34px;
+border: none;
+background: transparent;
+border-radius: 7px;
+cursor: pointer;
+color: var(–text-muted);
+font-size: 0.9rem;
+transition: all 0.2s;
+display: flex; align-items: center; justify-content: center;
+}
+.view-btn.active { background: #fff; color: var(–gold); box-shadow: 0 1px 6px var(–shadow); }
+
+/* ── Grid View ── */
+.wishlist-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+gap: 16px;
+}
+
+.wish-card {
+background: #fff;
+border: 1px solid var(–border);
+border-radius: 16px;
+overflow: hidden;
+box-shadow: 0 2px 14px var(–shadow);
+transition: all 0.25s;
+animation: fadeUp 0.4s ease both;
+position: relative;
+display: flex;
+flex-direction: column;
+}
+.wish-card:hover {
+transform: translateY(-4px);
+box-shadow: 0 8px 28px rgba(26,18,9,0.14);
+}
+
+/* Heart badge */
+.heart-badge {
+position: absolute;
+top: 10px;
+left: 10px;
+width: 30px; height: 30px;
+background: rgba(255,255,255,0.9);
+border-radius: 50%;
+display: flex; align-items: center; justify-content: center;
+color: var(–heart);
+font-size: 0.85rem;
+border: 1px solid rgba(232,67,147,0.2);
+z-index: 2;
+}
+
+.book-cover {
+height: 140px;
+background: linear-gradient(135deg, var(–sand) 0%, var(–gold-pale) 100%);
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 2.8rem;
+position: relative;
+overflow: hidden;
+}
+.book-cover::before {
+content: ‘’;
+position: absolute;
+right: 0; top: 0; bottom: 0;
+width: 8px;
+background: linear-gradient(180deg, var(–gold), var(–sienna));
+opacity: 0.5;
+}
+/* Unique cover color per card */
+.wish-card:nth-child(4n+1) .book-cover { background: linear-gradient(135deg, #fce4d8, #f5c8b4); }
+.wish-card:nth-child(4n+2) .book-cover { background: linear-gradient(135deg, #d8eafc, #b4d0f5); }
+.wish-card:nth-child(4n+3) .book-cover { background: linear-gradient(135deg, #d8fce4, #b4f5c8); }
+.wish-card:nth-child(4n+4) .book-cover { background: linear-gradient(135deg, #f5e6c8, #e8c87a); }
+
+.card-body { padding: 12px 14px; flex: 1; display: flex; flex-direction: column; }
+.card-title {
+font-weight: 700;
+font-size: 0.88rem;
+color: var(–ink);
+margin-bottom: 4px;
+line-height: 1.4;
+}
+.card-author {
+font-size: 0.75rem;
+color: var(–text-muted);
+margin-bottom: 8px;
+}
+.card-price {
+font-family: ‘Amiri’, serif;
+font-weight: 700;
+color: var(–sienna);
+font-size: 1rem;
+margin-bottom: 2px;
+}
+.card-note {
+font-size: 0.7rem;
+color: var(–text-muted);
+margin-bottom: 10px;
+}
+
+.card-footer {
+display: flex;
+gap: 8px;
+margin-top: auto;
+}
+.btn-cart {
+flex: 1;
+padding: 8px;
+background: linear-gradient(135deg, var(–gold), var(–sienna));
+color: #fff;
+border: none;
+border-radius: 8px;
+font-family: ‘Cairo’, sans-serif;
+font-weight: 700;
+font-size: 0.78rem;
+cursor: pointer;
+transition: all 0.2s;
+display: flex; align-items: center; justify-content: center; gap: 5px;
+}
+.btn-cart:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(201,145,58,0.3); }
+.btn-remove {
+width: 34px; height: 34px;
+background: var(–rose-pale);
+border: 1px solid #f5c0b8;
+border-radius: 8px;
+cursor: pointer;
+color: var(–rose);
+font-size: 0.8rem;
+transition: all 0.2s;
+display: flex; align-items: center; justify-content: center;
+flex-shrink: 0;
+}
+.btn-remove:hover { background: var(–rose); color: #fff; border-color: var(–rose); }
+
+/* ── List View ── */
+.wishlist-list { display: flex; flex-direction: column; gap: 12px; }
+
+.wish-row {
+background: #fff;
+border: 1px solid var(–border);
+border-radius: 14px;
+padding: 14px 16px;
+display: flex;
+align-items: center;
+gap: 14px;
+box-shadow: 0 2px 10px var(–shadow);
+transition: all 0.2s;
+animation: slideIn 0.35s ease both;
+}
+.wish-row:hover { transform: translateX(-4px); box-shadow: 0 4px 18px var(–shadow); }
+
+.row-thumb {
+width: 52px; height: 68px;
+border-radius: 8px;
+display: flex; align-items: center; justify-content: center;
+font-size: 1.5rem;
+flex-shrink: 0;
+position: relative;
+overflow: hidden;
+}
+.row-thumb::after {
+content: ‘’;
+position: absolute;
+right: 0; top: 0; bottom: 0;
+width: 4px;
+background: linear-gradient(180deg, var(–gold), var(–sienna));
+opacity: 0.6;
+}
+.wish-row:nth-child(4n+1) .row-thumb { background: linear-gradient(135deg, #fce4d8, #f5c8b4); }
+.wish-row:nth-child(4n+2) .row-thumb { background: linear-gradient(135deg, #d8eafc, #b4d0f5); }
+.wish-row:nth-child(4n+3) .row-thumb { background: linear-gradient(135deg, #d8fce4, #b4f5c8); }
+.wish-row:nth-child(4n+4) .row-thumb { background: linear-gradient(135deg, #f5e6c8, #e8c87a); }
+
+.row-info { flex: 1; min-width: 0; }
+.row-title {
+font-weight: 700;
+font-size: 0.92rem;
+color: var(–ink);
+margin-bottom: 3px;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+.row-author { font-size: 0.76rem; color: var(–text-muted); margin-bottom: 5px; }
+.row-price-tag {
+display: inline-flex;
+align-items: center;
+gap: 4px;
+background: var(–gold-pale);
+color: var(–sienna);
+font-weight: 700;
+font-size: 0.82rem;
+padding: 3px 10px;
+border-radius: 6px;
+border: 1px solid rgba(201,145,58,0.25);
+}
+
+.row-actions {
+display: flex;
+gap: 8px;
+flex-shrink: 0;
+}
+.row-cart-btn {
+display: flex; align-items: center; gap: 6px;
+padding: 8px 14px;
+background: linear-gradient(135deg, var(–gold), var(–sienna));
+color: #fff;
+border: none;
+border-radius: 8px;
+font-family: ‘Cairo’, sans-serif;
+font-weight: 700;
+font-size: 0.8rem;
+cursor: pointer;
+transition: all 0.2s;
+white-space: nowrap;
+}
+.row-cart-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(201,145,58,0.3); }
+.row-remove-btn {
+width: 36px; height: 36px;
+background: var(–rose-pale);
+border: 1px solid #f5c0b8;
+border-radius: 8px;
+cursor: pointer;
+color: var(–rose);
+font-size: 0.82rem;
+transition: all 0.2s;
+display: flex; align-items: center; justify-content: center;
+}
+.row-remove-btn:hover { background: var(–rose); color: #fff; border-color: var(–rose); }
+
+/* ── Empty State ── */
+.empty-state {
+text-align: center;
+padding: 64px 20px;
+animation: fadeUp 0.5s ease both;
+}
+.empty-hearts {
+font-size: 3rem;
+margin-bottom: 20px;
+animation: heartbeat 2s ease-in-out infinite;
+display: block;
+}
+.empty-state h2 {
+font-family: ‘Amiri’, serif;
+font-size: 1.5rem;
+margin-bottom: 8px;
+}
+.empty-state p {
+color: var(–text-muted);
+font-size: 0.88rem;
+margin-bottom: 28px;
+}
+.btn-browse {
+display: inline-flex;
+align-items: center;
+gap: 8px;
+background: linear-gradient(135deg, var(–heart), #c0165a);
+color: #fff;
+padding: 12px 28px;
+border-radius: 10px;
+font-family: ‘Cairo’, sans-serif;
+font-weight: 700;
+font-size: 0.95rem;
+text-decoration: none;
+transition: all 0.25s;
+box-shadow: 0 4px 16px rgba(232,67,147,0.3);
+}
+.btn-browse:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(232,67,147,0.4); }
+
+/* ── Toast ── */
+.toast {
+position: fixed;
+bottom: 24px;
+left: 50%;
+transform: translateX(-50%) translateY(80px);
+background: var(–ink);
+color: #fff;
+padding: 12px 24px;
+border-radius: 40px;
+font-size: 0.85rem;
+font-weight: 600;
+z-index: 300;
+transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+display: flex;
+align-items: center;
+gap: 8px;
+white-space: nowrap;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+.toast i { color: var(–gold-light); }
+
+/* ── Animations ── */
+@keyframes fadeDown {
+from { opacity: 0; transform: translateY(-16px); }
+to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(20px); }
+to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideIn {
+from { opacity: 0; transform: translateX(20px); }
+to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes heartbeat {
+0%,100% { transform: scale(1); }
+30%      { transform: scale(1.18); }
+60%      { transform: scale(1.08); }
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+.wishlist-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.row-cart-btn span { display: none; }
+.stats-bar { flex-wrap: wrap; gap: 8px; }
+}
+</style>
+
 </head>
 <body>
-    <a href="index.html" class="back-link"><i class="fas fa-arrow-right"></i> العودة للرئيسية</a>
-    <h1>قائمة الرغبات</h1>
-    <div id="wishlistContainer" class="wishlist-grid"></div>
-    <div id="emptyMsg" class="empty-msg" style="display:none;">قائمة الرغبات فارغة. ابدأ بإضافة كتبك المفضلة!</div>
 
-    <script>
-        let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-        const container = document.getElementById('wishlistContainer');
-        const emptyMsg = document.getElementById('emptyMsg');
+<div class="page-wrapper">
 
-        function renderWishlist() {
-            if (wishlist.length === 0) {
-                container.style.display = 'none';
-                emptyMsg.style.display = 'block';
-                return;
-            }
-            container.style.display = 'grid';
-            emptyMsg.style.display = 'none';
-            container.innerHTML = wishlist.map((item, index) => `
-                <div class="wishlist-item">
-                    <div class="item-img"></div>
-                    <div class="item-info">
-                        <div class="item-title">${item}</div>
-                        <div class="item-price">85 درهم</div>
-                    </div>
-                    <button class="remove-btn" onclick="removeItem(${index})"><i class="fas fa-trash-alt"></i></button>
-                </div>
-            `).join('');
-        }
+  <!-- Header -->
 
-        function removeItem(index) {
-            wishlist.splice(index, 1);
-            localStorage.setItem('wishlist', JSON.stringify(wishlist));
-            renderWishlist();
-        }
+  <header class="site-header">
+    <a href="index.html" class="back-btn">
+      <i class="fas fa-arrow-right"></i> الرئيسية
+    </a>
+    <div class="logo">
+      <div class="logo-icon"><i class="fas fa-book-open"></i></div>
+      مكتبة النور
+    </div>
+    <a href="cart.html" class="cart-link">
+      <i class="fas fa-shopping-cart"></i>
+      <span class="cart-badge" id="cartBadge" style="display:none"></span>
+    </a>
+  </header>
 
-        renderWishlist();
-    </script>
+  <!-- Title -->
+
+  <div class="page-title-block">
+    <h1>
+      <i class="fas fa-heart title-heart"></i>
+      قائمة المفضلة
+      <i class="fas fa-heart title-heart"></i>
+    </h1>
+    <span class="ornament">♥ · · ♥</span>
+    <p class="subtitle">كتبك المحفوظة في انتظارك</p>
+  </div>
+
+  <!-- Main Content -->
+
+  <div id="mainContent"></div>
+
+</div>
+
+<!-- Toast -->
+
+<div class="toast" id="toast">
+  <i class="fas fa-check-circle"></i>
+  <span id="toastText"></span>
+</div>
+
+<script data-cfasync="false">
+  // ─── State ───────────────────────────────────────────────
+  var wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+  var cart = JSON.parse(localStorage.getItem('cart')) || [];
+  var currentView = 'grid'; // 'grid' or 'list'
+
+  // Normalize: wishlist may store strings OR objects
+  wishlist = wishlist.map(function(item) {
+    if (typeof item === 'string') {
+      return { name: item, author: '', price: 85 };
+    }
+    return { name: item.name || item, author: item.author || '', price: item.price || 85 };
+  });
+
+  // Book emojis pool
+  var emojis = ['📖','📚','📕','📗','📘','📙','🔖','📜'];
+
+  function bookEmoji(i) { return emojis[i % emojis.length]; }
+
+  // ─── Cart Badge ──────────────────────────────────────────
+  function updateCartBadge() {
+    var badge = document.getElementById('cartBadge');
+    var count = cart.reduce(function(s,i){ return s + (i.qty || 1); }, 0);
+    if (count > 0) {
+      badge.style.display = 'flex';
+      badge.textContent = count;
+    } else {
+      badge.style.display = 'none';
+    }
+  }
+
+  // ─── Toast ───────────────────────────────────────────────
+  function showToast(msg) {
+    var t = document.getElementById('toast');
+    document.getElementById('toastText').textContent = msg;
+    t.classList.add('show');
+    setTimeout(function() { t.classList.remove('show'); }, 2800);
+  }
+
+  // ─── Render ──────────────────────────────────────────────
+  function render() {
+    var container = document.getElementById('mainContent');
+    updateCartBadge();
+
+    if (wishlist.length === 0) {
+      container.innerHTML =
+        '<div class="empty-state">' +
+          '<span class="empty-hearts">🤍</span>' +
+          '<h2>المفضلة فارغة</h2>' +
+          '<p>لم تضف أي كتاب بعد.<br>اكتشف مجموعتنا وأضف ما يلفت انتباهك!</p>' +
+          '<a href="index.html" class="btn-browse"><i class="fas fa-compass"></i> اكتشف الكتب</a>' +
+        '</div>';
+      return;
+    }
+
+    // Stats
+    var totalVal = wishlist.reduce(function(s,i){ return s + i.price; }, 0);
+    var statsHTML =
+      '<div class="stats-bar">' +
+        '<div class="stat-item">' +
+          '<span class="stat-num">' + wishlist.length + '</span>' +
+          '<span class="stat-label">كتب مفضلة</span>' +
+        '</div>' +
+        '<div class="stat-divider"></div>' +
+        '<div class="stat-item">' +
+          '<span class="stat-num">' + totalVal + '</span>' +
+          '<span class="stat-label">درهم (القيمة)</span>' +
+        '</div>' +
+        '<div class="stat-divider"></div>' +
+        '<button class="add-all-btn" data-cfasync="false" onclick="addAllToCart()">' +
+          '<i class="fas fa-cart-plus"></i> أضف الكل للسلة' +
+        '</button>' +
+      '</div>';
+
+    // Controls
+    var controlsHTML =
+      '<div class="controls-bar">' +
+        '<select class="sort-select" onchange="handleSort(this.value)">' +
+          '<option value="default">الترتيب: الافتراضي</option>' +
+          '<option value="name">الترتيب: الاسم</option>' +
+          '<option value="price-asc">السعر: الأقل أولاً</option>' +
+          '<option value="price-desc">السعر: الأعلى أولاً</option>' +
+        '</select>' +
+        '<div class="view-toggle">' +
+          '<button class="view-btn' + (currentView === 'grid' ? ' active' : '') + '" data-cfasync="false" onclick="setView(\'grid\')">' +
+            '<i class="fas fa-th"></i>' +
+          '</button>' +
+          '<button class="view-btn' + (currentView === 'list' ? ' active' : '') + '" data-cfasync="false" onclick="setView(\'list\')">' +
+            '<i class="fas fa-list"></i>' +
+          '</button>' +
+        '</div>' +
+      '</div>';
+
+    // Items
+    var itemsHTML = '';
+    if (currentView === 'grid') {
+      itemsHTML = '<div class="wishlist-grid">';
+      wishlist.forEach(function(item, i) {
+        var delay = (i * 0.06).toFixed(2);
+        itemsHTML +=
+          '<div class="wish-card" style="animation-delay:' + delay + 's">' +
+            '<div class="heart-badge"><i class="fas fa-heart"></i></div>' +
+            '<div class="book-cover">' + bookEmoji(i) + '</div>' +
+            '<div class="card-body">' +
+              '<div class="card-title">' + item.name + '</div>' +
+              (item.author ? '<div class="card-author">' + item.author + '</div>' : '') +
+              '<div class="card-price">' + item.price + ' <small style="font-size:0.65rem;color:var(--text-muted)">درهم</small></div>' +
+              '<div class="card-note">+ 15 درهم شحن</div>' +
+              '<div class="card-footer">' +
+                '<button class="btn-cart" data-cfasync="false" onclick="addToCart(' + i + ')">' +
+                  '<i class="fas fa-cart-plus"></i> أضف للسلة' +
+                '</button>' +
+                '<button class="btn-remove" data-cfasync="false" onclick="removeItem(' + i + ')">' +
+                  '<i class="fas fa-heart-broken"></i>' +
+                '</button>' +
+              '</div>' +
+            '</div>' +
+          '</div>';
+      });
+      itemsHTML += '</div>';
+
+    } else {
+      itemsHTML = '<div class="wishlist-list">';
+      wishlist.forEach(function(item, i) {
+        var delay = (i * 0.06).toFixed(2);
+        itemsHTML +=
+          '<div class="wish-row" style="animation-delay:' + delay + 's">' +
+            '<div class="row-thumb">' + bookEmoji(i) + '</div>' +
+            '<div class="row-info">' +
+              '<div class="row-title">' + item.name + '</div>' +
+              (item.author ? '<div class="row-author">' + item.author + '</div>' : '') +
+              '<span class="row-price-tag"><i class="fas fa-tag" style="font-size:0.65rem"></i> ' + item.price + ' درهم</span>' +
+            '</div>' +
+            '<div class="row-actions">' +
+              '<button class="row-cart-btn" data-cfasync="false" onclick="addToCart(' + i + ')">' +
+                '<i class="fas fa-cart-plus"></i>' +
+                '<span>أضف للسلة</span>' +
+              '</button>' +
+              '<button class="row-remove-btn" data-cfasync="false" onclick="removeItem(' + i + ')">' +
+                '<i class="fas fa-heart-broken"></i>' +
+              '</button>' +
+            '</div>' +
+          '</div>';
+      });
+      itemsHTML += '</div>';
+    }
+
+    container.innerHTML = statsHTML + controlsHTML + itemsHTML;
+  }
+
+  // ─── Actions ────────────────────────────────────────────
+  function addToCart(index) {
+    var item = wishlist[index];
+    var existing = null;
+    for (var j = 0; j < cart.length; j++) {
+      if (cart[j].name === item.name) { existing = cart[j]; break; }
+    }
+    if (existing) {
+      existing.qty = (existing.qty || 1) + 1;
+    } else {
+      cart.push({ name: item.name, author: item.author, price: item.price, qty: 1 });
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartBadge();
+    showToast('تمت الإضافة إلى السلة 🛒');
+  }
+
+  function addAllToCart() {
+    wishlist.forEach(function(item) {
+      var existing = null;
+      for (var j = 0; j < cart.length; j++) {
+        if (cart[j].name === item.name) { existing = cart[j]; break; }
+      }
+      if (existing) {
+        existing.qty = (existing.qty || 1) + 1;
+      } else {
+        cart.push({ name: item.name, author: item.author, price: item.price, qty: 1 });
+      }
+    });
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartBadge();
+    showToast('تمت إضافة جميع الكتب للسلة 🛒');
+  }
+
+  function removeItem(index) {
+    wishlist.splice(index, 1);
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    render();
+    showToast('تمت الإزالة من المفضلة 💔');
+  }
+
+  function setView(v) {
+    currentView = v;
+    render();
+  }
+
+  function handleSort(val) {
+    if (val === 'name') {
+      wishlist.sort(function(a,b){ return a.name.localeCompare(b.name, 'ar'); });
+    } else if (val === 'price-asc') {
+      wishlist.sort(function(a,b){ return a.price - b.price; });
+    } else if (val === 'price-desc') {
+      wishlist.sort(function(a,b){ return b.price - a.price; });
+    }
+    render();
+  }
+
+  // ─── Init ───────────────────────────────────────────────
+  render();
+</script>
+
 </body>
 </html>

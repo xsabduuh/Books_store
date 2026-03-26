@@ -107,7 +107,6 @@
     gap: 8px;
   }
 
-  /* Improved icon frame */
   .logo-icon {
     width: 38px;
     height: 38px;
@@ -351,30 +350,38 @@
     background: white;
   }
 
+  /* Book cover with real image */
   .book-cover {
-    height: 140px;
+    height: 160px;
     background: linear-gradient(135deg, var(--sand) 0%, var(--gold-pale) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2.8rem;
     position: relative;
     overflow: hidden;
   }
-  .book-cover::before {
-    content: '';
-    position: absolute;
-    right: 0; top: 0; bottom: 0;
-    width: 8px;
-    background: linear-gradient(180deg, var(--gold), var(--sienna));
-    opacity: 0.5;
+  .book-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
   }
-  .wish-card:nth-child(4n+1) .book-cover { background: linear-gradient(135deg, #fce4d8, #f5c8b4); }
-  .wish-card:nth-child(4n+2) .book-cover { background: linear-gradient(135deg, #d8eafc, #b4d0f5); }
-  .wish-card:nth-child(4n+3) .book-cover { background: linear-gradient(135deg, #d8fce4, #b4f5c8); }
-  .wish-card:nth-child(4n+4) .book-cover { background: linear-gradient(135deg, #f5e6c8, #e8c87a); }
+  .wish-card:hover .book-cover img {
+    transform: scale(1.05);
+  }
+  /* Fallback if image missing */
+  .book-cover .fallback-icon {
+    font-size: 3rem;
+    color: var(--sienna);
+    opacity: 0.6;
+  }
 
-  .card-body { padding: 12px 14px; flex: 1; display: flex; flex-direction: column; }
+  .card-body {
+    padding: 12px 14px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
   .card-title {
     font-weight: 700;
     font-size: 0.88rem;
@@ -466,26 +473,27 @@
   }
 
   .row-thumb {
-    width: 52px; height: 68px;
+    width: 56px;
+    height: 74px;
     border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-shrink: 0;
     position: relative;
     overflow: hidden;
+    background: var(--gold-pale);
   }
-  .row-thumb::after {
-    content: '';
-    position: absolute;
-    right: 0; top: 0; bottom: 0;
-    width: 4px;
-    background: linear-gradient(180deg, var(--gold), var(--sienna));
-    opacity: 0.6;
+  .row-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
-  .wish-row:nth-child(4n+1) .row-thumb { background: linear-gradient(135deg, #fce4d8, #f5c8b4); }
-  .wish-row:nth-child(4n+2) .row-thumb { background: linear-gradient(135deg, #d8eafc, #b4d0f5); }
-  .wish-row:nth-child(4n+3) .row-thumb { background: linear-gradient(135deg, #d8fce4, #b4f5c8); }
-  .wish-row:nth-child(4n+4) .row-thumb { background: linear-gradient(135deg, #f5e6c8, #e8c87a); }
+  .row-thumb .fallback-icon {
+    font-size: 1.8rem;
+    color: var(--sienna);
+    opacity: 0.5;
+  }
 
   .row-info { flex: 1; min-width: 0; }
   .row-title {
@@ -678,10 +686,6 @@
     color: #ff99bb;
     border-color: rgba(255, 119, 170, 0.5);
   }
-  body.dark-mode .wish-card .book-cover,
-  body.dark-mode .wish-row .row-thumb {
-    filter: brightness(0.85);
-  }
   body.dark-mode .btn-cart,
   body.dark-mode .row-cart-btn,
   body.dark-mode .add-all-btn {
@@ -712,6 +716,12 @@
   body.dark-mode .sort-select {
     background: #2c251f;
   }
+  /* Dark mode fallback icon color */
+  body.dark-mode .book-cover .fallback-icon,
+  body.dark-mode .row-thumb .fallback-icon {
+    color: var(--gold);
+    opacity: 0.7;
+  }
 </style>
 </head>
 <body>
@@ -727,7 +737,7 @@
       مكتبة النور
     </div>
     <div style="display: flex; gap: 12px; align-items: center;">
-      <!-- Dark mode toggle button (moon/sun) -->
+      <!-- Dark mode toggle button -->
       <button id="darkModeToggle" style="background: none; border: none; cursor: pointer; font-size: 1.3rem; color: var(--gold); transition: all 0.2s; width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
         <i class="fas fa-moon"></i>
       </button>
@@ -762,8 +772,6 @@
   const toggleBtn = document.getElementById('darkModeToggle');
   const body = document.body;
   const icon = toggleBtn.querySelector('i');
-
-  // Check localStorage for saved theme
   const savedTheme = localStorage.getItem('theme');
   if (savedTheme === 'dark') {
     body.classList.add('dark-mode');
@@ -773,7 +781,6 @@
     icon.classList.remove('fa-sun');
     icon.classList.add('fa-moon');
   }
-
   toggleBtn.addEventListener('click', () => {
     body.classList.toggle('dark-mode');
     const isDark = body.classList.contains('dark-mode');
@@ -787,10 +794,26 @@
     }
   });
 
+  // --- Book Image Mapping (match home page images) ---
+  const bookImages = {
+    'فن اللامبالاة': 'IMG_2514.JPG',
+    'متعة أن تكون في العشرين': 'IMG_2515.JPG',
+    'الأنثى كما يجب أن تكون': 'IMG_2516.JPG',
+    'أحببت وغداً': 'IMG_2517.JPG'
+  };
+  // Default fallback image (a placeholder or empty)
+  const DEFAULT_IMAGE_FALLBACK = null; // will use fallback icon if null
+
+  function getBookImageUrl(bookName) {
+    const imgFile = bookImages[bookName];
+    if (imgFile) return imgFile;
+    return null;
+  }
+
   // --- Wishlist State ---
   let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
-  let currentView = 'grid'; // 'grid' or 'list'
+  let currentView = 'grid';
 
   // Normalize wishlist items
   wishlist = wishlist.map(function(item) {
@@ -799,9 +822,6 @@
     }
     return { name: item.name || item, author: item.author || '', price: item.price || 85 };
   });
-
-  const emojis = ['📖','📚','📕','📗','📘','📙','🔖','📜'];
-  function bookEmoji(i) { return emojis[i % emojis.length]; }
 
   function updateCartBadge() {
     const badge = document.getElementById('cartBadge');
@@ -819,6 +839,16 @@
     document.getElementById('toastText').textContent = msg;
     toast.classList.add('show');
     setTimeout(() => toast.classList.remove('show'), 2800);
+  }
+
+  // Helper to render book cover image or fallback
+  function renderCoverImage(bookName, altText, className = '') {
+    const imgUrl = getBookImageUrl(bookName);
+    if (imgUrl) {
+      return `<img src="${imgUrl}" alt="${altText}" class="${className}" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\\'fallback-icon\\'><i class=\\'fas fa-book\\'></i></div>';">`;
+    } else {
+      return `<div class="fallback-icon"><i class="fas fa-book"></i></div>`;
+    }
   }
 
   // Render
@@ -878,10 +908,13 @@
       itemsHTML = '<div class="wishlist-grid">';
       wishlist.forEach((item, i) => {
         const delay = (i * 0.06).toFixed(2);
+        const coverHtml = renderCoverImage(item.name, item.name, 'book-cover-img');
         itemsHTML += `
           <div class="wish-card" style="animation-delay:${delay}s">
             <div class="heart-badge"><i class="fas fa-heart"></i></div>
-            <div class="book-cover">${bookEmoji(i)}</div>
+            <div class="book-cover">
+              ${coverHtml}
+            </div>
             <div class="card-body">
               <div class="card-title">${escapeHtml(item.name)}</div>
               ${item.author ? `<div class="card-author">${escapeHtml(item.author)}</div>` : ''}
@@ -903,9 +936,12 @@
       itemsHTML = '<div class="wishlist-list">';
       wishlist.forEach((item, i) => {
         const delay = (i * 0.06).toFixed(2);
+        const thumbHtml = renderCoverImage(item.name, item.name, 'row-thumb-img');
         itemsHTML += `
           <div class="wish-row" style="animation-delay:${delay}s">
-            <div class="row-thumb">${bookEmoji(i)}</div>
+            <div class="row-thumb">
+              ${thumbHtml}
+            </div>
             <div class="row-info">
               <div class="row-title">${escapeHtml(item.name)}</div>
               ${item.author ? `<div class="row-author">${escapeHtml(item.author)}</div>` : ''}
@@ -928,7 +964,6 @@
     container.innerHTML = statsHTML + controlsHTML + itemsHTML;
   }
 
-  // Helper to escape HTML to prevent XSS
   function escapeHtml(str) {
     if (!str) return '';
     return str.replace(/[&<>]/g, function(m) {
@@ -996,7 +1031,6 @@
     render();
   };
 
-  // Initial render
   render();
 </script>
 </body>
